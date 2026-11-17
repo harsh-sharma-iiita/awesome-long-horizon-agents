@@ -1,0 +1,29 @@
+{
+  "run_id": "pilot_4arms_20261104_015417_d45aca1c",
+  "phase": "F_pilot_comparison",
+  "num_graphs": 5,
+  "horizon": 12,
+  "arms": [
+    "final_only",
+    "fixed_periodic",
+    "milestone_based",
+    "every_step"
+  ],
+  "motifs": [
+    "fork_join",
+    "spine_join"
+  ],
+  "allocated_slots": {
+    "final_only": 1,
+    "fixed_periodic": 3,
+    "milestone_based": 3,
+    "every_step": 12
+  },
+  "environment": {
+    "python_version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "win32",
+    "cwd": "C:\\Users\\HARSH SHARMA\\Desktop\\atr-paper\\AITR_Lab02_MSE2026006",
+    "timestamp": 1793737457.6601582,
+    "iso_timestamp": "2026-11-04T01:54:17+0530"
+  }
+}

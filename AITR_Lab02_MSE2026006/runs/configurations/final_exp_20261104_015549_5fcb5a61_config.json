@@ -1,0 +1,49 @@
+{
+  "run_id": "final_exp_20261104_015549_5fcb5a61",
+  "phase": "F_final_evaluation",
+  "graphs_per_horizon": 30,
+  "horizons": [
+    12,
+    24,
+    36
+  ],
+  "total_graphs": 90,
+  "arms": [
+    "final_only",
+    "fixed_periodic",
+    "milestone_based",
+    "every_step"
+  ],
+  "motifs": [
+    "fork_join",
+    "spine_join",
+    "hierarchical_reduction"
+  ],
+  "fault_types": [
+    "missing_field",
+    "type_corruption",
+    "numeric_corruption",
+    "broken_reference"
+  ],
+  "fault_positions": [
+    "early",
+    "middle",
+    "late"
+  ],
+  "scenarios_per_graph": 13,
+  "expected_total_episodes": 4680,
+  "allocated_slots": {
+    "final_only": 1,
+    "fixed_periodic": 3,
+    "milestone_based": 3,
+    "every_step": "H"
+  },
+  "recovery_policy": "restore_last_verified_and_replay_once",
+  "environment": {
+    "python_version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "win32",
+    "cwd": "C:\\Users\\HARSH SHARMA\\Desktop\\atr-paper\\AITR_Lab02_MSE2026006",
+    "timestamp": 1793737549.7274535,
+    "iso_timestamp": "2026-11-04T01:55:49+0530"
+  }
+}

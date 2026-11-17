@@ -1,0 +1,491 @@
+Planning-Quality Degradation in Long-Horizon Autonomous
+Research Agents
+Harsh Sharma*
+Indian Institute of Information Technology, Allahabad
+India
+Abstract
+from short-horizon tool orchestration to complex, multi-step scientific workflows spanning ideation, experimental design, code
+execution, and manuscript drafting. However, as execution trajectories extend across hours or days, systems suffer from a severe
+phenomenon known as planning-quality degradation. Although
+state-of-the-art LLMs exhibit near-perfect single-step reasoning
+accuracy, their ability to sustain goal-aligned, globally optimal trajectories drops sharply over long planning horizons. This paper
+provides a comprehensive, systematic analysis of planning-quality
+degradation in long-horizon autonomous research agents. We formalize the theoretical distance between single-step model capability and multi-step task completion, designated as the horizon
+gap. We analyze the underlying technical mechanisms driving performance decay, including compounding execution errors, autoregressive self-conditioning, local greedy policy myopia, context window pollution ("reasoning debris"), goal drift, and the no-recovery
+bottleneck induced by extreme task decomposition. Furthermore,
+we survey architectural and algorithmic interventions designed
+to mitigate degradation, including state- space search algorithms
+(Tree-of-Thoughts, Language Agent Tree Search), adaptive context
+managers, progressive memory compression, and multi-tiered runtime harnesses. Finally, we review empirical performance across
+research benchmarks, highlight key implementation and verification bottlenecks, and map out critical future research directions
+toward robust, long-horizon autonomous science.
+Keywords
+Autonomous Research Agents, Long-Horizon Planning, Planning
+Degradation, Self-Conditioning, Context Window Saturation, Hierarchical Decomposition, Tree-of-Thoughts, Verification Gap
+1 Introduction
+The integration of Large Language Models (LLMs) into autonomous
+agentic architectures has re-oriented artificial intelligence from
+passive pattern recognition toward active, goal-driven problem
+solving [1]. In specialized scientific domains, autonomous research
+agents—such as The AI Scientist [3], ScienceFlow [5], and the Fully
+Autonomous Research System (FARS) [ 6]—are deployed to execute end-to-end scientific workflows. These tasks require proposing hypotheses, performing computational experiments, debugging code, synthesizing empirical results, and composing scientific
+manuscripts [4]. Despite impressive single-step reasoning capabilities, current autonomous agents exhibit fragile long-horizon
+execution [1]. While agents achieve high accuracy on benchmark
+tasks requiring fewer than 10 sequential turns, performance decays rapidly as task duration and decision complexity increase [1].
+*Student roll number: MSE2026006.
+Empirical production data reveals that agent success rates begin
+declining noticeably
+after roughly 35 minutes of human-equivalent operational time,
+with a doubling of task duration quadrupling the probability of failure [8]. This non-linear compounding of error exposes a fundamental mismatch: single-step token-level reasoning does not inherently
+yield long-horizon strategic planning [ 1]. The distance between
+single-step execution accuracy and reliable long-horizon task completion is formalised as the horizon gap [ 7]. In long-running autonomous research, this gap manifests as systemic planning degradation. Agents lose global coherence, engage in redundant tool
+execution, drift from primary research objectives, commit to suboptimal hyperparameter or algorithmic choices early in execution,
+and struggle to recover from intermediate software or experimental
+failures [1]. Understanding and resolving planning-quality degradation is therefore the central engineering and theoretical bottleneck
+preventing autonomous agents from achieving durable, open-ended
+scientific discovery [5]. The mitigation approaches discussed later
+are organized in Section 4.
+2 Background and Literature Review
+2.1 Evolution of Autonomous Agent
+Architectures
+The architectural paradigm for LLM-based autonomous agents has
+progressed through three distinct developmental stages [2]:
+1. Prompt Engineering Stage (2020–2023): Early agent implementations relied on static
+prompting strategies to elicit sequential reasoning. Techniques
+such as Chain-of-Thought (CoT) [1] and ReAct (Interleaving Reasoning and Acting) [ 13] leveraged autoregressive generation to
+alternate between internal thoughts and environment interactions.
+While effective for immediate, linear logic, these reflexive methods lacked search mechanisms, memory persistence, and backward
+error correction [1].
+2. Context Engineering Stage (2023–2025): To extend operational
+scope, architectures
+incorporated structured memory, retrieval-augmented generation (RAG), and verbal reinforcement learning [ 2]. Frameworks
+like Reflexion [15] enabled agents to evaluate past task failures and
+store verbal self-reflections in context. Concurrently, search-based
+inference paradigms such as Tree-of-Thoughts (ToT) [12] and Language Agent Tree Search (LATS) [13] integrated formal state-space
+search (e.g., Breadth-First Search, Monte Carlo Tree Search) with
+LLM heuristic evaluations.
+3. Runtime Harnesses Stage (2025–Present): Modern agentic systems externalize planning
+and control into multi-layered runtime harnesses [2]. These harnesses wrap around frozen foundation models to manage execution
+Figure 1: Conceptual view of planning-quality degradation.
+A research goal is converted into a planned trajectory, but repeated execution can accumulate local deviations, noisy context, and state errors. The control layer intervenes through
+search, memory management, checkpoints, and verification
+before the system commits to the next research stage.
+loops, workspace state persistence, dynamic tool selection (e.g.,
+Model Context Protocol), process reward monitoring, and agent
+orchestration [2].
+2.2 Disambiguating Horizon, Context, and
+Memory
+A primary source of ambiguity in literature is the conflation of
+three distinct system properties [7]:
+• Long-Horizon: A structural property of the task, defined by the
+minimum number of
+sequential decisions, environment actions, or causal steps required to transition from an initial state s0 to a valid goal state g [7].
+Horizon length is independent of whether the resulting trajectory
+fits within a model's context window [7].
+• Long-Context: A functional property of the underlying language
+model, defined by the
+maximum sequence length (in tokens) over which the attention
+mechanism can compute dense contextual representations [7].
+• Long-Term Memory: A structural property of the agent harness,
+defining whether state
+representations, facts, and execution logs persist across execution turns, subagent invocations, or discrete operational sessions
+[7].
+A long-horizon task may exceed an agent's capability even if
+the entire trajectory comfortably fits within the model's context
+window [7]. Planning degradation is fundamentally a failure of
+policy coherence over extended state-action sequences, exacerbated
+by context window dynamics [1].
+2.3 Automated Research Agents in Practice
+The development of automated scientific research systems represents a demanding benchmark for long-horizon planning [3]. Systems like The AI Scientist introduced end-to-end research pipelines
+capable of generating paper ideas, editing repository code, running ML training loops, compiling figures, and writing manuscripts
+[3]. Subsequent platforms such as FARS [6] and ScienceFlow [5]
+expanded these capabilities by structuring research progress into
+executable workspaces and recoverable state segments. However,
+empirical evaluations reveal a significant performance drop when
+transitioning from constrained benchmarks to open-ended research
+[3]. While automated agents excel at structured, retrieval-grounded,
+and tool-mediated subtasks (such as literature aggregation or baseline script template execution), they suffer severe failure rates during multi-turn debugging, hypothesis revision, and experimental
+verification [3].
+3 Main Thematic and Technical Discussion
+3.1 Mathematical Modeling of Compounding
+Error and Self-Conditioning
+Let a long-horizon research task be formalized as a Markov Decision
+Process (MDP) specified by the tuple (S, A, P, R,𝛾), where an agent
+executes a sequence of H actions a1 , a2 , . . . , aH ∈ A to reach
+a terminal goal state [1]. Assume the ideal single-step probability
+of generating a correct, goal-aligned action given current state
+si-1 is pi = P(ai = a*i | si-1 ) [ 9]. Under a naive stationary error
+assumption, if pi = p is constant, the cumulative success probability
+across horizon H is modeled as S(H) = pH [9].
+However, empirical research shows that per-step execution accuracy is non-stationary and decreases over the trajectory count i due
+to self-conditioning [9]. Autoregressive language models generate
+step ai conditioned on the full historical prompt context S<i = (s0 ,
+a1 , s1 , . . . , ai-1 , si-1 ) [9]. When early actions contain uncorrected
+errors, hallucinations, or inefficient tool outputs, these anomalies
+remain in S<i [8]. The model conditions on its own prior mistakes,
+elevating subsequent error rates [9]. Formally, the per-step success
+probability pi is a declining function of historical error density:
+
+As a result, cumulative task completion probability exhibits superexponential decay:
+𝑆(𝐻) =
+𝐻Ö
+𝑖=1
+𝑝𝑖≪𝑝𝐻 (2)
+This self-conditioning effect explains why doubling the operational
+horizon length quadruples total system failure rates rather than
+merely doubling them [8]. The metric Horizon Length (Hs ) defines
+the maximum step count at which an agent maintains a mean
+completion accuracy above threshold s∈ 0≤𝑠≤ 1 [9]:
+
+(
+𝑘∈ N|𝑃
+ 𝑘Û
+𝑖=1
+𝑎𝑖 =𝑎*𝑖
+!
+≥𝑠
+)
+(3)
+The formal expressions above are the converted versions of the
+mathematical model in the supplied paper; Equation 3 preserves the
+original Horizon Length definition. For frontier foundation models
+operating without external runtime control, H0.5 remains restricted
+to modest step counts when tackling unconstrained multi-hour
+tasks [8].
+3.2 The Reasoning-Planning Dichotomy and
+Greedy Step-Wise Policies
+A central cause of plan degradation is the conceptual gap between
+step-wise reasoning and long-horizon planning [1]. Standard prompting schemes (such as CoT) formalize inference as a step-wise greedy
+policy [1]:
+
+This greedy policy selects actions based on local next-step plausibility or high immediate generation likelihood [1]. While step-wise
+greedy selection is effective for short-horizon deductive logic, it
+fails in long-horizon planning where initial decisions carry delayed
+consequences [1]. Actions that appear locally optimal in state st
+often transition the system into irreversible, dead-end states in
+st+k [1]. Because step-wise greedy policies lack value propagation
+mechanisms (such as Bellman backpropagation or Monte Carlo
+tree rollouts), they make early myopic commitments [1]. Over long
+execution traces, these local commitments compound, forcing the
+agent into corrective sub-loops that inflate trajectory length and
+accelerate performance decay [1].
+3.3 Context Window Pathologies and Attention
+Dilution
+As execution proceeds beyond 25–30 continuous tool calls, context windows accumulate substantial operational noise, termed
+reasoning debris [8]. This includes detailed stack traces, raw file
+outputs, abandoned code iterations, and repetitive tool parameters
+[8]. The accumulated debris degrades planning quality through
+three distinct context pathologies [8]:
+1. Attention Dilution and Signal Masking: Massive token contexts
+dilute the dense selfattention signals required to track core constraints [8]. The effective signal-to-noise ratio drops, leading the agent to re-execute
+completed subtasks or violate pre-stated task constraints [8].
+2. Lost-in-the-Middle Phenomenon: LLMs disproportionately attend
+to tokens at the
+absolute beginning (system prompt) and absolute end (recent
+turns) of the context window [10]. Crucial intermediate experimental results, state variables, or negative debugging feedback located
+in the middle of a long context are systematically ignored [10].
+3. Recency Bias: As the context window nears capacity, recency
+bias intensifies [10]. The agent
+over-indexes on immediate prior outputs, losing sight of overall
+research goals and getting trapped in localized execution loops [8].
+Importantly, scaling context window capacity does not resolve
+attention dilution [8]. Long prompt contexts harm execution reliability even under perfect document retrieval, demonstrating that
+long-context processing does not equate to long-horizon planning
+capacity [7].
+3.4 Goal Drift and Trajectory Contamination
+Goal drift describes the progressive divergence between an agent's
+active execution trajectory and its initial research brief [8]. In longrunning autonomous operations, goal drift stems from two main
+causes:
+• Trajectory Conditioning: When an agent conditions on long execution histories—especially
+those generated across multi-agent handoffs or lower-capacity
+subagents—it inherits subtle reasoning errors and stylistic bias from
+earlier steps [8]. Trajectory contamination impairs even frontier
+models, causing them to adopt compromised sub-goals [8].
+• Specification Ambiguity: Underspecified initial instructions accelerate goal drift [8]. Lacking explicit success criteria, the agent repeatedly reinterprets
+its objective based on recent intermediate outcomes, ultimately
+solving an entirely different (and often trivialized) task [8].
+3.5 The No-Recovery Bottleneck in Subtask
+Decomposition
+To mitigate context pollution, modern frameworks decompose complex goals into isolated, atomic subtasks [8]. However, extreme task
+decomposition introduces the no-recovery bottleneck [10]. When
+atomic subtasks are executed in isolated model calls conditioned
+only on minimal state representations, the overall execution history
+is removed [10]. If an atomic step generates a subtly flawed intermediate output (such as an incorrectly formatted data array or a partial
+software patch) that satisfies local syntactic checks, downstream
+subagents receive corrupted inputs without the contextual history
+needed to diagnose the root cause [10]. The execution harness becomes unable to backtrack across atomic boundaries, transforming
+minor execution errors into terminal pipeline failures [10].
+4 Current Approaches and Developments
+To combat planning degradation, recent architectures isolate foundation models within structured control harnesses [2]. These interventions fall into four primary paradigms:
+4.1 Search-Based and Deliberate Planning
+Frameworks
+Rather than relying on reflexive autoregressive generation, searchbased frameworks expand decision making into explicit state space
+search [12].
+• Tree-of-Thoughts (ToT): ToT conceptualizes planning as tree
+search, where nodes represent
+intermediate reasoning steps ("thoughts") and edges represent
+state transitions [12]. Using Breadth-First Search (BFS) or DepthFirst Search (DFS), ToT uses LLMs as self-evaluation heuristics to
+assess state promise, enabling deliberate lookahead and backtracking [12].
+• Language Agent Tree Search (LATS): LATS unifies reasoning,
+acting, and planning
+by integrating Monte Carlo Tree Search (MCTS) with external environment feedback [13]. LATS repurposes the LLM as agent policy,
+value function, and self-reflection generator [13]. By incorporating
+state rollbacks and trajectory evaluations, LATS sample-efficiently
+explores alternative action paths [14].
+• Flare (Future-Aware Planning): Flare addresses step-wise policy
+myopia by combining
+explicit multi-step lookahead, value propagation, and limited
+commitment [1]. By evaluating delayed outcomes before committing to execution steps, Flare prevents premature convergence onto
+suboptimal trajectories [1].
+4.2 Adaptive Context Management and
+Progressive Compression
+To prevent reasoning debris from corrupting context windows,
+advanced agent harnesses implement dynamic context control [8].
+• Adaptive Context Management (AdaCoM): AdaCoM trains an
+external controller via
+reinforcement learning to dynamically modify, prune, and summarize the context window of a frozen primary agent [16]. AdaCoM
+highlights a core Fidelity-Reliability Trade-Off: highly capable primary agents perform best with high-fidelity context preservation,
+whereas lower-capacity agents require aggressive context pruning
+to remain within stable execution bounds [16].
+• Progressive Memory Compression: Systems like Goal2Skill decouple state history from
+reasoning traces [8]. They maintain lossless, immutable records
+of state transitions, execution logs, and tool outputs while applying
+lossy, structured summarization to intermediate reasoning paths
+[8].
+• State Serialization and Re-Anchoring: Operational harnesses such
+as Microsoft CORPGEN implement periodic goal re-anchoring and state serialization [8]. At defined intervals, the system serializes execution
+progress to external storage and re-instantiates the agent with
+a clean context window containing only the serialized state and
+high-level goal [8].
+4.3 Multi-Tiered Runtime Harnesses and
+Executable Workspaces
+Modern automated research platforms isolate long-horizon planning across physical and operational boundaries [5].
+• ScienceFlow Workspace Isolation: ScienceFlow organizes scientific
+discovery into distinct
+research segments anchored to persistent executable workspaces
+[5]. Progress is recorded as recoverable filesystem snapshots (source
+code, checkpoints, cached data arrays) rather than pure text interaction logs [5]. This separation connects textual reasoning to
+executable runtime environments, enabling state recovery after
+execution failures [5].
+• FARS Hierarchical Stage Isolation: FARS structures automated
+research into four
+isolated stages: Ideation, Planning, Experimentation, and Writing
+[6]. Each stage is managed by specialized agent configurations
+that communicate solely through structured workspace artifacts,
+preventing cross-stage context contamination [6].
+4.4 Self-Reflection and Closed-Loop Verification
+Closed-loop execution systems rely on environmental feedback to
+trigger self-correction [8].
+• Verbal Reinforcement Learning (Reflexion): Reflexion evaluates
+task performance signals
+(e.g., test suite pass/fail status, compiler flags) and generates
+explicit text reflections detailing why an approach failed [15]. These
+reflections are stored in episodic memory to adjust future planning
+cycles [15].
+• Cheap Verification Protocols: Production analyses highlight that
+agent plan recovery
+requires low-cost, deterministic verification functions [8]. If state
+verification requires expensive LLM judge calls or lengthy computational jobs, the system quickly exhausts its compute budget
+[8]. Automated unit tests, static code analyzers, and deterministic
+assertions provide efficient verification loops [8].
+The following table synthesizes key strategic frameworks developed to mitigate planning degradation in autonomous agents
+[5].
+5 Research Challenges and Limitations
+5.1 The Implementation Gap: Idea Generation
+Versus Code Execution
+Cross-benchmark studies reveal an asymmetry in automated scientific research: foundation models excel at open-ended idea generation but struggle with rigorous computational execution [ 3].
+Automated research frameworks frequently propose novel research
+hypotheses [3]. However, when tasked with implementing these
+ideas in code, running experiments, and resolving execution bugs,
+performance degrades sharply [3]. This implementation gap stems
+from the strict correctness requirements of software execution [3].
+While textual ideation permits stylistic ambiguity and soft reasoning, executable code requires exact syntax, logical consistency,
+state management, and memory efficiency [3]. A single incorrect
+variable reference or matrix shape mismatch breaks downstream
+execution, exposing the fragility of ungrounded LLM planning [3].
+Table 1: Strategic frameworks developed to mitigate planning degradation in autonomous agents (content retained from the
+supplied paper).
+Framework Primary mechanism Memory/state representation Context management Mitigation target
+Tree-of-Thoughts (ToT)
+[12]
+Heuristic tree search
+(BFS/DFS)
+Tree-structured intermediate
+thoughts
+Uncompressed local branch
+context
+Local policy myopia and lack
+of lookahead
+Language Agent Tree
+Search (LATS) [13]
+MCTS with external environment feedback
+Tree nodes with value and reflection scores
+Environment reset and state
+backtracking
+Cumulative execution failure
+and missing rollbacks
+Adaptive Context Management (AdaCoM) [16]
+External RL-trained context
+controller
+Dynamic context filtering Dynamic pruning and stalecontent stripping
+Context window saturation
+and attention dilution
+CORPGEN Harness [8] Temporal isolation and state
+serialization
+Structured external checkpoint storage
+Clean context reinstantiation
+via re-anchoring
+Goal drift and context pollution
+ScienceFlow [5] Workspace-grounded research segments
+Executable filesystem snapshots and artifacts
+Segment-isolated interaction
+logs
+Irreversible workspace corruption
+Goal2Skill [8] Progressive dual-system compression
+Lossless facts plus lossy reasoning traces
+Structured task-log extraction Context memory decay and
+context bloat
+The following table summarizes empirical benchmark performance
+across primary research tasks, detailing target domains, evaluation
+metrics, and observed failure modes [3].
+5.2 Workflow-Induced Greedy Hill-Climbing
+and Strategic Myopia
+The design of control loops in autonomous research agents often introduces unintended behavioral pathologies [ 11]. For instance, many long-horizon discovery systems use a strict "commitordiscard" evaluation rule [11]. Under this design, an agent proposes an experimental modification, executes a test, compares performance against the current baseline, and commits the code if
+performance improves—reverting changes if performance declines
+[11].
+While operationally convenient, this commit-or-discard paradigm is structurally isomorphic to local greedy hill-climbing [11].
+Empirical trace analyses of autonomous research runs over 100+
+sequential experiments demonstrate that this control rule induces
+specific behavioral failure modes [11]:
+• Risk Aversion: Following failed experimental attempts, agents
+display severe risk aversion,
+restricting subsequent search steps to minor, hyper-local parameter tweaks [11].
+• Success Chasing and Saturation: Agents repeatedly exploit initial
+minor performance
+gains, driving the search into local optimization plateaus while
+ignoring broader architectural changes [11].
+• Anchoring: Choices made during early, small-scale pilot runs are
+preserved into larger
+experimental regimes, locking the agent into suboptimal design
+choices [11].
+5.3 The Verification Gap and Human-Agent
+Asymmetry
+As autonomous research agents scale in speed and execution volume, they create a critical verification gap [18]. While human researchers review scientific literature at human reading speeds, autonomous agents can execute thousands of experimental variations
+and generate dozens of synthetic manuscripts overnight [6]. This
+speed disparity breaks traditional social trust and peer-review mechanisms [18]. Autonomous agents generate plausible-looking data
+figures, statistical summaries, and text citations that can conceal
+underlying code bugs, dataset leakage, or hallucinated baseline comparisons [4]. Furthermore, because LLMs do not suffer reputational
+penalties for invalid outputs, unverified agent-generated scientific
+artifacts risk polluting scientific literature [18].
+6 Research Gaps and Future Directions
+Addressing planning degradation requires bridging several major
+research gaps:
+6.1 Learned Runtime Orchestrators and
+Dynamic Context Control
+Current runtime harnesses rely primarily on static, hand-crafted
+rules for context truncation, goal re-anchoring, and subagent handoffs [2]. A critical research direction is the development of learned
+runtime orchestrators [16]. Rather than using fixed token boundaries, context management should be driven by dynamic reinforcement learning agents (e.g., AdaCoM) that monitor context entropy,
+task progress, and model-specific reliability thresholds to dynamically compress or restore execution history [16].
+6.2 Process-Level Credit Assignment and
+Granular Reward Models
+Outcome-based evaluation signals (such as binary pass/fail test
+checks or final accuracy scores) grow uninformative over long
+task horizons [7]. When a 100-step execution trajectory fails, an
+outcome-only signal provides no gradient as to which specific step
+caused the failure [7]. Future agent training must focus on Process
+Reward Models (PRMs) capable of computing granular step-level
+value estimations across multi-hour execution traces, enabling localized credit assignment and targeted back-tracking [7].
+6.3 Environment State Reversibility and
+Structural Rollbacks
+State-space search algorithms like LATS demonstrate that deliberate
+planning requires environment reversibility [14]. While software
+Table 2: Empirical benchmark performance across primary research tasks (values reproduced from the supplied paper, not
+independently validated).
+Benchmark Target domain Evaluation metric Scale Baseline model Baseline accuracy
+Harness-enhanced
+SOTA
+Primary failure mode
+MLE-Bench [3, 5] Applied ML/Kaggle tasks Any-medal rate (24h budget) 75 tasks OpenAI o1-preview 16.90% 70.22% (ScienceFlow)
+[5]
+Multi-turn debugging
+and resource management [3]
+PaperBench [3] ICML paper replication End-to-end replication accuracy
+8,316 tasks OpenAI o1-high 26.00% N/A Complex code implementation gap [3]
+SciReplicate-Bench
+[3]
+NLP code generation Executable reproduction rate 100 tasks Claude 3.7 Sonnet 39.00% N/A Error accumulation in
+pipeline assembly [3]
+CORE-Bench [3] CS/Med paper reproduction Task completion pass rate 270 tasks OpenAI GPT-4o 55.56% N/A Environment configuration failure [3]
+ML-Dev-Bench [3] Software engineering/ML Full repository pass rate 30 tasks Claude 3.5 Sonnet 50.00% N/A Long-horizon context
+drift [3]
+environments allow git-based state resets and workspace restoration, real-world tool execution (such as web API calls, database
+writes, or physical resource allocation) often alters environment
+state irreversibly [17]. Developing non-destructive sandboxes, transactional tool interfaces, and virtualized execution environments
+that support state snapshots is essential for scaling search-based
+planning [5].
+6.4 Scalable Automated Verification
+Frameworks
+To close the human-agent verification gap, scientific infrastructure
+must develop automated verification protocols [18]. This includes
+containerized, deterministically reproducible execution logs, cryptographic provenance tracking for generated research artifacts,
+and automated peerreview agents equipped with adversarial test
+execution suites [6].
+7 Conclusion
+Planning-quality degradation remains the primary bottleneck preventing autonomous research agents from realizing reliable, multiday scientific discovery [5]. The degradation of agent trajectories
+over long horizons is not merely an issue of model scaling or context window size [7]. Instead, it is driven by compounding execution errors, self-conditioning loops, local greedy policy myopia,
+context pollution, and the absence of value propagation across
+execution states [ 1]. Resolving the horizon gap requires a shift
+from reliance on single-step model capabilities toward structured
+runtime harnesses [2]. As demonstrated by state-space search architectures, dynamic context managers, and workspace-grounded
+execution environments, sustaining planning quality over long
+horizons demands isolating reasoning traces, enforcing closed-loop
+deterministic verification, enabling workspace state rollbacks, and
+decoupling state preservation from model context windows [ 5].
+Building robust, self-correcting runtime harnesses will be critical to
+advancing autonomous systems from short-horizon task execution
+to trustworthy scientific discovery [4].
+References
+[1] Z. Wang, F. Wu, H. Wang, et al. Why Reasoning Fails to Plan: A PlanningCentric Analysis of Long-Horizon Decision Making in LLM Agents. 2026. arXiv:
+2601.22311. url: https://arxiv.org/abs/2601.22311.
+[2] RUC-NLPIR. Awesome-Long-Horizon-Agents. GitHub. 2026. url:
+https://github.com/ RUC-NLPIR/Awesome-Long-Horizon-Agents.
+[3] M. Zhu, Q. Xie, Y. Weng, et al. AI Scientists Fail Without Strong Implementation
+Capability. 2025. arXiv: 2506.01372. url: https://arxiv.org/abs/2506.01372.
+[4] L. Kong, X. Sun, W. Chow, et al. AI for Auto-Research: Roadmap & User Guide.
+2026. arXiv: 2605.18661. url: https://arxiv.org/abs/2605.18661.
+[5] M. Zhao, J. Dong, K. Xu, et al. ScienceFlow: A Long-Horizon Agent for
+ML Research, Scientific Discovery and Beyond. 2026. arXiv: 2608.14354. url:
+https://arxiv.org/ abs/2608.14354.
+[6] Q. Tang, X. Hu, X. Liu, Y. Chen, and Y. Shao. FARS: A Fully Automated Research System Deployed at Scale. 2026. arXiv: 2606.31651. url:
+https://arxiv.org/abs/2606.31651.
+[7] M. Chen, L. Wang, and B. Qu. The Horizon Gap: Planning, Memory, Execution,
+Training, and Evaluation for Long-Horizon LLM Agents. 2026. arXiv: 2608.06663.
+url: https://arxiv.org/abs/2608.06663.
+[8] Zylos Research. Long-Horizon Planning and Goal Decomposition in AI Agents.
+May 14, 2026. url: https://zylos.ai/research/2026-05-14-long-horizon-planninggoaldecomposition-ai-agents/.
+[9] A. Sinha, A. Arun, S. Goel, S. Staab, and J. Geiping. The Illusion of Diminishing
+Returns: Measuring Long Horizon Execution in LLMs. 2025. arXiv: 2509 . 09677.
+url: https://arxiv.org/abs/2509.09677.
+[10] D. Pushkin and E. Abbe. LEAD: Breaking the No-Recovery Bottleneck in LongHorizon Reasoning. 2026. arXiv: 2603.06870. url: https://arxiv.org/abs/2603.06870.
+[11] A. Safdar and M. Saadeldin. Long-Horizon Autonomous Architecture Research
+with a Language-Model Agent: A Behavioural Case Study. 2026. arXiv: 2608.01995.
+url: https://arxiv.org/abs/2608.01995.
+[12] S. Yao, D. Yu, J. Zhao, et al. "Tree of Thoughts: Deliberate Problem Solving
+with Large Language Models". In: NeurIPS. 2023. doi: 10.52202/075280-0517. url:
+https://arxiv.org/abs/2305.10601.
+[13] A. Zhou, K. Yan, M. Shlapentokh-Rothman, H. Wang, and Y.-X. Wang. Language
+Agent Tree Search Unifies Reasoning, Acting, and Planning in Language Models.
+2023. arXiv: 2310.04406. url: https://arxiv.org/abs/2310.04406.
+[14] A. Zhou, K. Yan, M. Shlapentokh-Rothman, H. Wang, and Y.-X. Wang. Language
+Agent Tree Search Unifies Reasoning, Acting, and Planning in Language Models.
+arXiv PDF. 2023. url: https://arxiv.org/pdf/2310.04406.
+[15] N. Shinn, F. Cassano, A. Gopinath, K. Narasimhan, and S. Yao. "Reflexion: Language Agents with Verbal Reinforcement Learning". In: NeurIPS. 2023. arXiv:
+2303.11366. url: https://arxiv.org/abs/2303.11366.
+[16] L. Yi, R. Lei, L. Yao, et al. Learning Agent-Compatible Context
+Management for LongHorizon Tasks. 2026. arXiv: 2605.30785. url:
+https://arxiv.org/abs/2605.30785.
+[17] A. Zhou, K. Yan, M. Shlapentokh-Rothman, H. Wang, and Y.-X. Wang. Language
+Agent Tree Search Unifies Reasoning, Acting, and Planning in Language Models.
+OpenReview. 2023. url: https://openreview.net/forum?id=6LNTSrJjBe.
+[18] B. Mo. The Age of AI Agents Demands A New Scientific Paradigm To Sustain Trustworthy Science. 2026. arXiv: 2607.26064. url:
+https://arxiv.org/abs/2607.26064.

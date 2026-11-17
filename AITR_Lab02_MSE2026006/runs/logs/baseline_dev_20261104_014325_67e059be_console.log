@@ -1,0 +1,28 @@
+[2026-11-04 01:43:25] Starting Phase E Baseline Pilot Run: baseline_dev_20261104_014325_67e059be
+[2026-11-04 01:43:25] Configuration: num_graphs=5, horizon=12, motif=fork_join
+[2026-11-04 01:43:25] Saved configuration to runs\configurations\baseline_dev_20261104_014325_67e059be_config.json
+[2026-11-04 01:43:25] Completed 65 episodes in 0.392 seconds.
+[2026-11-04 01:43:25] ============================================================
+[2026-11-04 01:43:25] PHASE E BASELINE PILOT EXECUTION SUMMARY
+[2026-11-04 01:43:25] ============================================================
+[2026-11-04 01:43:25] num_total_episodes: 65
+[2026-11-04 01:43:25] num_fault_episodes: 60
+[2026-11-04 01:43:25] num_clean_episodes: 5
+[2026-11-04 01:43:25] num_tcf_eligible_episodes: 60
+[2026-11-04 01:43:25] num_tcf_ineligible_terminal_episodes: 0
+[2026-11-04 01:43:25] mean_taint_consumption_fraction: 0.8592592592592593
+[2026-11-04 01:43:25] std_taint_consumption_fraction: 0.3152284863844921
+[2026-11-04 01:43:25] fault_detection_coverage_all: 0.3333333333333333
+[2026-11-04 01:43:25] fault_detection_coverage_contract: 0.3333333333333333
+[2026-11-04 01:43:25] mean_detection_delay_nodes: 2.25
+[2026-11-04 01:43:25] median_detection_delay_nodes: 1.5
+[2026-11-04 01:43:25] task_completion_rate_overall: 0.38461538461538464
+[2026-11-04 01:43:25] task_completion_rate_clean: 1.0
+[2026-11-04 01:43:25] task_completion_rate_faulted: 0.3333333333333333
+[2026-11-04 01:43:25] false_positive_rate_task: 0.0
+[2026-11-04 01:43:25] mean_realized_verifier_calls: 2.769230769230769
+[2026-11-04 01:43:25] mean_replay_nodes_executed: 2.1538461538461537
+[2026-11-04 01:43:25] mean_total_workflow_time_seconds: 0.005469304616921223
+[2026-11-04 01:43:25] mean_verifier_time_seconds: 8.372614661661478e-05
+[2026-11-04 01:43:25] ============================================================
+[2026-11-04 01:43:25] Summary metrics saved to results/raw\baseline_dev_20261104_014325_67e059be_summary.json

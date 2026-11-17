@@ -1,0 +1,64 @@
+\section{Problem Formulation and Research Questions}
+\label{sec:problem_formulation}
+
+\subsection{Formal Workflow Model}
+We formalize a long-horizon autonomous workflow as a Directed Acyclic Graph (DAG), denoted $\mathcal{G} = (\mathcal{V}, \mathcal{E})$, where:
+\begin{itemize}
+    \item $\mathcal{V} = \{v_1, v_2, \dots, v_H\}$ represents a set of $H$ discrete computational task nodes, where $H = |\mathcal{V}|$ defines the execution horizon.
+    \item $\mathcal{E} \subseteq \mathcal{V} \times \mathcal{V}$ represents dataflow dependencies, where directed edge $(u, v) \in \mathcal{E}$ indicates that task node $v$ requires the output artifact of task node $u$ as an input.
+    \item Each node $v \in \mathcal{V}$ executes a deterministic transformation function $f_v: \prod_{u \in \text{Parents}(v)} \mathcal{X}_u \to \mathcal{X}_v$, mapping input artifacts from its parent set $\text{Parents}(v) = \{u \in \mathcal{V} \mid (u, v) \in \mathcal{E}\}$ to an output artifact $x_v \in \mathcal{X}_v$.
+\end{itemize}
+
+A valid execution order is defined by a topological sort $\pi: \{1, \dots, H\} \to \mathcal{V}$ such that for all $(u, v) \in \mathcal{E}$, $\pi^{-1}(u) < \pi^{-1}(v)$. Execution proceeds sequentially across steps $t \in \{1, \dots, H\}$. At step $t$, node $v_t = \pi(t)$ executes, producing output state $x_{v_t}$.
+
+\subsection{Fault Injection and Error Propagation}
+To rigorously model planning failures, tool corruption, and execution anomalies, an external fault injector introduces a controlled mutation at a designated target node $v_{\text{fault}} = \pi(t_{\text{fault}})$:
+\begin{equation}
+    \tilde{x}_{v_{\text{fault}}} = \mathcal{M}(x_{v_{\text{fault}}}, \theta_{\text{fault}})
+\end{equation}
+where $\mathcal{M}$ represents a mutation operator and $\theta_{\text{fault}}$ parameterizes the fault type (e.g., field omission, type corruption, or schema violation).
+
+We define the set of topologically reachable downstream descendants from the fault node as:
+\begin{equation}
+    \mathcal{D}(v_{\text{fault}}) = \{u \in \mathcal{V} \mid \exists \text{ a directed path from } v_{\text{fault}} \text{ to } u \text{ in } \mathcal{G}\}
+\end{equation}
+When $v_{\text{fault}}$ executes with corrupted output $\tilde{x}_{v_{\text{fault}}}$, every subsequent node $u \in \mathcal{D}(v_{\text{fault}})$ that consumes data derived from $v_{\text{fault}}$ during forward execution is contaminated (tainted).
+
+\subsection{Verification Scheduling Under Budget Constraints}
+A verification schedule $\mathcal{S} \subseteq \{1, \dots, H\}$ specifies the discrete execution steps at which a deterministic verifier $\mathcal{V}_{\text{check}}$ is invoked. At step $t \in \mathcal{S}$, the verifier evaluates the cumulative workflow state against formal relational contracts $\mathcal{C}$:
+\begin{equation}
+    \mathcal{V}_{\text{check}}(\{x_{v_1}, \dots, x_{v_t}\}) \to \{\text{PASS}, \text{FAIL}\}
+\end{equation}
+Under computational constraints, an orchestrator is allocated a maximum verification budget of $K$ check slots:
+\begin{equation}
+    |\mathcal{S}| \le K, \quad \text{where } K \ll H
+\end{equation}
+
+When $\mathcal{V}_{\text{check}}$ outputs $\text{FAIL}$ at step $t_{\text{detect}}$, execution immediately halts, triggering rollback. If no intermediate check fails, execution terminates at step $H$, and final acceptance is evaluated.
+
+\subsection{Primary Estimand: Downstream Taint-Consumption Fraction (TCF)}
+To quantify how effectively a schedule contains error propagation, we define the \textbf{Downstream Taint-Consumption Fraction (TCF)}:
+\begin{equation}
+    \label{eq:tcf}
+    \text{TCF} = \frac{|\mathcal{D}(v_{\text{fault}}) \cap \mathcal{V}_{\text{executed}}(t_{\text{detect}})|}{|\mathcal{D}(v_{\text{fault}})|}
+\end{equation}
+where $\mathcal{V}_{\text{executed}}(t_{\text{detect}})$ is the set of nodes executed during forward execution prior to verifier detection. 
+
+\paragraph{Properties of TCF:}
+\begin{itemize}
+    \item $\text{TCF} \in [0.0, 1.0]$. A value of $\text{TCF} = 0.0$ represents perfect containment (the fault was intercepted before any downstream descendant executed). A value of $\text{TCF} = 1.0$ indicates worst-case uncontained propagation (all downstream descendants consumed corrupted data).
+    \item \emph{Eligibility Criterion:} TCF is strictly defined for fault injection episodes where $|\mathcal{D}(v_{\text{fault}})| \ge 1$. Episodes with zero descendants (e.g., terminal node faults) and clean control episodes are mathematically excluded from the TCF denominator and reported in separate metrics.
+\end{itemize}
+
+\subsection{Research Question and Hypotheses}
+Our investigation directly addresses the primary research question:
+\begin{quote}
+    \textbf{RQ1:} Under strictly matched verification budgets ($K = 3$), does scheduling verification checkpoints at topological dependency milestones reduce downstream error propagation ($\text{TCF}$) and detection delay compared to fixed-periodic intervals?
+\end{quote}
+
+We formulate two-sided statistical hypotheses across paired workflow instances:
+\begin{align}
+    H_0 &: \mu_{\text{TCF}, C} - \mu_{\text{TCF}, B} = 0 \\
+    H_1 &: \mu_{\text{TCF}, C} - \mu_{\text{TCF}, B} \neq 0
+\end{align}
+where Arm B denotes Fixed-Periodic verification and Arm C denotes Dependency-Milestone verification. We pre-register a secondary directional inquiry evaluating whether milestone placement achieves superior containment ($H_1^{\text{dir}}: \mu_{\text{TCF}, C} < \mu_{\text{TCF}, B}$).

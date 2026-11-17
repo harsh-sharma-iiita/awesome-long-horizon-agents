@@ -1,0 +1,259 @@
+\documentclass[manuscript,screen]{acmart}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc}
+
+\setcopyright{none}
+\settopmatter{printacmref=false}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\title{Planning-Quality Degradation in Long-Horizon Autonomous Research Agents: A Structured Review}
+
+\author{Harsh Sharma}
+\affiliation{\institution{[Add Department / University]}\city{[City]}\country{India}}
+\authornote{Student identifier: MSE2026006.}
+
+\renewcommand{\shortauthors}{Harsh Sharma}
+
+\begin{document}
+
+\begin{abstract}
+Autonomous research agents built on large language models (LLMs) can now connect literature discovery, hypothesis generation, code execution, experimentation, and manuscript preparation into a single workflow. The central difficulty is no longer whether an agent can produce a plausible next step, but whether it can preserve a correct objective and recoverable state over many dependent steps. This paper reviews that problem as \emph{planning-quality degradation}: the progressive loss of goal alignment, useful state, and reliable execution as the operational horizon grows. The review separates three often-conflated properties---task horizon, model context length, and persistent memory---and synthesizes evidence from planning, agent memory, execution, benchmarking, and autonomous research literature. A simple probabilistic model is used to contrast stationary step accuracy with the non-stationary error growth observed in long trajectories. The review then organizes major interventions into four control layers: deliberate planning and search, context and memory management, workspace-oriented execution and recovery, and closed-loop verification. Comparative analysis shows that these approaches address different failure surfaces rather than one common bottleneck: search improves lookahead, memory management controls information load, runtime workspaces improve recoverability, and verification supplies external correctness signals. Recent autonomous-research systems reinforce the importance of this systems view, while benchmark results show that idea generation remains easier than rigorous implementation and replication. The paper concludes with research gaps around model-versus-harness attribution, process-level credit assignment, reversible environments, standardized trajectory metrics, and scalable scientific verification.
+\end{abstract}
+
+\keywords{autonomous research agents, long-horizon planning, LLM agents, planning degradation, context management, memory, verification, agent evaluation, scientific discovery}
+\ccsdesc[500]{Computing methodologies~Artificial intelligence}
+\ccsdesc[300]{Computing methodologies~Planning and scheduling}
+
+\maketitle
+
+\section{Introduction}\label{sec:introduction}
+Large language models have moved from static text generation toward interactive agents that reason, call tools, inspect external state, and revise their actions. ReAct established a simple pattern in which reasoning and acting are interleaved so that observations from the environment can influence subsequent decisions \cite{yao2023react}. Tree-of-Thoughts (ToT) then made search over alternative reasoning paths explicit, while Language Agent Tree Search (LATS) combined language-model policies, value estimates, self-reflection, and Monte Carlo tree search with external environment feedback \cite{yao2023tot,zhou2023lats}. These developments matter because scientific work is inherently multi-stage: an agent may need to search literature, select a hypothesis, modify code, run experiments, inspect failures, update an interpretation, and write a report.
+
+Recent autonomous-research systems illustrate this shift in scope. The AI Scientist describes an end-to-end workflow that generates ideas, writes and executes code, produces figures, and drafts a paper \cite{lu2024aiscientist}. FARS similarly decomposes research into ideation, planning, experimentation, and writing while preserving intermediate artifacts in a shared workspace \cite{tang2026fars}. ScienceFlow structures long-horizon machine-learning research into executable research segments and emphasizes recoverable workspace states and explicit transitions between them \cite{zhao2026scienceflow}. In parallel, evaluation work such as MLE-bench and PaperBench shows that strong language models can still struggle with multi-step implementation and replication tasks \cite{chan2024mlebench,starace2025paperbench}. The resulting mismatch is not well described by a single ``reasoning'' score.
+
+This paper focuses on that mismatch through the lens of planning-quality degradation. The central claim of the review is not that one particular model is inadequate, but that long-horizon reliability is a systems property. A trajectory can fail even when many individual actions are locally plausible because errors can accumulate, early choices can bias later choices, context can become noisy, and a runtime may provide no reliable way to roll back. The recent ``horizon gap'' literature explicitly separates long-horizon tasks from long-context models and long-term memory, while arguing that outcome-only evaluation signals become less informative as trajectories lengthen \cite{chen2026horizongap}. The present review uses that distinction as its organizing principle.
+
+The paper addresses four review questions:
+\begin{enumerate}
+    \item \textbf{RQ1:} Which mechanisms cause planning quality to degrade as task horizons grow?
+    \item \textbf{RQ2:} How do planning, memory, execution, and verification methods address different failure surfaces?
+    \item \textbf{RQ3:} What do current research benchmarks reveal about the gap between generation, implementation, and reliable completion?
+    \item \textbf{RQ4:} Which research gaps must be resolved for autonomous research agents to operate for hours or days with useful scientific reliability?
+\end{enumerate}
+
+Figure~\ref{fig:execution} summarizes the conceptual model used throughout the paper: an agent begins with a research goal, follows a planned trajectory, receives observations and tool feedback, and may progressively accumulate deviations before reaching an outcome. The figure is intentionally simpler than a full software architecture because its purpose is to highlight the failure path rather than prescribe one implementation.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.96\linewidth]{figures/long_horizon_framework.pdf}
+\Description{A horizontal control-loop diagram showing a research goal, planning, execution, observation, memory and context, verification, and checkpoint recovery, with annotations describing error accumulation and control.}
+\caption{Conceptual view of planning-quality degradation. A research goal is converted into a planned trajectory, but repeated execution can accumulate local deviations, noisy context, and state errors. The control layer intervenes through search, memory management, checkpoints, and verification before the system commits to the next research stage.}
+\label{fig:execution}
+\end{figure}
+
+\section{Review Scope and Organization}\label{sec:method}
+This work is a structured literature review rather than a meta-analysis. The search scope covers foundational agent and reasoning methods from 2022--2023 and recent long-horizon, autonomous-research, memory, evaluation, and reliability work from 2024--2026. Sources were selected primarily from arXiv records, ACM materials, benchmark papers, and papers describing autonomous-research systems. Because several relevant 2026 works are preprints rather than archival journal publications, the manuscript labels them as such in the references and avoids treating preprint findings as settled consensus.
+
+The inclusion criteria were: (1) the work studies LLM-based agents or autonomous research workflows; (2) it contains an explicit multi-step, planning, memory, recovery, or evaluation component; and (3) it contributes either a mechanism, benchmark, failure analysis, or system architecture relevant to long-horizon operation. Foundational methods such as ReAct, ToT, LATS, Reflexion, and Lost in the Middle are retained because they provide the conceptual building blocks for the more recent systems \cite{yao2023react,yao2023tot,zhou2023lats,shinn2023reflexion,liu2023lostmiddle}. The review does not claim exhaustive coverage of every agent paper published during the period.
+
+The remainder of the paper is organized around a failure-to-mitigation chain. Section~\ref{sec:background} defines the relevant horizon properties and traces the progression from single-loop prompting to workspace-based autonomous research. Section~\ref{sec:degradation} develops the degradation mechanisms. Section~\ref{sec:approaches} compares current interventions. Section~\ref{sec:evidence} synthesizes benchmark and system evidence. Section~\ref{sec:gaps} identifies open problems, and Section~\ref{sec:conclusion} concludes.
+
+\section{Background and Literature Review}\label{sec:background}
+
+\subsection{From Reasoning Prompts to Agent Systems}
+Early LLM agent research showed that interleaving reasoning with actions can improve interaction with external environments. ReAct uses reasoning traces to track plans and actions to collect new information \cite{yao2023react}. ToT extends this idea by treating coherent reasoning units as nodes in a search tree and selecting among alternatives using model-based evaluation \cite{yao2023tot}. LATS goes further by combining language-model reasoning with Monte Carlo tree search, value functions, and self-reflection, allowing trajectories to be explored and rolled back when environment feedback is available \cite{zhou2023lats}. Reflexion introduces another control signal: after a failed attempt, the system writes a verbal reflection and stores it for later trials \cite{shinn2023reflexion}.
+
+These methods establish three recurring design patterns. First, long tasks benefit when agents can consider alternatives rather than committing immediately. Second, an execution history must be represented in a form that remains useful to the next decision. Third, external feedback is essential because self-generated reasoning alone does not guarantee that the environment state is correct. The more recent autonomous-research systems add a fourth pattern: research progress should be represented by executable artifacts and recoverable workspaces, not only by a growing text transcript \cite{tang2026fars,zhao2026scienceflow}.
+
+\subsection{Three Different Meanings of ``Long''}
+A long-horizon task, a long-context model, and an agent with long-term memory solve different problems. The task horizon is a property of the problem: it is the number of dependent actions or causal transitions needed to reach a valid goal. Context length is a property of the model: it is the amount of token history available to the model in one call. Long-term memory is a system property: it determines which state persists across calls, sessions, or subtasks \cite{chen2026horizongap}.
+
+These axes are logically independent. An agent can have a large context window but still fail a long-horizon task because its action policy is locally greedy. Conversely, a harness can carry a long task through repeated short model calls if it can preserve compact state and reliably reconstruct the next context. This distinction is operationally important: increasing context length does not automatically provide search, state rollback, progress verification, or a stable representation of the research objective.
+
+\subsection{Autonomous Research as a Stress Test}
+Scientific research is a particularly useful stress test because its workflow mixes discrete and open-ended decisions. A typical run includes idea generation, literature search, repository inspection, implementation, experimentation, debugging, result interpretation, and writing. The AI Scientist demonstrated an end-to-end version of this pipeline, while FARS and ScienceFlow emphasize persistent artifacts and longer-running execution \cite{lu2024aiscientist,tang2026fars,zhao2026scienceflow}.
+
+Evaluation results show why this setting is difficult. MLE-bench asks agents to carry out practical machine-learning engineering tasks drawn from 75 Kaggle competitions; its initial evaluation reported that the best setup reached at least a Kaggle bronze-medal level on 16.9\% of competitions \cite{chan2024mlebench}. PaperBench decomposes replication of 20 ICML 2024 papers into 8,316 gradable subtasks; its reported best tested agent achieved an average replication score of 21.0\% \cite{starace2025paperbench}. These results measure different capabilities, but together they reinforce a general point: producing plausible plans or text is easier than reliably carrying those plans through code, environments, and verification.
+
+\section{How Planning Quality Degrades}\label{sec:degradation}
+
+\subsection{Compounding Error and Self-Conditioning}\label{sec:compounding}
+Let a task be represented by a state space with states $s_i$ and actions $a_i$, with horizon $H$. Suppose the probability that the agent chooses a goal-aligned action at step $i$ is $p_i$. Under the simplifying assumption of independent and stationary step quality, the probability of successfully completing all steps is
+\begin{equation}
+S(H)=\prod_{i=1}^{H}p_i=p^H,
+\label{eq:stationary}
+\end{equation}
+when $p_i=p$ for all $i$. Equation~\ref{eq:stationary} already shows why modest per-step imperfections become important on long tasks. If $p=0.98$, then a 100-step sequence has a naive success probability of roughly $0.98^{100}\approx0.133$, even before accounting for dependencies between errors.
+
+Real agent trajectories are more difficult because $p_i$ is rarely stationary. An early failed tool call, incorrect file edit, or mistaken interpretation can remain in the transcript and affect subsequent decisions. The resulting self-conditioning can be represented as
+\begin{equation}
+p_i=f\!\left(i,\operatorname{Err}(S_{<i})\right),
+\qquad
+\frac{\partial f}{\partial i}<0,\quad
+\frac{\partial f}{\partial \operatorname{Err}}<0,
+\label{eq:nonstationary}
+\end{equation}
+where $S_{<i}$ denotes the execution history before step $i$. Equation~\ref{eq:nonstationary} is a conceptual model, not a universal law: it expresses the hypothesis that trajectory length and accumulated error can reduce future step quality. Recent empirical work on long-horizon execution similarly emphasizes self-conditioning and the compounding value of small improvements in single-step reliability \cite{sinha2025illusion}.
+
+\subsection{Local Greedy Policies and Strategic Myopia}
+Step-wise reasoning often selects the next action using only information available at the current state. A simple abstraction is
+\begin{equation}
+\pi_{\mathrm{greedy}}(s_t)=\arg\max_{a\in A} P_{\mathrm{LM}}(a\mid s_t),
+\label{eq:greedy}
+\end{equation}
+where the model chooses the action with the highest local plausibility. Equation~\ref{eq:greedy} is useful for intuition because a locally plausible action can be strategically poor when its negative consequence appears several steps later.
+
+ToT and LATS directly challenge this limitation by introducing explicit branching and lookahead \cite{yao2023tot,zhou2023lats}. A recent planning-centric analysis makes the same distinction from the opposite direction: step-wise reasoning can behave like a greedy policy, so future-aware lookahead and value estimation can improve long-horizon coherence \cite{wang2026flare}. The important synthesis is that ``reasoning'' and ``planning'' are related but not identical system functions. An agent may reason correctly about one step while still choosing a globally poor trajectory.
+
+\subsection{Context Pollution and Attention Dilution}
+As an agent operates, the context may collect raw tool outputs, stack traces, abandoned code, repeated parameters, and previous drafts. Not all of these tokens have equal value for the next decision. Liu et al. showed that language models can perform substantially worse when relevant information is placed in the middle of a long context, despite having access to that information \cite{liu2023lostmiddle}. Long-horizon agent work therefore treats context management as a control problem rather than simple storage.
+
+The failure modes can be grouped into three categories. First, \emph{signal dilution} occurs when critical constraints compete with large amounts of low-value history. Second, \emph{positional access failure} occurs when useful information is present but difficult for the model to retrieve reliably. Third, \emph{recency capture} occurs when the most recent tool results dominate attention even when the global research goal has not changed. The practical implication is that ``more context'' and ``better state representation'' are not equivalent.
+
+AdaCoM illustrates a learned solution. Rather than changing the base agent, an external controller learns to modify the context supplied to a frozen agent, trading off information fidelity against the need to remove stale content \cite{yi2026adacom}. This is a valuable design direction, but it also reveals a new dependency: the context manager itself becomes part of the planning stack and therefore needs evaluation.
+
+\subsection{Goal Drift and Trajectory Contamination}
+Goal drift occurs when the active objective gradually diverges from the original research brief. In scientific workflows this can happen when an early experiment produces an attractive but irrelevant improvement, when an agent over-optimizes an intermediate metric, or when a subagent hands off an incomplete interpretation as if it were a stable fact. FARS and ScienceFlow reduce this risk by using stage-specific or segment-specific workspaces and explicit artifacts rather than one continuously growing transcript \cite{tang2026fars,zhao2026scienceflow}.
+
+A useful engineering representation is to keep three kinds of state separate: (1) a stable goal and success criteria, (2) validated environment state and artifacts, and (3) mutable working context. The goal should change only through an explicit revision event; validated state should be recoverable; and working context can be aggressively compressed. This separation is a synthesis of the reviewed methods rather than a claim that every current framework already implements it in the same way.
+
+\subsection{The No-Recovery Problem}
+Decomposition can reduce cognitive and contextual load, but excessive decomposition can also remove the history needed to diagnose failures. A subtask may produce an output that looks syntactically valid yet violates an assumption made several steps earlier. If the downstream call receives only the output artifact and not the relevant provenance, recovery becomes difficult.
+
+Search-based systems make the recovery requirement explicit: backtracking is only meaningful when the environment can be restored or when alternative states can be represented without destructive side effects \cite{zhou2023lats}. ScienceFlow likewise treats workspace states as executable and recoverable, allowing a system to continue from an archived research state instead of starting again from a raw transcript \cite{zhao2026scienceflow}. The resulting lesson is that decomposition and recovery must be designed together.
+
+\section{Current Mitigation Approaches}\label{sec:approaches}
+The literature can be organized into four control layers. Figure~\ref{fig:taxonomy} shows this taxonomy and the primary failure modes addressed by each layer.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/mitigation_taxonomy.pdf}
+\Description{A four-box taxonomy showing deliberate planning, context and memory, execution and recovery, and verification, with the corresponding failure modes under each layer.}
+\caption{Four-layer taxonomy used in the review. The layers are complementary: planning chooses among possible trajectories, memory controls what information is carried forward, execution preserves and restores state, and verification determines whether progress is trustworthy.}
+\label{fig:taxonomy}
+\end{figure}
+
+\subsection{Deliberate Planning and Search}
+ToT creates explicit branches of intermediate reasoning and evaluates candidate branches before committing \cite{yao2023tot}. LATS combines search with environment feedback, value estimates, and self-reflection \cite{zhou2023lats}. FLARE extends the planning perspective by using future-aware lookahead, value propagation, and limited commitment to counter local greedy behavior \cite{wang2026flare}.
+
+These methods are most directly connected to strategic myopia. Their weakness is cost: search multiplies model calls and can become expensive when the branching factor is large. Moreover, a search method can only recover from a bad branch if the underlying state can be evaluated and, when necessary, restored. Planning quality therefore depends on both the search policy and the execution substrate.
+
+\subsection{Context and Memory Management}
+Reflexion stores textual reflections from prior attempts and uses them on subsequent trials \cite{shinn2023reflexion}. Generative Agents earlier demonstrated a broader memory pattern in which experiences are stored, synthesized into reflections, and selectively retrieved for future behavior \cite{park2023generativeagents}. AdaCoM turns context management into an explicit learned control problem and reports that different base agents benefit from different levels of compression \cite{yi2026adacom}.
+
+The key trade-off is between completeness and usability. Lossless history preserves details but increases noise; aggressive summarization reduces noise but risks deleting the exact fact needed for later diagnosis. A robust system therefore needs a distinction between immutable facts, validated artifacts, and compressible reasoning traces.
+
+\subsection{Workspace-Oriented Execution and Recovery}
+ScienceFlow organizes work into research segments grounded in executable workspaces and uses recoverable states to support revision and redirection \cite{zhao2026scienceflow}. FARS uses stage-specific agents coordinated through a shared workspace containing proposals, code, logs, results, and manuscripts \cite{tang2026fars}. These approaches move long-horizon control outside the language model itself.
+
+This architectural shift is significant because a runtime can provide capabilities that are difficult to obtain from prompting alone: checkpointing, file-system state, deterministic tests, resource accounting, and explicit stage boundaries. The trade-off is implementation complexity. A stronger harness may improve reliability, but it can also make evaluation harder because observed performance becomes a property of the combined model-plus-harness system.
+
+\subsection{Closed-Loop Verification}
+Verification converts an open-ended generation problem into repeated testable transitions. ReAct uses environment observations to ground reasoning \cite{yao2023react}; Reflexion uses task feedback to generate corrective reflections \cite{shinn2023reflexion}; autonomous research systems can additionally validate code, experiment outputs, and artifact consistency \cite{lu2024aiscientist,tang2026fars}.
+
+For scientific workflows, deterministic checks are especially valuable. Unit tests, assertions, schema validation, experiment metadata, versioned artifacts, and reproducible environments can detect failures without requiring a second large model to judge every step. The recent literature on trustworthy autonomous science emphasizes the need for scalable verification and observable workflows because agents can generate artifacts faster than humans can manually inspect them \cite{mo2026trustscience}.
+
+\begin{table}[t]
+\caption{Comparative synthesis of major long-horizon agent interventions.}
+\label{tab:approaches}
+\small
+\begin{tabularx}{\linewidth}{p{0.16\linewidth} p{0.18\linewidth} Y Y}
+\toprule
+\textbf{Approach} & \textbf{Primary control layer} & \textbf{What it changes} & \textbf{Main limitation or dependency}\\
+\midrule
+ReAct \cite{yao2023react} & Reasoning + acting & Interleaves reasoning with environment actions and observations. & Still largely sequential; does not by itself provide deep search or rollback.\\
+Tree-of-Thoughts \cite{yao2023tot} & Planning & Searches over alternative reasoning branches before commitment. & Additional inference cost; benefit depends on reliable branch evaluation.\\
+LATS \cite{zhou2023lats} & Planning + recovery & Adds MCTS-style exploration, value estimates, self-reflection, and environment feedback. & Requires a stateful environment and useful feedback for backtracking.\\
+Reflexion \cite{shinn2023reflexion} & Memory + correction & Stores verbal feedback from failed attempts for future trials. & Reflection quality depends on the available feedback signal.\\
+AdaCoM \cite{yi2026adacom} & Context management & Learns how to prune or modify context for a frozen agent. & Introduces a learned controller and a fidelity-reliability trade-off.\\
+ScienceFlow \cite{zhao2026scienceflow} & Runtime + state & Represents research progress as recoverable executable states and segments. & Adds runtime complexity; reported gains are benchmark- and harness-dependent.\\
+FARS \cite{tang2026fars} & Runtime + orchestration & Uses stage-specific agents and a shared artifact workspace. & Large-scale autonomous generation still exposes scope, methodology, and integrity failures.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The comparison in Table~\ref{tab:approaches} suggests that the methods are complementary rather than mutually exclusive. Search addresses \emph{which path to take}; memory addresses \emph{what information to preserve}; runtime control addresses \emph{what state can be recovered}; and verification addresses \emph{whether the current state is correct}. Planning degradation emerges when any one of these functions is missing or unreliable.
+
+\section{Empirical Evidence and Evaluation}\label{sec:evidence}
+
+\subsection{What Current Benchmarks Measure}
+Long-horizon agent evaluation is fragmented across task families. MLE-bench measures machine-learning engineering over 75 Kaggle competitions and reports an initial o1-preview plus AIDE result of 16.9\% at or above the bronze-medal threshold \cite{chan2024mlebench}. PaperBench focuses on end-to-end replication of published AI research and decomposes 20 ICML 2024 papers into 8,316 gradable subtasks; its best tested agent in the reported study reached 21.0\% mean replication score \cite{starace2025paperbench}. SWE-Bench Pro targets large, realistic software-engineering problems that can require hours or days, making it relevant to long-horizon execution even though it is not a scientific-research benchmark \cite{deng2025swebenchpro}.
+
+ScienceFlow reports a 70.22\% Any-Medal score on full MLE-bench under a 24-hour budget \cite{zhao2026scienceflow}. This number should not be read as a universal improvement over earlier benchmark results because the system, scaffold, budget, and evaluation setting differ. Its value for this review is architectural: it demonstrates how a runtime that maintains executable state, adaptive exploration, and explicit research segments can materially change the outcome measured by a long task benchmark.
+
+\begin{table}[t]
+\caption{Representative benchmark and system evidence. Values are reported as stated by the cited works and should not be treated as directly comparable scores.}
+\label{tab:benchmarks}
+\small
+\begin{tabularx}{\linewidth}{p{0.18\linewidth} p{0.18\linewidth} p{0.17\linewidth} Y}
+\toprule
+\textbf{Source} & \textbf{Task setting} & \textbf{Reported result} & \textbf{What it reveals about long-horizon execution}\\
+\midrule
+MLE-bench \cite{chan2024mlebench} & 75 ML engineering competitions & 16.9\% at or above bronze with o1-preview + AIDE & End-to-end engineering remains difficult even when agents can use tools and compute.\\
+PaperBench \cite{starace2025paperbench} & Replication of 20 ICML papers; 8,316 subtasks & 21.0\% mean score for best tested agent in the reported study & Decomposition creates measurable subtask structure, but implementation and integration remain major bottlenecks.\\
+SWE-Bench Pro \cite{deng2025swebenchpro} & 1,865 realistic software tasks & Reported Pass@1 below 25\% for tested models in the paper & Long tasks require coordinated edits, testing, and repository-level state management.\\
+ScienceFlow \cite{zhao2026scienceflow} & Full MLE-bench, 24-hour budget & 70.22\% Any-Medal reported & Recoverable research state and execution-aware control can change long-run benchmark behavior.\\
+FARS \cite{tang2026fars} & 166 papers across 67 AI/ML topics in first public deployment & 282 structured reviews covering 140 papers & Scaling output volume exposes recurring issues in scope, methodology, and research integrity.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Why Final Accuracy Is Not Enough}
+A single pass/fail outcome hides the trajectory that produced it. Consider two 100-step agents with the same final failure rate: one may make a single recoverable mistake at step 12, while the other may slowly accumulate small deviations from the research goal. The engineering remedies are different, but a final binary score does not distinguish them.
+
+The horizon-gap literature therefore advocates denser trajectory-level signals and distinguishes model capability from harness capability \cite{chen2026horizongap}. Recent long-horizon evaluation work also measures the length of task that can be completed at a fixed reliability threshold, highlighting that small gains in step reliability can translate into much longer successful tasks \cite{sinha2025illusion}. These findings support a shift from outcome-only benchmarking toward trajectory diagnostics such as time-to-first-error, recovery rate, rollback success, goal-consistency checks, and the fraction of work validated by deterministic tests.
+
+\subsection{A Suggested Evaluation Vector}
+For research agents, a useful evaluation should report at least five dimensions:
+\begin{enumerate}
+    \item \textbf{Task success}: whether the final scientific objective was met.
+    \item \textbf{Trajectory efficiency}: tool calls, wall-clock time, and redundant actions.
+    \item \textbf{State reliability}: whether checkpoints and artifacts remain internally consistent.
+    \item \textbf{Recovery quality}: whether the agent can detect and recover from injected failures.
+    \item \textbf{Evidence integrity}: whether claims in the final report can be traced to reproducible experiments and sources.
+\end{enumerate}
+
+This vector is intentionally broader than a single leaderboard score. It also makes it possible to compare two systems with similar final accuracy but different reliability profiles.
+
+\section{Research Gaps and Future Directions}\label{sec:gaps}
+The reviewed literature is converging on a systems problem, but several questions remain unresolved.
+
+\subsection{Model Versus Harness Attribution}
+A strong result from a research agent may come from the underlying language model, the planning algorithm, the context manager, the tool scaffold, or the verification harness. Current evaluations often bundle these components together. A useful experimental design should therefore report matched comparisons: the same base model under different harnesses, the same harness with different models, and ablations of search, memory, and verification layers. The horizon-gap survey identifies this as a central measurement problem \cite{chen2026horizongap}.
+
+\subsection{Process-Level Credit Assignment}
+Outcome-only rewards become sparse when a task contains dozens or hundreds of decisions. A failed 100-step experiment does not tell the system which earlier choice first made success unlikely. Process reward models, step-level value estimates, and segment-level credit assignment are promising directions, but they also create the risk of optimizing the proxy rather than the scientific objective. Future work should evaluate whether process signals remain valid under distribution shift and whether the same evaluator can safely be used for both training and testing.
+
+\subsection{Reversible and Transactional Environments}
+Search and recovery are much easier when the environment can be snapshotted and restored. Software repositories can often use version control, containers, and checkpointed artifacts, but web actions, external APIs, database writes, and physical experiments can be harder to reverse. Research agents therefore need transactional tool interfaces, dry-run modes, isolated sandboxes, and explicit provenance records so that alternative plans can be explored without damaging the real environment \cite{zhou2023lats,zhao2026scienceflow}.
+
+\subsection{Adaptive Memory With Provenance}
+Memory compression should preserve not only ``what happened'' but also the provenance and confidence of each remembered item. A short summary that says an experiment ``worked'' is weaker than a structured memory entry containing the commit identifier, dataset version, metric, test status, and link to the raw result. AdaCoM demonstrates the value of adaptive context control; the next step is to combine compression with typed, queryable provenance \cite{yi2026adacom}.
+
+\subsection{Scalable Scientific Verification}
+The faster agents produce papers, figures, and experimental artifacts, the larger the gap between generation capacity and human verification capacity. Mo argues that trustworthy autonomous science will require observable workflows, scalable verification, and clear attribution \cite{mo2026trustscience}. For practical research systems, this means making verification an explicit part of the pipeline: data lineage, deterministic re-runs, statistical checks, artifact hashes, and automatically generated evidence bundles should travel with the manuscript.
+
+\subsection{Goal-Preserving Long-Horizon Policies}
+Recent work shows that workflow design can strongly shape behavior. A behavioral case study of long-horizon architecture research observed early gains followed by saturation under a commit-or-discard loop and argues that the loop can induce greedy hill-climbing behavior \cite{safdar2026behaviour}. This suggests a broader question: how should a research agent deliberately allocate a small fraction of its budget to high-risk, potentially high-payoff hypotheses while still maintaining a stable baseline? The answer is likely to involve explicit exploration budgets, branch preservation, and re-validation when the operating regime changes.
+
+\section{Discussion}\label{sec:discussion}
+The reviewed evidence supports a layered view of long-horizon planning quality. No single mechanism addresses all failure modes. Deliberate search can prevent premature commitment, but it requires state recovery. Memory compression can reduce context pollution, but it can also remove information. Workspace isolation can make execution recoverable, but it adds infrastructure. Verification can catch failures, but a weak or expensive verifier becomes a new bottleneck.
+
+This suggests that a robust autonomous research agent should be designed as a control loop rather than as one increasingly large prompt. The control loop should maintain a stable research objective, preserve validated state outside the model context, use search selectively for consequential decisions, compress mutable history, and apply deterministic verification before advancing to the next stage. Figure~\ref{fig:execution} captures this architecture at a conceptual level.
+
+The literature also indicates a useful change in what should count as an ``agent capability.'' If a system succeeds because its runtime provides careful checkpoints, resource accounting, deterministic tests, and high-quality retrieval, then the capability belongs to the combined system. That is not a weakness; it is a reason to evaluate the complete system explicitly. The practical target is not a model that can remember everything internally, but a research system that can preserve the right state, make sensible decisions, and recover from predictable failures.
+
+\section{Conclusion}\label{sec:conclusion}
+Planning-quality degradation is best understood as a long-horizon systems problem. The literature reviewed here shows a recurring pattern: local reasoning can be strong while global execution remains fragile because errors compound, policies become myopic, contexts become noisy, goals drift, and recovery is difficult when state is not preserved. Autonomous research systems make these weaknesses visible because scientific workflows require many dependent transitions and verifiable evidence.
+
+The review therefore recommends a layered research direction rather than a single algorithmic fix. Deliberate planning addresses myopia; adaptive context and memory management address information overload; workspace-based runtimes provide persistent and recoverable state; and closed-loop verification constrains the agent to evidence-backed progress. The most important open problems are measurement of model-versus-harness capability, process-level credit assignment, reversible tool execution, provenance-aware memory, and scalable scientific verification. Progress on these fronts would move autonomous research agents from impressive short demonstrations toward more dependable long-running scientific workflows.
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}

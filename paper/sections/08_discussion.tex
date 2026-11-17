@@ -1,0 +1,40 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Why Did Dependency Milestone Scheduling Underperform?}
+The central finding of this investigation—that fixed-periodic verification outperforms dependency-based milestone verification under matched budgets—contradicts intuitive assumptions prevalent in recent agent verification literature~\citep{afoud2026vreact}. To understand why milestone verification failed to contain error propagation, we must examine the topological structure of computational DAGs.
+
+\paragraph{The Structural Clumping Phenomenon:}
+In any valid multi-step computational DAG (including Fork-Join, Spine-Join, and Hierarchical Reduction topologies), a join node cannot execute until \emph{all} of its predecessor branches have fully completed their respective execution sequences. In practice, this creates an inherent topological skew: multi-parent integration boundaries naturally concentrate in the **middle and late phases** of the workflow horizon.
+
+Consequently, milestone-based schedulers suffer from an \textbf{``early-stage blindspot''}:
+\begin{itemize}
+    \item In Arm B (Fixed-Periodic), the first verification check is scheduled unconditionally at $\lceil H/3 \rceil$ (step 4 at $H=12$, step 8 at $H=24$, step 12 at $H=36$). This enforces a strict temporal barrier across all active branches early in the workflow lifecycle.
+    \item In Arm C (Milestone), the scheduler defers its first check until all inputs to Join 1 complete. In an $H=24$ graph, if Branch A requires 6 steps and Branch B requires 10 steps, Join 1 is not scheduled until step 10. Any corruption introduced at step 1 in Branch A propagates unmonitored through 9 subsequent operations before the join milestone is evaluated.
+\end{itemize}
+
+This topological clumping explains why the performance disparity between Arms B and C peaks during middle-stage faults ($\Delta \text{TCF} = +0.0960$). Under milestone scheduling, errors introduced in long parallel branches cascade through multiple intermediate transformations, contaminating peer branches and inflating both detection delay ($+2.31$ steps) and downstream taint consumption ($+3.91\%$).
+
+\subsection{Re-Evaluating Architectural Intuition in Agent Workflows}
+Our findings challenge the uncritical assumption that verification placement should be guided exclusively by semantic integration boundaries~\citep{afoud2026vreact,shoham2026jevact}. While dependency joins represent logical integration points where data streams compose, \textbf{logical integration points are not necessarily optimal risk-mitigation points}. 
+
+When verification call budgets are severely constrained ($K \ll H$), uniform temporal coverage is fundamentally more resilient than topological placement. Fixed-periodic scheduling acts as a geometric bounding box, guaranteeing that an undetected error cannot propagate further than $\lceil H/K \rceil$ steps regardless of graph structure, branch asymmetry, or execution path length. In contrast, milestone scheduling couples check placement to graph geometry, rendering the agent vulnerable to long, unmonitored branch paths.
+
+\subsection{Decoupling Containment from Task Completion}
+A crucial insight from our empirical analysis is the complete decoupling between intermediate error containment (TCF) and final task completion ($38.46\%$ across all arms). 
+
+Why did drastic improvements in detection latency ($5.50$ steps in Arm B vs. $12.17$ steps in Arm A) and taint containment ($0.8614$ in Arm B vs. $1.0000$ in Arm A) fail to increase final task completion?
+\begin{enumerate}
+    \item \textbf{Terminal Verification Parity:} Because Arm A evaluates the terminal artifact against the full contract suite at step $H$, any structurally detectable fault that reaches the end of the workflow is eventually identified.
+    \item \textbf{Single-Replay Recovery Dynamics:} Under our controlled recovery protocol, whenever a fault is detected (whether at step 4 or step 12), the executor restores the last passing checkpoint and disarms the injector during replay. Because the fault is removed during re-execution, 100\% of detected episodes successfully recover, while 100\% of undetected episodes fail.
+\end{enumerate}
+
+Therefore, the primary architectural benefit of intermediate verification is not that it converts failed workflows into successful ones; rather, its true value lies in **containing blast radius and minimizing re-execution waste**. Arm B saved an average of $2.87$ re-executed nodes per episode relative to Arm A, cutting redundant compute cycles while shielding downstream external environments (e.g., databases, tool APIs, or multi-agent messaging channels) from corrupted state consumption.
+
+\subsection{Architectural Implications for Compound AI Systems}
+For software architects designing autonomous agent frameworks (e.g., LangGraph, AutoGen, ScienceFlow, and CrewAI), these results yield concrete guidelines:
+\begin{enumerate}
+    \item \textbf{Prioritize Periodic Cadences Under Low Budgets:} When verification budgets are limited ($K \le 3$), allocate checks at uniform periodic intervals rather than waiting for complex multi-agent joins.
+    \item \textbf{Adopt Hybrid Two-Tier Scheduling:} If computational budgets permit $K > 3$, implement a hybrid policy: establish a fixed-periodic backbone to bound worst-case branch latency, supplemented by targeted milestone assertions immediately prior to state-merging operations.
+    \item \textbf{Account for Replay Suffix Cost:} In workflows with high execution costs (e.g., wet-lab experiments or GPU-intensive training), checkpoint frequency should balance forward taint containment against the computational cost of suffix re-execution.
+\end{enumerate}

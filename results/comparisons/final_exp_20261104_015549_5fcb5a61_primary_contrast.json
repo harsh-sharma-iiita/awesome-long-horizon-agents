@@ -1,0 +1,28 @@
+{
+  "run_id": "final_exp_20261104_015549_5fcb5a61",
+  "primary_contrast": "Arm C (Milestone-Based) minus Arm B (Fixed-Periodic)",
+  "unit_of_clustering": "Task Graph",
+  "num_clusters_N": 90,
+  "primary_metric_TCF": {
+    "mean_difference": 0.039088915804602074,
+    "two_sided_permutation_p_value": 0.0,
+    "bootstrap_95_percentile_ci": [
+      0.03656987706374962,
+      0.0414848070109508
+    ],
+    "significance_at_05": true,
+    "interpretation": "Statistically significant increase in taint consumption"
+  },
+  "secondary_metric_delay": {
+    "mean_difference": 2.3055555555555554,
+    "two_sided_p_value": 0.0,
+    "bootstrap_95_ci": [
+      1.9444444444444444,
+      2.683333333333333
+    ]
+  },
+  "secondary_metric_calls": {
+    "mean_difference": 0.0,
+    "two_sided_p_value": 1.0
+  }
+}

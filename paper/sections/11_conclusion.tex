@@ -1,0 +1,14 @@
+\section{Conclusion and Future Work}
+\label{sec:conclusion}
+
+In this work, we presented a rigorous, controlled empirical investigation into verification scheduling within long-horizon autonomous workflows. Addressing the fundamental question of where verification checkpoints should be placed under strict call-budget constraints ($K = 3$), we evaluated four scheduling conditions across 90 DAG task clusters comprising 4,680 execution episodes under controlled fault injection.
+
+Our findings decisively reject the intuitive hypothesis that dependency integration milestones provide superior error containment compared to fixed-periodic intervals. Under identical realized verification budgets ($2.7436$ calls, $p = 1.0000$), fixed-periodic verification achieved statistically superior error containment ($\mu_{\text{TCF}} = 0.8614$ vs. $0.9005$, $p < 0.0001$) and caught contract-violating faults $2.31$ execution steps earlier. We identified the root cause as the \emph{structural clumping phenomenon}: because computational branches must complete transformations before converging into joins, dependency integration boundaries cluster in the middle and late phases of long-horizon graphs, leaving early-stage branches unmonitored under milestone schedules. Furthermore, while intermediate checking did not alter final workflow completion rates under single-replay recovery, it dramatically reduced recovery re-execution waste, saving up to $3.81$ re-executed nodes per episode.
+
+\paragraph{Future Directions:}
+Promising avenues for future research include:
+\begin{enumerate}
+    \item \textbf{Dynamic Uncertainty-Guided Scheduling:} Developing adaptive verification policies that allocate check slots dynamically based on agent confidence, token perplexity, or branch variance rather than static graph topology.
+    \item \textbf{Hybrid Verification Architectures:} Integrating deterministic structural validators for rapid, zero-cost error containment with selective, high-level LLM semantic judges at critical workflow milestones.
+    \item \textbf{Stochastic Multi-Agent Evaluations:} Extending controlled verification scheduling benchmarks to live multi-agent collaborative environments executing open-ended software engineering and scientific discovery tasks.
+\end{enumerate}

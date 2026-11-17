@@ -1,0 +1,3 @@
+[2026-11-04 01:42:48] Starting Phase E Baseline Pilot Run: baseline_dev_20261104_014248_6287b389
+[2026-11-04 01:42:48] Configuration: num_graphs=5, horizon=12, motif=fork_join
+[2026-11-04 01:42:48] Saved configuration to runs\configurations\baseline_dev_20261104_014248_6287b389_config.json

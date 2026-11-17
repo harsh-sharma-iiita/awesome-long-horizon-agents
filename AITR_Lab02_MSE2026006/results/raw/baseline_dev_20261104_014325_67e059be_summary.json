@@ -1,0 +1,21 @@
+{
+  "num_total_episodes": 65,
+  "num_fault_episodes": 60,
+  "num_clean_episodes": 5,
+  "num_tcf_eligible_episodes": 60,
+  "num_tcf_ineligible_terminal_episodes": 0,
+  "mean_taint_consumption_fraction": 0.8592592592592593,
+  "std_taint_consumption_fraction": 0.3152284863844921,
+  "fault_detection_coverage_all": 0.3333333333333333,
+  "fault_detection_coverage_contract": 0.3333333333333333,
+  "mean_detection_delay_nodes": 2.25,
+  "median_detection_delay_nodes": 1.5,
+  "task_completion_rate_overall": 0.38461538461538464,
+  "task_completion_rate_clean": 1.0,
+  "task_completion_rate_faulted": 0.3333333333333333,
+  "false_positive_rate_task": 0.0,
+  "mean_realized_verifier_calls": 2.769230769230769,
+  "mean_replay_nodes_executed": 2.1538461538461537,
+  "mean_total_workflow_time_seconds": 0.005469304616921223,
+  "mean_verifier_time_seconds": 8.372614661661478e-05
+}

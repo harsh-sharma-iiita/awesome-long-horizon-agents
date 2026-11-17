@@ -1,0 +1,27 @@
+{
+  "run_id": "baseline_dev_20261104_014325_67e059be",
+  "phase": "E_development_baseline",
+  "condition": "fixed_periodic",
+  "allocated_slots": 3,
+  "num_graphs": 5,
+  "horizon": 12,
+  "topology_motif": "fork_join",
+  "fault_types": [
+    "missing_field",
+    "type_corruption",
+    "numeric_corruption",
+    "broken_reference"
+  ],
+  "fault_positions": [
+    "early",
+    "middle",
+    "late"
+  ],
+  "environment": {
+    "python_version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "win32",
+    "cwd": "C:\\Users\\HARSH SHARMA\\Desktop\\atr-paper\\AITR_Lab02_MSE2026006",
+    "timestamp": 1793736805.1518762,
+    "iso_timestamp": "2026-11-04T01:43:25+0530"
+  }
+}

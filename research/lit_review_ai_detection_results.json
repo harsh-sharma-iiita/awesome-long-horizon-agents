@@ -1,0 +1,4567 @@
+{
+  "metadata": {
+    "model": "desklib/ai-text-detector-v1.01",
+    "architecture": "DeBERTa-v3-large (304M parameters)",
+    "benchmark_standing": "Ranked #1 on RAID detection benchmark",
+    "audit_timestamp": "2026-11-04 19:12:28",
+    "elapsed_seconds": 106.03,
+    "target_document": "Planning-Quality Degradation in Long-Horizon Autonomous Research Agents (Literature Review)",
+    "source_pdf": "source_docs/literature_review.pdf"
+  },
+  "overall": {
+    "model_ai_pct": 37.3,
+    "verdict": "LIKELY HUMAN",
+    "ai_count": 46,
+    "human_count": 121,
+    "skipped_count": 140,
+    "total_sentences": 307,
+    "text_metrics": {
+      "mean": 22.9,
+      "stddev": 16.9,
+      "cv": 0.74,
+      "verdict": "natural variation",
+      "sentence_count": 167,
+      "lengths": [
+        35,
+        19,
+        22,
+        15,
+        18,
+        35,
+        31,
+        26,
+        44,
+        29,
+        18,
+        13,
+        25,
+        31,
+        21,
+        19,
+        11,
+        35,
+        23,
+        10,
+        27,
+        16,
+        25,
+        19,
+        21,
+        17,
+        31,
+        16,
+        17,
+        21,
+        20,
+        18,
+        58,
+        16,
+        29,
+        29,
+        21,
+        19,
+        21,
+        27,
+        23,
+        17,
+        33,
+        49,
+        11,
+        26,
+        26,
+        21,
+        22,
+        6,
+        17,
+        13,
+        51,
+        34,
+        27,
+        22,
+        25,
+        30,
+        22,
+        19,
+        23,
+        23,
+        25,
+        16,
+        13,
+        19,
+        18,
+        23,
+        22,
+        12,
+        21,
+        11,
+        23,
+        24,
+        41,
+        13,
+        10,
+        25,
+        21,
+        9,
+        22,
+        43,
+        19,
+        19,
+        31,
+        22,
+        24,
+        24,
+        13,
+        14,
+        20,
+        17,
+        23,
+        28,
+        30,
+        14,
+        23,
+        19,
+        29,
+        20,
+        18,
+        20,
+        16,
+        19,
+        20,
+        16,
+        28,
+        13,
+        17,
+        20,
+        14,
+        16,
+        38,
+        9,
+        19,
+        13,
+        22,
+        20,
+        18,
+        161,
+        23,
+        13,
+        30,
+        14,
+        44,
+        25,
+        23,
+        24,
+        26,
+        11,
+        24,
+        20,
+        41,
+        12,
+        36,
+        28,
+        21,
+        29,
+        20,
+        20,
+        145,
+        21,
+        19,
+        25,
+        19,
+        21,
+        27,
+        18,
+        41,
+        21,
+        15,
+        7,
+        7,
+        11,
+        9,
+        13,
+        8,
+        11,
+        8,
+        12,
+        10,
+        12,
+        12,
+        7,
+        7,
+        12,
+        14
+      ]
+    },
+    "pattern_totals": {
+      "formal_verb": 5,
+      "formal_transition": 2,
+      "ai_slop": 9,
+      "flaggy_adverb": 3,
+      "missing_contraction": 6
+    }
+  },
+  "sections": {
+    "Abstract": {
+      "word_count": 184,
+      "model_ai_pct": 39.0,
+      "verdict": "LIKELY HUMAN",
+      "ai_count": 3,
+      "human_count": 5,
+      "skipped_count": 0,
+      "total_sentences": 8,
+      "text_metrics": {
+        "mean": 23.0,
+        "stddev": 6.6,
+        "cv": 0.29,
+        "verdict": "very uniform (AI-like)",
+        "sentence_count": 8,
+        "lengths": [
+          18,
+          19,
+          22,
+          15,
+          18,
+          35,
+          31,
+          26
+        ]
+      },
+      "pattern_totals": {
+        "formal_verb": 1,
+        "formal_transition": 1,
+        "ai_slop": 1
+      },
+      "sentences": [
+        {
+          "sentence": "from short-horizon tool orchestration to complex, multi-step scientific workflows spanning ideation, experimental design, code\nexecution, and manuscript drafting.",
+          "label": "Human",
+          "confidence": 0.7432,
+          "ai_prob": 0.2568,
+          "human_prob": 0.7432,
+          "diagnostics": []
+        },
+        {
+          "sentence": "However, as execution trajectories extend across hours or days, systems suffer from a severe\nphenomenon known as planning-quality degradation.",
+          "label": "AI",
+          "confidence": 0.5835,
+          "ai_prob": 0.5835,
+          "human_prob": 0.4165,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Although\nstate-of-the-art LLMs exhibit near-perfect single-step reasoning\naccuracy, their ability to sustain goal-aligned, globally optimal trajectories drops sharply over long planning horizons.",
+          "label": "Human",
+          "confidence": 0.7017,
+          "ai_prob": 0.2983,
+          "human_prob": 0.7017,
+          "diagnostics": []
+        },
+        {
+          "sentence": "This paper\nprovides a comprehensive, systematic analysis of planning-quality\ndegradation in long-horizon autonomous research agents.",
+          "label": "AI",
+          "confidence": 0.6923,
+          "ai_prob": 0.6923,
+          "human_prob": 0.3077,
+          "diagnostics": [
+            {
+              "pattern": "formal_verb",
+              "match": "provides",
+              "suggestion": "try 'gives you' or 'has'"
+            }
+          ]
+        },
+        {
+          "sentence": "We formalize the theoretical distance between single-step model capability and multi-step task completion, designated as the horizon\ngap.",
+          "label": "Human",
+          "confidence": 0.8126,
+          "ai_prob": 0.1874,
+          "human_prob": 0.8126,
+          "diagnostics": []
+        },
+        {
+          "sentence": "We analyze the underlying technical mechanisms driving performance decay, including compounding execution errors, autoregressive self-conditioning, local greedy policy myopia, context window pollution (\"reasoning debris\"), goal drift, and the no-recovery\nbottleneck induced by extreme task decomposition.",
+          "label": "Human",
+          "confidence": 0.9052,
+          "ai_prob": 0.0948,
+          "human_prob": 0.9052,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Furthermore,\nwe survey architectural and algorithmic interventions designed\nto mitigate degradation, including state- space search algorithms\n(Tree-of-Thoughts, Language Agent Tree Search), adaptive context\nmanagers, progressive memory compression, and multi-tiered runtime harnesses.",
+          "label": "Human",
+          "confidence": 0.8661,
+          "ai_prob": 0.1339,
+          "human_prob": 0.8661,
+          "diagnostics": [
+            {
+              "pattern": "formal_transition",
+              "match": "Furthermore",
+              "suggestion": "cut it, or use 'And' / 'On top of that'"
+            }
+          ]
+        },
+        {
+          "sentence": "Finally, we review empirical performance across\nresearch benchmarks, highlight key implementation and verification bottlenecks, and map out critical future research directions\ntoward robust, long-horizon autonomous science.",
+          "label": "AI",
+          "confidence": 0.8751,
+          "ai_prob": 0.8751,
+          "human_prob": 0.1249,
+          "diagnostics": [
+            {
+              "pattern": "ai_slop",
+              "match": "robust",
+              "suggestion": "replace with plain English"
+            }
+          ]
+        }
+      ]
+    },
+    "1. Introduction": {
+      "word_count": 264,
+      "model_ai_pct": 38.1,
+      "verdict": "LIKELY HUMAN",
+      "ai_count": 3,
+      "human_count": 9,
+      "skipped_count": 1,
+      "total_sentences": 13,
+      "text_metrics": {
+        "mean": 21.7,
+        "stddev": 7.6,
+        "cv": 0.35,
+        "verdict": "somewhat uniform",
+        "sentence_count": 12,
+        "lengths": [
+          25,
+          29,
+          18,
+          13,
+          25,
+          31,
+          21,
+          19,
+          11,
+          35,
+          23,
+          10
+        ]
+      },
+      "pattern_totals": {
+        "flaggy_adverb": 2,
+        "missing_contraction": 1,
+        "ai_slop": 1
+      },
+      "sentences": [
+        {
+          "sentence": "The integration of Large Language Models (LLMs) into autonomous\nagentic architectures has re-oriented artificial intelligence from\npassive pattern recognition toward active, goal-driven problem\nsolving [1].",
+          "label": "AI",
+          "confidence": 0.5433,
+          "ai_prob": 0.5433,
+          "human_prob": 0.4567,
+          "diagnostics": []
+        },
+        {
+          "sentence": "In specialized scientific domains, autonomous research\nagents\u2014such as The AI Scientist [3], ScienceFlow [5], and the Fully\nAutonomous Research System (FARS) [ 6]\u2014are deployed to execute end-to-end scientific workflows.",
+          "label": "Human",
+          "confidence": 0.7064,
+          "ai_prob": 0.2936,
+          "human_prob": 0.7064,
+          "diagnostics": []
+        },
+        {
+          "sentence": "These tasks require proposing hypotheses, performing computational experiments, debugging code, synthesizing empirical results, and composing scientific\nmanuscripts [4].",
+          "label": "Human",
+          "confidence": 0.5165,
+          "ai_prob": 0.4835,
+          "human_prob": 0.5165,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Despite impressive single-step reasoning capabilities, current autonomous agents exhibit fragile long-horizon\nexecution [1].",
+          "label": "Human",
+          "confidence": 0.6279,
+          "ai_prob": 0.3721,
+          "human_prob": 0.6279,
+          "diagnostics": []
+        },
+        {
+          "sentence": "While agents achieve high accuracy on benchmark\ntasks requiring fewer than 10 sequential turns, performance decays rapidly as task duration and decision complexity increase [1].",
+          "label": "AI",
+          "confidence": 0.891,
+          "ai_prob": 0.891,
+          "human_prob": 0.109,
+          "diagnostics": []
+        },
+        {
+          "sentence": "*Student roll number: MSE2026006.",
+          "label": "Skipped",
+          "confidence": 0.0,
+          "ai_prob": 0.0,
+          "human_prob": 0.0,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Empirical production data reveals that agent success rates begin\ndeclining noticeably\nafter roughly 35 minutes of human-equivalent operational time,\nwith a doubling of task duration quadrupling the probability of failure [8].",
+          "label": "Human",
+          "confidence": 0.6557,
+          "ai_prob": 0.3443,
+          "human_prob": 0.6557,
+          "diagnostics": [
+            {
+              "pattern": "flaggy_adverb",
+              "match": "noticeably",
+              "suggestion": "try 'definitely' or cut it"
+            }
+          ]
+        },
+        {
+          "sentence": "This non-linear compounding of error exposes a fundamental mismatch: single-step token-level reasoning does not inherently\nyield long-horizon strategic planning [ 1].",
+          "label": "Human",
+          "confidence": 0.5884,
+          "ai_prob": 0.4116,
+          "human_prob": 0.5884,
+          "diagnostics": [
+            {
+              "pattern": "missing_contraction",
+              "match": "does not",
+              "suggestion": "use 'doesn't'"
+            },
+            {
+              "pattern": "ai_slop",
+              "match": "strategic",
+              "suggestion": "replace with plain English"
+            },
+            {
+              "pattern": "flaggy_adverb",
+              "match": "inherently",
+              "suggestion": "often filler \u2014 cut it or explain why"
+            }
+          ]
+        },
+        {
+          "sentence": "The distance between\nsingle-step execution accuracy and reliable long-horizon task completion is formalised as the horizon gap [ 7].",
+          "label": "Human",
+          "confidence": 0.7025,
+          "ai_prob": 0.2975,
+          "human_prob": 0.7025,
+          "diagnostics": []
+        },
+        {
+          "sentence": "In long-running autonomous research, this gap manifests as systemic planning degradation.",
+          "label": "Human",
+          "confidence": 0.7678,
+          "ai_prob": 0.2322,
+          "human_prob": 0.7678,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Agents lose global coherence, engage in redundant tool\nexecution, drift from primary research objectives, commit to suboptimal hyperparameter or algorithmic choices early in execution,\nand struggle to recover from intermediate software or experimental\nfailures [1].",
+          "label": "Human",
+          "confidence": 0.9371,
+          "ai_prob": 0.0629,
+          "human_prob": 0.9371,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Understanding and resolving planning-quality degradation is therefore the central engineering and theoretical bottleneck\npreventing autonomous agents from achieving durable, open-ended\nscientific discovery [5].",
+          "label": "Human",
+          "confidence": 0.9123,
+          "ai_prob": 0.0877,
+          "human_prob": 0.9123,
+          "diagnostics": []
+        },
+        {
+          "sentence": "The mitigation approaches discussed later\nare organized in Section 4.",
+          "label": "AI",
+          "confidence": 0.5578,
+          "ai_prob": 0.5578,
+          "human_prob": 0.4422,
+          "diagnostics": []
+        }
+      ]
+    },
+    "2. Background & Literature Review": {
+      "word_count": 538,
+      "model_ai_pct": 32.4,
+      "verdict": "LIKELY HUMAN",
+      "ai_count": 4,
+      "human_count": 19,
+      "skipped_count": 2,
+      "total_sentences": 25,
+      "text_metrics": {
+        "mean": 23.3,
+        "stddev": 8.9,
+        "cv": 0.38,
+        "verdict": "somewhat uniform",
+        "sentence_count": 23,
+        "lengths": [
+          22,
+          16,
+          25,
+          19,
+          21,
+          17,
+          31,
+          16,
+          17,
+          21,
+          20,
+          18,
+          58,
+          16,
+          29,
+          29,
+          21,
+          19,
+          21,
+          27,
+          23,
+          17,
+          33
+        ]
+      },
+      "pattern_totals": {
+        "ai_slop": 1,
+        "flaggy_adverb": 1,
+        "formal_verb": 1
+      },
+      "sentences": [
+        {
+          "sentence": "2.1 Evolution of Autonomous Agent\nArchitectures\nThe architectural paradigm for LLM-based autonomous agents has\nprogressed through three distinct developmental stages [2]:\n1.",
+          "label": "AI",
+          "confidence": 0.9444,
+          "ai_prob": 0.9444,
+          "human_prob": 0.0556,
+          "diagnostics": [
+            {
+              "pattern": "ai_slop",
+              "match": "paradigm",
+              "suggestion": "replace with plain English"
+            }
+          ]
+        },
+        {
+          "sentence": "Prompt Engineering Stage (2020\u20132023): Early agent implementations relied on static\nprompting strategies to elicit sequential reasoning.",
+          "label": "Human",
+          "confidence": 0.7147,
+          "ai_prob": 0.2853,
+          "human_prob": 0.7147,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Techniques\nsuch as Chain-of-Thought (CoT) [1] and ReAct (Interleaving Reasoning and Acting) [ 13] leveraged autoregressive generation to\nalternate between internal thoughts and environment interactions.",
+          "label": "Human",
+          "confidence": 0.6118,
+          "ai_prob": 0.3882,
+          "human_prob": 0.6118,
+          "diagnostics": []
+        },
+        {
+          "sentence": "While effective for immediate, linear logic, these reflexive methods lacked search mechanisms, memory persistence, and backward\nerror correction [1].",
+          "label": "Human",
+          "confidence": 0.7408,
+          "ai_prob": 0.2592,
+          "human_prob": 0.7408,
+          "diagnostics": []
+        },
+        {
+          "sentence": "2.",
+          "label": "Skipped",
+          "confidence": 0.0,
+          "ai_prob": 0.0,
+          "human_prob": 0.0,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Context Engineering Stage (2023\u20132025): To extend operational\nscope, architectures\nincorporated structured memory, retrieval-augmented generation (RAG), and verbal reinforcement learning [ 2].",
+          "label": "Human",
+          "confidence": 0.9235,
+          "ai_prob": 0.0765,
+          "human_prob": 0.9235,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Frameworks\nlike Reflexion [15] enabled agents to evaluate past task failures and\nstore verbal self-reflections in context.",
+          "label": "Human",
+          "confidence": 0.5228,
+          "ai_prob": 0.4772,
+          "human_prob": 0.5228,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Concurrently, search-based\ninference paradigms such as Tree-of-Thoughts (ToT) [12] and Language Agent Tree Search (LATS) [13] integrated formal state-space\nsearch (e.g., Breadth-First Search, Monte Carlo Tree Search) with\nLLM heuristic evaluations.",
+          "label": "Human",
+          "confidence": 0.9367,
+          "ai_prob": 0.0633,
+          "human_prob": 0.9367,
+          "diagnostics": []
+        },
+        {
+          "sentence": "3.",
+          "label": "Skipped",
+          "confidence": 0.0,
+          "ai_prob": 0.0,
+          "human_prob": 0.0,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Runtime Harnesses Stage (2025\u2013Present): Modern agentic systems externalize planning\nand control into multi-layered runtime harnesses [2].",
+          "label": "Human",
+          "confidence": 0.8923,
+          "ai_prob": 0.1077,
+          "human_prob": 0.8923,
+          "diagnostics": []
+        },
+        {
+          "sentence": "These harnesses wrap around frozen foundation models to manage execution\nFigure 1: Conceptual view of planning-quality degradation.",
+          "label": "Human",
+          "confidence": 0.6633,
+          "ai_prob": 0.3367,
+          "human_prob": 0.6633,
+          "diagnostics": []
+        },
+        {
+          "sentence": "A research goal is converted into a planned trajectory, but repeated execution can accumulate local deviations, noisy context, and state errors.",
+          "label": "Human",
+          "confidence": 0.9074,
+          "ai_prob": 0.0926,
+          "human_prob": 0.9074,
+          "diagnostics": []
+        },
+        {
+          "sentence": "The control layer intervenes through\nsearch, memory management, checkpoints, and verification\nbefore the system commits to the next research stage.",
+          "label": "Human",
+          "confidence": 0.8513,
+          "ai_prob": 0.1487,
+          "human_prob": 0.8513,
+          "diagnostics": []
+        },
+        {
+          "sentence": "loops, workspace state persistence, dynamic tool selection (e.g.,\nModel Context Protocol), process reward monitoring, and agent\norchestration [2].",
+          "label": "Human",
+          "confidence": 0.8541,
+          "ai_prob": 0.1459,
+          "human_prob": 0.8541,
+          "diagnostics": []
+        },
+        {
+          "sentence": "2.2 Disambiguating Horizon, Context, and\nMemory\nA primary source of ambiguity in literature is the conflation of\nthree distinct system properties [7]:\n\u2022 Long-Horizon: A structural property of the task, defined by the\nminimum number of\nsequential decisions, environment actions, or causal steps required to transition from an initial state s0 to a valid goal state g [7].",
+          "label": "Human",
+          "confidence": 0.7463,
+          "ai_prob": 0.2537,
+          "human_prob": 0.7463,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Horizon length is independent of whether the resulting trajectory\nfits within a model's context window [7].",
+          "label": "AI",
+          "confidence": 0.6083,
+          "ai_prob": 0.6083,
+          "human_prob": 0.3917,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 Long-Context: A functional property of the underlying language\nmodel, defined by the\nmaximum sequence length (in tokens) over which the attention\nmechanism can compute dense contextual representations [7].",
+          "label": "Human",
+          "confidence": 0.8555,
+          "ai_prob": 0.1445,
+          "human_prob": 0.8555,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 Long-Term Memory: A structural property of the agent harness,\ndefining whether state\nrepresentations, facts, and execution logs persist across execution turns, subagent invocations, or discrete operational sessions\n[7].",
+          "label": "Human",
+          "confidence": 0.9098,
+          "ai_prob": 0.0902,
+          "human_prob": 0.9098,
+          "diagnostics": []
+        },
+        {
+          "sentence": "A long-horizon task may exceed an agent's capability even if\nthe entire trajectory comfortably fits within the model's context\nwindow [7].",
+          "label": "Human",
+          "confidence": 0.6894,
+          "ai_prob": 0.3106,
+          "human_prob": 0.6894,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Planning degradation is fundamentally a failure of\npolicy coherence over extended state-action sequences, exacerbated\nby context window dynamics [1].",
+          "label": "Human",
+          "confidence": 0.8254,
+          "ai_prob": 0.1746,
+          "human_prob": 0.8254,
+          "diagnostics": [
+            {
+              "pattern": "flaggy_adverb",
+              "match": "fundamentally",
+              "suggestion": "often filler \u2014 cut it or say how"
+            }
+          ]
+        },
+        {
+          "sentence": "2.3 Automated Research Agents in Practice\nThe development of automated scientific research systems represents a demanding benchmark for long-horizon planning [3].",
+          "label": "AI",
+          "confidence": 0.944,
+          "ai_prob": 0.944,
+          "human_prob": 0.056,
+          "diagnostics": [
+            {
+              "pattern": "formal_verb",
+              "match": "represents",
+              "suggestion": "try 'is' or rephrase"
+            }
+          ]
+        },
+        {
+          "sentence": "Systems like The AI Scientist introduced end-to-end research pipelines\ncapable of generating paper ideas, editing repository code, running ML training loops, compiling figures, and writing manuscripts\n[3].",
+          "label": "Human",
+          "confidence": 0.7748,
+          "ai_prob": 0.2252,
+          "human_prob": 0.7748,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Subsequent platforms such as FARS [6] and ScienceFlow [5]\nexpanded these capabilities by structuring research progress into\nexecutable workspaces and recoverable state segments.",
+          "label": "Human",
+          "confidence": 0.6276,
+          "ai_prob": 0.3724,
+          "human_prob": 0.6276,
+          "diagnostics": []
+        },
+        {
+          "sentence": "However,\nempirical evaluations reveal a significant performance drop when\ntransitioning from constrained benchmarks to open-ended research\n[3].",
+          "label": "AI",
+          "confidence": 0.8471,
+          "ai_prob": 0.8471,
+          "human_prob": 0.1529,
+          "diagnostics": []
+        },
+        {
+          "sentence": "While automated agents excel at structured, retrieval-grounded,\nand tool-mediated subtasks (such as literature aggregation or baseline script template execution), they suffer severe failure rates during multi-turn debugging, hypothesis revision, and experimental\nverification [3].",
+          "label": "Human",
+          "confidence": 0.8387,
+          "ai_prob": 0.1613,
+          "human_prob": 0.8387,
+          "diagnostics": []
+        }
+      ]
+    },
+    "3. Thematic & Technical Discussion": {
+      "word_count": 897,
+      "model_ai_pct": 33.9,
+      "verdict": "LIKELY HUMAN",
+      "ai_count": 9,
+      "human_count": 31,
+      "skipped_count": 6,
+      "total_sentences": 46,
+      "text_metrics": {
+        "mean": 22.3,
+        "stddev": 9.5,
+        "cv": 0.43,
+        "verdict": "somewhat uniform",
+        "sentence_count": 40,
+        "lengths": [
+          43,
+          11,
+          26,
+          26,
+          21,
+          22,
+          6,
+          17,
+          13,
+          51,
+          34,
+          27,
+          22,
+          25,
+          30,
+          22,
+          19,
+          23,
+          23,
+          25,
+          16,
+          13,
+          19,
+          18,
+          23,
+          22,
+          12,
+          21,
+          11,
+          23,
+          24,
+          41,
+          13,
+          10,
+          25,
+          21,
+          9,
+          22,
+          43,
+          19
+        ]
+      },
+      "pattern_totals": {
+        "formal_verb": 1,
+        "missing_contraction": 2
+      },
+      "sentences": [
+        {
+          "sentence": "3.1 Mathematical Modeling of Compounding\nError and Self-Conditioning\nLet a long-horizon research task be formalized as a Markov Decision\nProcess (MDP) specified by the tuple (S, A, P, R,\ud835\udefe), where an agent\nexecutes a sequence of H actions a1 , a2 , .",
+          "label": "Human",
+          "confidence": 0.5968,
+          "ai_prob": 0.4032,
+          "human_prob": 0.5968,
+          "diagnostics": []
+        },
+        {
+          "sentence": ".",
+          "label": "Skipped",
+          "confidence": 0.0,
+          "ai_prob": 0.0,
+          "human_prob": 0.0,
+          "diagnostics": []
+        },
+        {
+          "sentence": ".",
+          "label": "Skipped",
+          "confidence": 0.0,
+          "ai_prob": 0.0,
+          "human_prob": 0.0,
+          "diagnostics": []
+        },
+        {
+          "sentence": ", aH \u2208 A to reach\na terminal goal state [1].",
+          "label": "AI",
+          "confidence": 0.8628,
+          "ai_prob": 0.8628,
+          "human_prob": 0.1372,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Assume the ideal single-step probability\nof generating a correct, goal-aligned action given current state\nsi-1 is pi = P(ai = a*i | si-1 ) [ 9].",
+          "label": "AI",
+          "confidence": 0.5258,
+          "ai_prob": 0.5258,
+          "human_prob": 0.4742,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Under a naive stationary error\nassumption, if pi = p is constant, the cumulative success probability\nacross horizon H is modeled as S(H) = pH [9].",
+          "label": "AI",
+          "confidence": 0.5187,
+          "ai_prob": 0.5187,
+          "human_prob": 0.4813,
+          "diagnostics": []
+        },
+        {
+          "sentence": "However, empirical research shows that per-step execution accuracy is non-stationary and decreases over the trajectory count i due\nto self-conditioning [9].",
+          "label": "Human",
+          "confidence": 0.8072,
+          "ai_prob": 0.1928,
+          "human_prob": 0.8072,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Autoregressive language models generate\nstep ai conditioned on the full historical prompt context S<i = (s0 ,\na1 , s1 , .",
+          "label": "Human",
+          "confidence": 0.8204,
+          "ai_prob": 0.1796,
+          "human_prob": 0.8204,
+          "diagnostics": []
+        },
+        {
+          "sentence": ".",
+          "label": "Skipped",
+          "confidence": 0.0,
+          "ai_prob": 0.0,
+          "human_prob": 0.0,
+          "diagnostics": []
+        },
+        {
+          "sentence": ".",
+          "label": "Skipped",
+          "confidence": 0.0,
+          "ai_prob": 0.0,
+          "human_prob": 0.0,
+          "diagnostics": []
+        },
+        {
+          "sentence": ", ai-1 , si-1 ) [9].",
+          "label": "AI",
+          "confidence": 0.6881,
+          "ai_prob": 0.6881,
+          "human_prob": 0.3119,
+          "diagnostics": []
+        },
+        {
+          "sentence": "When early actions contain uncorrected\nerrors, hallucinations, or inefficient tool outputs, these anomalies\nremain in S<i [8].",
+          "label": "Human",
+          "confidence": 0.8592,
+          "ai_prob": 0.1408,
+          "human_prob": 0.8592,
+          "diagnostics": []
+        },
+        {
+          "sentence": "The model conditions on its own prior mistakes,\nelevating subsequent error rates [9].",
+          "label": "Human",
+          "confidence": 0.6895,
+          "ai_prob": 0.3105,
+          "human_prob": 0.6895,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Formally, the per-step success\nprobability pi is a declining function of historical error density:\n\nAs a result, cumulative task completion probability exhibits superexponential decay:\n\ud835\udc46(\ud835\udc3b) =\n\ud835\udc3b\u00d6\n\ud835\udc56=1\n\ud835\udc5d\ud835\udc56\u226a\ud835\udc5d\ud835\udc3b (2)\nThis self-conditioning effect explains why doubling the operational\nhorizon length quadruples total system failure rates rather than\nmerely doubling them [8].",
+          "label": "Human",
+          "confidence": 0.6374,
+          "ai_prob": 0.3626,
+          "human_prob": 0.6374,
+          "diagnostics": []
+        },
+        {
+          "sentence": "The metric Horizon Length (Hs ) defines\nthe maximum step count at which an agent maintains a mean\ncompletion accuracy above threshold s\u2208 0\u2264\ud835\udc60\u2264 1 [9]:\n\n(\n\ud835\udc58\u2208 N|\ud835\udc43\n \ud835\udc58\u00db\n\ud835\udc56=1\n\ud835\udc4e\ud835\udc56 =\ud835\udc4e*\ud835\udc56\n!",
+          "label": "AI",
+          "confidence": 0.9543,
+          "ai_prob": 0.9543,
+          "human_prob": 0.0457,
+          "diagnostics": [
+            {
+              "pattern": "formal_verb",
+              "match": "maintains",
+              "suggestion": "try 'keeps'"
+            }
+          ]
+        },
+        {
+          "sentence": "\u2265\ud835\udc60\n)\n(3)\nThe formal expressions above are the converted versions of the\nmathematical model in the supplied paper; Equation 3 preserves the\noriginal Horizon Length definition.",
+          "label": "Human",
+          "confidence": 0.8901,
+          "ai_prob": 0.1099,
+          "human_prob": 0.8901,
+          "diagnostics": []
+        },
+        {
+          "sentence": "For frontier foundation models\noperating without external runtime control, H0.5 remains restricted\nto modest step counts when tackling unconstrained multi-hour\ntasks [8].",
+          "label": "Human",
+          "confidence": 0.5031,
+          "ai_prob": 0.4969,
+          "human_prob": 0.5031,
+          "diagnostics": []
+        },
+        {
+          "sentence": "3.2 The Reasoning-Planning Dichotomy and\nGreedy Step-Wise Policies\nA central cause of plan degradation is the conceptual gap between\nstep-wise reasoning and long-horizon planning [1].",
+          "label": "Human",
+          "confidence": 0.8218,
+          "ai_prob": 0.1782,
+          "human_prob": 0.8218,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Standard prompting schemes (such as CoT) formalize inference as a step-wise greedy\npolicy [1]:\n\nThis greedy policy selects actions based on local next-step plausibility or high immediate generation likelihood [1].",
+          "label": "Human",
+          "confidence": 0.9509,
+          "ai_prob": 0.0491,
+          "human_prob": 0.9509,
+          "diagnostics": []
+        },
+        {
+          "sentence": "While step-wise\ngreedy selection is effective for short-horizon deductive logic, it\nfails in long-horizon planning where initial decisions carry delayed\nconsequences [1].",
+          "label": "AI",
+          "confidence": 0.664,
+          "ai_prob": 0.664,
+          "human_prob": 0.336,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Actions that appear locally optimal in state st\noften transition the system into irreversible, dead-end states in\nst+k [1].",
+          "label": "Human",
+          "confidence": 0.8063,
+          "ai_prob": 0.1937,
+          "human_prob": 0.8063,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Because step-wise greedy policies lack value propagation\nmechanisms (such as Bellman backpropagation or Monte Carlo\ntree rollouts), they make early myopic commitments [1].",
+          "label": "Human",
+          "confidence": 0.9306,
+          "ai_prob": 0.0694,
+          "human_prob": 0.9306,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Over long\nexecution traces, these local commitments compound, forcing the\nagent into corrective sub-loops that inflate trajectory length and\naccelerate performance decay [1].",
+          "label": "Human",
+          "confidence": 0.798,
+          "ai_prob": 0.202,
+          "human_prob": 0.798,
+          "diagnostics": []
+        },
+        {
+          "sentence": "3.3 Context Window Pathologies and Attention\nDilution\nAs execution proceeds beyond 25\u201330 continuous tool calls, context windows accumulate substantial operational noise, termed\nreasoning debris [8].",
+          "label": "Human",
+          "confidence": 0.7255,
+          "ai_prob": 0.2745,
+          "human_prob": 0.7255,
+          "diagnostics": []
+        },
+        {
+          "sentence": "This includes detailed stack traces, raw file\noutputs, abandoned code iterations, and repetitive tool parameters\n[8].",
+          "label": "Human",
+          "confidence": 0.8046,
+          "ai_prob": 0.1954,
+          "human_prob": 0.8046,
+          "diagnostics": []
+        },
+        {
+          "sentence": "The accumulated debris degrades planning quality through\nthree distinct context pathologies [8]:\n1.",
+          "label": "Human",
+          "confidence": 0.6439,
+          "ai_prob": 0.3561,
+          "human_prob": 0.6439,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Attention Dilution and Signal Masking: Massive token contexts\ndilute the dense selfattention signals required to track core constraints [8].",
+          "label": "Human",
+          "confidence": 0.7987,
+          "ai_prob": 0.2013,
+          "human_prob": 0.7987,
+          "diagnostics": []
+        },
+        {
+          "sentence": "The effective signal-to-noise ratio drops, leading the agent to re-execute\ncompleted subtasks or violate pre-stated task constraints [8].",
+          "label": "Human",
+          "confidence": 0.7639,
+          "ai_prob": 0.2361,
+          "human_prob": 0.7639,
+          "diagnostics": []
+        },
+        {
+          "sentence": "2.",
+          "label": "Skipped",
+          "confidence": 0.0,
+          "ai_prob": 0.0,
+          "human_prob": 0.0,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Lost-in-the-Middle Phenomenon: LLMs disproportionately attend\nto tokens at the\nabsolute beginning (system prompt) and absolute end (recent\nturns) of the context window [10].",
+          "label": "Human",
+          "confidence": 0.913,
+          "ai_prob": 0.087,
+          "human_prob": 0.913,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Crucial intermediate experimental results, state variables, or negative debugging feedback located\nin the middle of a long context are systematically ignored [10].",
+          "label": "Human",
+          "confidence": 0.9286,
+          "ai_prob": 0.0714,
+          "human_prob": 0.9286,
+          "diagnostics": []
+        },
+        {
+          "sentence": "3.",
+          "label": "Skipped",
+          "confidence": 0.0,
+          "ai_prob": 0.0,
+          "human_prob": 0.0,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Recency Bias: As the context window nears capacity, recency\nbias intensifies [10].",
+          "label": "Human",
+          "confidence": 0.6058,
+          "ai_prob": 0.3942,
+          "human_prob": 0.6058,
+          "diagnostics": []
+        },
+        {
+          "sentence": "The agent\nover-indexes on immediate prior outputs, losing sight of overall\nresearch goals and getting trapped in localized execution loops [8].",
+          "label": "Human",
+          "confidence": 0.5191,
+          "ai_prob": 0.4809,
+          "human_prob": 0.5191,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Importantly, scaling context window capacity does not resolve\nattention dilution [8].",
+          "label": "Human",
+          "confidence": 0.782,
+          "ai_prob": 0.218,
+          "human_prob": 0.782,
+          "diagnostics": [
+            {
+              "pattern": "missing_contraction",
+              "match": "does not",
+              "suggestion": "use 'doesn't'"
+            }
+          ]
+        },
+        {
+          "sentence": "Long prompt contexts harm execution reliability even under perfect document retrieval, demonstrating that\nlong-context processing does not equate to long-horizon planning\ncapacity [7].",
+          "label": "Human",
+          "confidence": 0.7428,
+          "ai_prob": 0.2572,
+          "human_prob": 0.7428,
+          "diagnostics": [
+            {
+              "pattern": "missing_contraction",
+              "match": "does not",
+              "suggestion": "use 'doesn't'"
+            }
+          ]
+        },
+        {
+          "sentence": "3.4 Goal Drift and Trajectory Contamination\nGoal drift describes the progressive divergence between an agent's\nactive execution trajectory and its initial research brief [8].",
+          "label": "Human",
+          "confidence": 0.676,
+          "ai_prob": 0.324,
+          "human_prob": 0.676,
+          "diagnostics": []
+        },
+        {
+          "sentence": "In longrunning autonomous operations, goal drift stems from two main\ncauses:\n\u2022 Trajectory Conditioning: When an agent conditions on long execution histories\u2014especially\nthose generated across multi-agent handoffs or lower-capacity\nsubagents\u2014it inherits subtle reasoning errors and stylistic bias from\nearlier steps [8].",
+          "label": "Human",
+          "confidence": 0.5597,
+          "ai_prob": 0.4403,
+          "human_prob": 0.5597,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Trajectory contamination impairs even frontier\nmodels, causing them to adopt compromised sub-goals [8].",
+          "label": "Human",
+          "confidence": 0.7458,
+          "ai_prob": 0.2542,
+          "human_prob": 0.7458,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 Specification Ambiguity: Underspecified initial instructions accelerate goal drift [8].",
+          "label": "Human",
+          "confidence": 0.9045,
+          "ai_prob": 0.0955,
+          "human_prob": 0.9045,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Lacking explicit success criteria, the agent repeatedly reinterprets\nits objective based on recent intermediate outcomes, ultimately\nsolving an entirely different (and often trivialized) task [8].",
+          "label": "AI",
+          "confidence": 0.5192,
+          "ai_prob": 0.5192,
+          "human_prob": 0.4808,
+          "diagnostics": []
+        },
+        {
+          "sentence": "3.5 The No-Recovery Bottleneck in Subtask\nDecomposition\nTo mitigate context pollution, modern frameworks decompose complex goals into isolated, atomic subtasks [8].",
+          "label": "AI",
+          "confidence": 0.5021,
+          "ai_prob": 0.5021,
+          "human_prob": 0.4979,
+          "diagnostics": []
+        },
+        {
+          "sentence": "However, extreme task\ndecomposition introduces the no-recovery bottleneck [10].",
+          "label": "Human",
+          "confidence": 0.7792,
+          "ai_prob": 0.2208,
+          "human_prob": 0.7792,
+          "diagnostics": []
+        },
+        {
+          "sentence": "When\natomic subtasks are executed in isolated model calls conditioned\nonly on minimal state representations, the overall execution history\nis removed [10].",
+          "label": "Human",
+          "confidence": 0.781,
+          "ai_prob": 0.219,
+          "human_prob": 0.781,
+          "diagnostics": []
+        },
+        {
+          "sentence": "If an atomic step generates a subtly flawed intermediate output (such as an incorrectly formatted data array or a partial\nsoftware patch) that satisfies local syntactic checks, downstream\nsubagents receive corrupted inputs without the contextual history\nneeded to diagnose the root cause [10].",
+          "label": "AI",
+          "confidence": 0.9387,
+          "ai_prob": 0.9387,
+          "human_prob": 0.0613,
+          "diagnostics": []
+        },
+        {
+          "sentence": "The execution harness becomes unable to backtrack across atomic boundaries, transforming\nminor execution errors into terminal pipeline failures [10].",
+          "label": "Human",
+          "confidence": 0.8287,
+          "ai_prob": 0.1713,
+          "human_prob": 0.8287,
+          "diagnostics": []
+        }
+      ]
+    },
+    "4. Current Approaches & Developments": {
+      "word_count": 582,
+      "model_ai_pct": 32.6,
+      "verdict": "LIKELY HUMAN",
+      "ai_count": 7,
+      "human_count": 22,
+      "skipped_count": 0,
+      "total_sentences": 29,
+      "text_metrics": {
+        "mean": 20.1,
+        "stddev": 5.2,
+        "cv": 0.26,
+        "verdict": "very uniform (AI-like)",
+        "sentence_count": 29,
+        "lengths": [
+          14,
+          31,
+          22,
+          24,
+          24,
+          13,
+          14,
+          20,
+          17,
+          23,
+          28,
+          30,
+          14,
+          23,
+          19,
+          29,
+          20,
+          18,
+          20,
+          16,
+          19,
+          20,
+          16,
+          28,
+          13,
+          17,
+          20,
+          14,
+          16
+        ]
+      },
+      "pattern_totals": {
+        "formal_verb": 1,
+        "ai_slop": 1
+      },
+      "sentences": [
+        {
+          "sentence": "To combat planning degradation, recent architectures isolate foundation models within structured control harnesses [2].",
+          "label": "Human",
+          "confidence": 0.7481,
+          "ai_prob": 0.2519,
+          "human_prob": 0.7481,
+          "diagnostics": []
+        },
+        {
+          "sentence": "These interventions fall into four primary paradigms:\n4.1 Search-Based and Deliberate Planning\nFrameworks\nRather than relying on reflexive autoregressive generation, searchbased frameworks expand decision making into explicit state space\nsearch [12].",
+          "label": "AI",
+          "confidence": 0.689,
+          "ai_prob": 0.689,
+          "human_prob": 0.311,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 Tree-of-Thoughts (ToT): ToT conceptualizes planning as tree\nsearch, where nodes represent\nintermediate reasoning steps (\"thoughts\") and edges represent\nstate transitions [12].",
+          "label": "Human",
+          "confidence": 0.8612,
+          "ai_prob": 0.1388,
+          "human_prob": 0.8612,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Using Breadth-First Search (BFS) or DepthFirst Search (DFS), ToT uses LLMs as self-evaluation heuristics to\nassess state promise, enabling deliberate lookahead and backtracking [12].",
+          "label": "Human",
+          "confidence": 0.7462,
+          "ai_prob": 0.2538,
+          "human_prob": 0.7462,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 Language Agent Tree Search (LATS): LATS unifies reasoning,\nacting, and planning\nby integrating Monte Carlo Tree Search (MCTS) with external environment feedback [13].",
+          "label": "Human",
+          "confidence": 0.8342,
+          "ai_prob": 0.1658,
+          "human_prob": 0.8342,
+          "diagnostics": []
+        },
+        {
+          "sentence": "LATS repurposes the LLM as agent policy,\nvalue function, and self-reflection generator [13].",
+          "label": "Human",
+          "confidence": 0.8333,
+          "ai_prob": 0.1667,
+          "human_prob": 0.8333,
+          "diagnostics": []
+        },
+        {
+          "sentence": "By incorporating\nstate rollbacks and trajectory evaluations, LATS sample-efficiently\nexplores alternative action paths [14].",
+          "label": "Human",
+          "confidence": 0.7837,
+          "ai_prob": 0.2163,
+          "human_prob": 0.7837,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 Flare (Future-Aware Planning): Flare addresses step-wise policy\nmyopia by combining\nexplicit multi-step lookahead, value propagation, and limited\ncommitment [1].",
+          "label": "Human",
+          "confidence": 0.9109,
+          "ai_prob": 0.0891,
+          "human_prob": 0.9109,
+          "diagnostics": [
+            {
+              "pattern": "formal_verb",
+              "match": "addresses",
+              "suggestion": "try 'fixes' or 'deals with'"
+            }
+          ]
+        },
+        {
+          "sentence": "By evaluating delayed outcomes before committing to execution steps, Flare prevents premature convergence onto\nsuboptimal trajectories [1].",
+          "label": "AI",
+          "confidence": 0.8381,
+          "ai_prob": 0.8381,
+          "human_prob": 0.1619,
+          "diagnostics": []
+        },
+        {
+          "sentence": "4.2 Adaptive Context Management and\nProgressive Compression\nTo prevent reasoning debris from corrupting context windows,\nadvanced agent harnesses implement dynamic context control [8].",
+          "label": "Human",
+          "confidence": 0.573,
+          "ai_prob": 0.427,
+          "human_prob": 0.573,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 Adaptive Context Management (AdaCoM): AdaCoM trains an\nexternal controller via\nreinforcement learning to dynamically modify, prune, and summarize the context window of a frozen primary agent [16].",
+          "label": "Human",
+          "confidence": 0.9367,
+          "ai_prob": 0.0633,
+          "human_prob": 0.9367,
+          "diagnostics": []
+        },
+        {
+          "sentence": "AdaCoM\nhighlights a core Fidelity-Reliability Trade-Off: highly capable primary agents perform best with high-fidelity context preservation,\nwhereas lower-capacity agents require aggressive context pruning\nto remain within stable execution bounds [16].",
+          "label": "Human",
+          "confidence": 0.8695,
+          "ai_prob": 0.1305,
+          "human_prob": 0.8695,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 Progressive Memory Compression: Systems like Goal2Skill decouple state history from\nreasoning traces [8].",
+          "label": "Human",
+          "confidence": 0.8633,
+          "ai_prob": 0.1367,
+          "human_prob": 0.8633,
+          "diagnostics": []
+        },
+        {
+          "sentence": "They maintain lossless, immutable records\nof state transitions, execution logs, and tool outputs while applying\nlossy, structured summarization to intermediate reasoning paths\n[8].",
+          "label": "Human",
+          "confidence": 0.8477,
+          "ai_prob": 0.1523,
+          "human_prob": 0.8477,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 State Serialization and Re-Anchoring: Operational harnesses such\nas Microsoft CORPGEN implement periodic goal re-anchoring and state serialization [8].",
+          "label": "Human",
+          "confidence": 0.9111,
+          "ai_prob": 0.0889,
+          "human_prob": 0.9111,
+          "diagnostics": []
+        },
+        {
+          "sentence": "At defined intervals, the system serializes execution\nprogress to external storage and re-instantiates the agent with\na clean context window containing only the serialized state and\nhigh-level goal [8].",
+          "label": "Human",
+          "confidence": 0.8636,
+          "ai_prob": 0.1364,
+          "human_prob": 0.8636,
+          "diagnostics": []
+        },
+        {
+          "sentence": "4.3 Multi-Tiered Runtime Harnesses and\nExecutable Workspaces\nModern automated research platforms isolate long-horizon planning across physical and operational boundaries [5].",
+          "label": "Human",
+          "confidence": 0.6168,
+          "ai_prob": 0.3832,
+          "human_prob": 0.6168,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 ScienceFlow Workspace Isolation: ScienceFlow organizes scientific\ndiscovery into distinct\nresearch segments anchored to persistent executable workspaces\n[5].",
+          "label": "Human",
+          "confidence": 0.8281,
+          "ai_prob": 0.1719,
+          "human_prob": 0.8281,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Progress is recorded as recoverable filesystem snapshots (source\ncode, checkpoints, cached data arrays) rather than pure text interaction logs [5].",
+          "label": "Human",
+          "confidence": 0.6934,
+          "ai_prob": 0.3066,
+          "human_prob": 0.6934,
+          "diagnostics": []
+        },
+        {
+          "sentence": "This separation connects textual reasoning to\nexecutable runtime environments, enabling state recovery after\nexecution failures [5].",
+          "label": "AI",
+          "confidence": 0.8309,
+          "ai_prob": 0.8309,
+          "human_prob": 0.1691,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 FARS Hierarchical Stage Isolation: FARS structures automated\nresearch into four\nisolated stages: Ideation, Planning, Experimentation, and Writing\n[6].",
+          "label": "Human",
+          "confidence": 0.8916,
+          "ai_prob": 0.1084,
+          "human_prob": 0.8916,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Each stage is managed by specialized agent configurations\nthat communicate solely through structured workspace artifacts,\npreventing cross-stage context contamination [6].",
+          "label": "AI",
+          "confidence": 0.6414,
+          "ai_prob": 0.6414,
+          "human_prob": 0.3586,
+          "diagnostics": []
+        },
+        {
+          "sentence": "4.4 Self-Reflection and Closed-Loop Verification\nClosed-loop execution systems rely on environmental feedback to\ntrigger self-correction [8].",
+          "label": "AI",
+          "confidence": 0.5853,
+          "ai_prob": 0.5853,
+          "human_prob": 0.4147,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 Verbal Reinforcement Learning (Reflexion): Reflexion evaluates\ntask performance signals\n(e.g., test suite pass/fail status, compiler flags) and generates\nexplicit text reflections detailing why an approach failed [15].",
+          "label": "Human",
+          "confidence": 0.6811,
+          "ai_prob": 0.3189,
+          "human_prob": 0.6811,
+          "diagnostics": []
+        },
+        {
+          "sentence": "These\nreflections are stored in episodic memory to adjust future planning\ncycles [15].",
+          "label": "AI",
+          "confidence": 0.5392,
+          "ai_prob": 0.5392,
+          "human_prob": 0.4608,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 Cheap Verification Protocols: Production analyses highlight that\nagent plan recovery\nrequires low-cost, deterministic verification functions [8].",
+          "label": "Human",
+          "confidence": 0.8279,
+          "ai_prob": 0.1721,
+          "human_prob": 0.8279,
+          "diagnostics": []
+        },
+        {
+          "sentence": "If state\nverification requires expensive LLM judge calls or lengthy computational jobs, the system quickly exhausts its compute budget\n[8].",
+          "label": "Human",
+          "confidence": 0.7275,
+          "ai_prob": 0.2725,
+          "human_prob": 0.7275,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Automated unit tests, static code analyzers, and deterministic\nassertions provide efficient verification loops [8].",
+          "label": "Human",
+          "confidence": 0.5158,
+          "ai_prob": 0.4842,
+          "human_prob": 0.5158,
+          "diagnostics": []
+        },
+        {
+          "sentence": "The following table synthesizes key strategic frameworks developed to mitigate planning degradation in autonomous agents\n[5].",
+          "label": "AI",
+          "confidence": 0.6897,
+          "ai_prob": 0.6897,
+          "human_prob": 0.3103,
+          "diagnostics": [
+            {
+              "pattern": "ai_slop",
+              "match": "strategic",
+              "suggestion": "replace with plain English"
+            }
+          ]
+        }
+      ]
+    },
+    "5. Research Challenges & Limitations": {
+      "word_count": 572,
+      "model_ai_pct": 38.5,
+      "verdict": "LIKELY HUMAN",
+      "ai_count": 7,
+      "human_count": 13,
+      "skipped_count": 0,
+      "total_sentences": 20,
+      "text_metrics": {
+        "mean": 28.6,
+        "stddev": 31.4,
+        "cv": 1.1,
+        "verdict": "natural variation",
+        "sentence_count": 20,
+        "lengths": [
+          33,
+          9,
+          19,
+          13,
+          22,
+          20,
+          18,
+          161,
+          23,
+          13,
+          30,
+          14,
+          44,
+          25,
+          23,
+          24,
+          26,
+          11,
+          24,
+          20
+        ]
+      },
+      "pattern_totals": {
+        "ai_slop": 3,
+        "missing_contraction": 1,
+        "formal_transition": 1
+      },
+      "sentences": [
+        {
+          "sentence": "5.1 The Implementation Gap: Idea Generation\nVersus Code Execution\nCross-benchmark studies reveal an asymmetry in automated scientific research: foundation models excel at open-ended idea generation but struggle with rigorous computational execution [ 3].",
+          "label": "Human",
+          "confidence": 0.6852,
+          "ai_prob": 0.3148,
+          "human_prob": 0.6852,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Automated research frameworks frequently propose novel research\nhypotheses [3].",
+          "label": "Human",
+          "confidence": 0.6241,
+          "ai_prob": 0.3759,
+          "human_prob": 0.6241,
+          "diagnostics": []
+        },
+        {
+          "sentence": "However, when tasked with implementing these\nideas in code, running experiments, and resolving execution bugs,\nperformance degrades sharply [3].",
+          "label": "Human",
+          "confidence": 0.566,
+          "ai_prob": 0.434,
+          "human_prob": 0.566,
+          "diagnostics": []
+        },
+        {
+          "sentence": "This implementation gap stems\nfrom the strict correctness requirements of software execution [3].",
+          "label": "AI",
+          "confidence": 0.6327,
+          "ai_prob": 0.6327,
+          "human_prob": 0.3673,
+          "diagnostics": []
+        },
+        {
+          "sentence": "While textual ideation permits stylistic ambiguity and soft reasoning, executable code requires exact syntax, logical consistency,\nstate management, and memory efficiency [3].",
+          "label": "AI",
+          "confidence": 0.679,
+          "ai_prob": 0.679,
+          "human_prob": 0.321,
+          "diagnostics": []
+        },
+        {
+          "sentence": "A single incorrect\nvariable reference or matrix shape mismatch breaks downstream\nexecution, exposing the fragility of ungrounded LLM planning [3].",
+          "label": "AI",
+          "confidence": 0.8016,
+          "ai_prob": 0.8016,
+          "human_prob": 0.1984,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Table 1: Strategic frameworks developed to mitigate planning degradation in autonomous agents (content retained from the\nsupplied paper).",
+          "label": "Human",
+          "confidence": 0.5854,
+          "ai_prob": 0.4146,
+          "human_prob": 0.5854,
+          "diagnostics": [
+            {
+              "pattern": "ai_slop",
+              "match": "strategic",
+              "suggestion": "replace with plain English"
+            }
+          ]
+        },
+        {
+          "sentence": "Framework Primary mechanism Memory/state representation Context management Mitigation target\nTree-of-Thoughts (ToT)\n[12]\nHeuristic tree search\n(BFS/DFS)\nTree-structured intermediate\nthoughts\nUncompressed local branch\ncontext\nLocal policy myopia and lack\nof lookahead\nLanguage Agent Tree\nSearch (LATS) [13]\nMCTS with external environment feedback\nTree nodes with value and reflection scores\nEnvironment reset and state\nbacktracking\nCumulative execution failure\nand missing rollbacks\nAdaptive Context Management (AdaCoM) [16]\nExternal RL-trained context\ncontroller\nDynamic context filtering Dynamic pruning and stalecontent stripping\nContext window saturation\nand attention dilution\nCORPGEN Harness [8] Temporal isolation and state\nserialization\nStructured external checkpoint storage\nClean context reinstantiation\nvia re-anchoring\nGoal drift and context pollution\nScienceFlow [5] Workspace-grounded research segments\nExecutable filesystem snapshots and artifacts\nSegment-isolated interaction\nlogs\nIrreversible workspace corruption\nGoal2Skill [8] Progressive dual-system compression\nLossless facts plus lossy reasoning traces\nStructured task-log extraction Context memory decay and\ncontext bloat\nThe following table summarizes empirical benchmark performance\nacross primary research tasks, detailing target domains, evaluation\nmetrics, and observed failure modes [3].",
+          "label": "Human",
+          "confidence": 0.9986,
+          "ai_prob": 0.0014,
+          "human_prob": 0.9986,
+          "diagnostics": []
+        },
+        {
+          "sentence": "5.2 Workflow-Induced Greedy Hill-Climbing\nand Strategic Myopia\nThe design of control loops in autonomous research agents often introduces unintended behavioral pathologies [ 11].",
+          "label": "Human",
+          "confidence": 0.86,
+          "ai_prob": 0.14,
+          "human_prob": 0.86,
+          "diagnostics": [
+            {
+              "pattern": "ai_slop",
+              "match": "strategic",
+              "suggestion": "replace with plain English"
+            }
+          ]
+        },
+        {
+          "sentence": "For instance, many long-horizon discovery systems use a strict \"commitordiscard\" evaluation rule [11].",
+          "label": "AI",
+          "confidence": 0.6236,
+          "ai_prob": 0.6236,
+          "human_prob": 0.3764,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Under this design, an agent proposes an experimental modification, executes a test, compares performance against the current baseline, and commits the code if\nperformance improves\u2014reverting changes if performance declines\n[11].",
+          "label": "AI",
+          "confidence": 0.574,
+          "ai_prob": 0.574,
+          "human_prob": 0.426,
+          "diagnostics": []
+        },
+        {
+          "sentence": "While operationally convenient, this commit-or-discard paradigm is structurally isomorphic to local greedy hill-climbing [11].",
+          "label": "Human",
+          "confidence": 0.9216,
+          "ai_prob": 0.0784,
+          "human_prob": 0.9216,
+          "diagnostics": [
+            {
+              "pattern": "ai_slop",
+              "match": "paradigm",
+              "suggestion": "replace with plain English"
+            }
+          ]
+        },
+        {
+          "sentence": "Empirical trace analyses of autonomous research runs over 100+\nsequential experiments demonstrate that this control rule induces\nspecific behavioral failure modes [11]:\n\u2022 Risk Aversion: Following failed experimental attempts, agents\ndisplay severe risk aversion,\nrestricting subsequent search steps to minor, hyper-local parameter tweaks [11].",
+          "label": "Human",
+          "confidence": 0.8875,
+          "ai_prob": 0.1125,
+          "human_prob": 0.8875,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 Success Chasing and Saturation: Agents repeatedly exploit initial\nminor performance\ngains, driving the search into local optimization plateaus while\nignoring broader architectural changes [11].",
+          "label": "Human",
+          "confidence": 0.8406,
+          "ai_prob": 0.1594,
+          "human_prob": 0.8406,
+          "diagnostics": []
+        },
+        {
+          "sentence": "\u2022 Anchoring: Choices made during early, small-scale pilot runs are\npreserved into larger\nexperimental regimes, locking the agent into suboptimal design\nchoices [11].",
+          "label": "Human",
+          "confidence": 0.8575,
+          "ai_prob": 0.1425,
+          "human_prob": 0.8575,
+          "diagnostics": []
+        },
+        {
+          "sentence": "5.3 The Verification Gap and Human-Agent\nAsymmetry\nAs autonomous research agents scale in speed and execution volume, they create a critical verification gap [18].",
+          "label": "AI",
+          "confidence": 0.5346,
+          "ai_prob": 0.5346,
+          "human_prob": 0.4654,
+          "diagnostics": []
+        },
+        {
+          "sentence": "While human researchers review scientific literature at human reading speeds, autonomous agents can execute thousands of experimental variations\nand generate dozens of synthetic manuscripts overnight [6].",
+          "label": "AI",
+          "confidence": 0.8872,
+          "ai_prob": 0.8872,
+          "human_prob": 0.1128,
+          "diagnostics": []
+        },
+        {
+          "sentence": "This\nspeed disparity breaks traditional social trust and peer-review mechanisms [18].",
+          "label": "Human",
+          "confidence": 0.6686,
+          "ai_prob": 0.3314,
+          "human_prob": 0.6686,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Autonomous agents generate plausible-looking data\nfigures, statistical summaries, and text citations that can conceal\nunderlying code bugs, dataset leakage, or hallucinated baseline comparisons [4].",
+          "label": "Human",
+          "confidence": 0.6957,
+          "ai_prob": 0.3043,
+          "human_prob": 0.6957,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Furthermore, because LLMs do not suffer reputational\npenalties for invalid outputs, unverified agent-generated scientific\nartifacts risk polluting scientific literature [18].",
+          "label": "Human",
+          "confidence": 0.8507,
+          "ai_prob": 0.1493,
+          "human_prob": 0.8507,
+          "diagnostics": [
+            {
+              "pattern": "missing_contraction",
+              "match": "do not",
+              "suggestion": "use 'don't'"
+            },
+            {
+              "pattern": "formal_transition",
+              "match": "Furthermore",
+              "suggestion": "cut it, or use 'And' / 'On top of that'"
+            }
+          ]
+        }
+      ]
+    },
+    "6. Research Gaps & Future Directions": {
+      "word_count": 411,
+      "model_ai_pct": 38.9,
+      "verdict": "LIKELY HUMAN",
+      "ai_count": 3,
+      "human_count": 9,
+      "skipped_count": 0,
+      "total_sentences": 12,
+      "text_metrics": {
+        "mean": 34.2,
+        "stddev": 34.0,
+        "cv": 0.99,
+        "verdict": "natural variation",
+        "sentence_count": 12,
+        "lengths": [
+          35,
+          12,
+          36,
+          28,
+          21,
+          29,
+          20,
+          20,
+          145,
+          21,
+          19,
+          25
+        ]
+      },
+      "pattern_totals": {
+        "formal_verb": 1
+      },
+      "sentences": [
+        {
+          "sentence": "Addressing planning degradation requires bridging several major\nresearch gaps:\n6.1 Learned Runtime Orchestrators and\nDynamic Context Control\nCurrent runtime harnesses rely primarily on static, hand-crafted\nrules for context truncation, goal re-anchoring, and subagent handoffs [2].",
+          "label": "AI",
+          "confidence": 0.5213,
+          "ai_prob": 0.5213,
+          "human_prob": 0.4787,
+          "diagnostics": []
+        },
+        {
+          "sentence": "A critical research direction is the development of learned\nruntime orchestrators [16].",
+          "label": "Human",
+          "confidence": 0.5045,
+          "ai_prob": 0.4955,
+          "human_prob": 0.5045,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Rather than using fixed token boundaries, context management should be driven by dynamic reinforcement learning agents (e.g., AdaCoM) that monitor context entropy,\ntask progress, and model-specific reliability thresholds to dynamically compress or restore execution history [16].",
+          "label": "AI",
+          "confidence": 0.9254,
+          "ai_prob": 0.9254,
+          "human_prob": 0.0746,
+          "diagnostics": []
+        },
+        {
+          "sentence": "6.2 Process-Level Credit Assignment and\nGranular Reward Models\nOutcome-based evaluation signals (such as binary pass/fail test\nchecks or final accuracy scores) grow uninformative over long\ntask horizons [7].",
+          "label": "Human",
+          "confidence": 0.6136,
+          "ai_prob": 0.3864,
+          "human_prob": 0.6136,
+          "diagnostics": []
+        },
+        {
+          "sentence": "When a 100-step execution trajectory fails, an\noutcome-only signal provides no gradient as to which specific step\ncaused the failure [7].",
+          "label": "Human",
+          "confidence": 0.6,
+          "ai_prob": 0.4,
+          "human_prob": 0.6,
+          "diagnostics": [
+            {
+              "pattern": "formal_verb",
+              "match": "provides",
+              "suggestion": "try 'gives you' or 'has'"
+            }
+          ]
+        },
+        {
+          "sentence": "Future agent training must focus on Process\nReward Models (PRMs) capable of computing granular step-level\nvalue estimations across multi-hour execution traces, enabling localized credit assignment and targeted back-tracking [7].",
+          "label": "Human",
+          "confidence": 0.8054,
+          "ai_prob": 0.1946,
+          "human_prob": 0.8054,
+          "diagnostics": []
+        },
+        {
+          "sentence": "6.3 Environment State Reversibility and\nStructural Rollbacks\nState-space search algorithms like LATS demonstrate that deliberate\nplanning requires environment reversibility [14].",
+          "label": "Human",
+          "confidence": 0.7324,
+          "ai_prob": 0.2676,
+          "human_prob": 0.7324,
+          "diagnostics": []
+        },
+        {
+          "sentence": "While software\nTable 2: Empirical benchmark performance across primary research tasks (values reproduced from the supplied paper, not\nindependently validated).",
+          "label": "Human",
+          "confidence": 0.5487,
+          "ai_prob": 0.4513,
+          "human_prob": 0.5487,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Benchmark Target domain Evaluation metric Scale Baseline model Baseline accuracy\nHarness-enhanced\nSOTA\nPrimary failure mode\nMLE-Bench [3, 5] Applied ML/Kaggle tasks Any-medal rate (24h budget) 75 tasks OpenAI o1-preview 16.90% 70.22% (ScienceFlow)\n[5]\nMulti-turn debugging\nand resource management [3]\nPaperBench [3] ICML paper replication End-to-end replication accuracy\n8,316 tasks OpenAI o1-high 26.00% N/A Complex code implementation gap [3]\nSciReplicate-Bench\n[3]\nNLP code generation Executable reproduction rate 100 tasks Claude 3.7 Sonnet 39.00% N/A Error accumulation in\npipeline assembly [3]\nCORE-Bench [3] CS/Med paper reproduction Task completion pass rate 270 tasks OpenAI GPT-4o 55.56% N/A Environment configuration failure [3]\nML-Dev-Bench [3] Software engineering/ML Full repository pass rate 30 tasks Claude 3.5 Sonnet 50.00% N/A Long-horizon context\ndrift [3]\nenvironments allow git-based state resets and workspace restoration, real-world tool execution (such as web API calls, database\nwrites, or physical resource allocation) often alters environment\nstate irreversibly [17].",
+          "label": "Human",
+          "confidence": 0.9988,
+          "ai_prob": 0.0012,
+          "human_prob": 0.9988,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Developing non-destructive sandboxes, transactional tool interfaces, and virtualized execution environments\nthat support state snapshots is essential for scaling search-based\nplanning [5].",
+          "label": "Human",
+          "confidence": 0.8717,
+          "ai_prob": 0.1283,
+          "human_prob": 0.8717,
+          "diagnostics": []
+        },
+        {
+          "sentence": "6.4 Scalable Automated Verification\nFrameworks\nTo close the human-agent verification gap, scientific infrastructure\nmust develop automated verification protocols [18].",
+          "label": "Human",
+          "confidence": 0.6437,
+          "ai_prob": 0.3563,
+          "human_prob": 0.6437,
+          "diagnostics": []
+        },
+        {
+          "sentence": "This includes\ncontainerized, deterministically reproducible execution logs, cryptographic provenance tracking for generated research artifacts,\nand automated peerreview agents equipped with adversarial test\nexecution suites [6].",
+          "label": "AI",
+          "confidence": 0.5379,
+          "ai_prob": 0.5379,
+          "human_prob": 0.4621,
+          "diagnostics": []
+        }
+      ]
+    },
+    "7. Conclusion": {
+      "word_count": 145,
+      "model_ai_pct": 36.8,
+      "verdict": "LIKELY HUMAN",
+      "ai_count": 2,
+      "human_count": 4,
+      "skipped_count": 0,
+      "total_sentences": 6,
+      "text_metrics": {
+        "mean": 24.2,
+        "stddev": 8.2,
+        "cv": 0.34,
+        "verdict": "somewhat uniform",
+        "sentence_count": 6,
+        "lengths": [
+          17,
+          21,
+          27,
+          18,
+          41,
+          21
+        ]
+      },
+      "pattern_totals": {
+        "missing_contraction": 2,
+        "ai_slop": 1
+      },
+      "sentences": [
+        {
+          "sentence": "Planning-quality degradation remains the primary bottleneck preventing autonomous research agents from realizing reliable, multiday scientific discovery [5].",
+          "label": "AI",
+          "confidence": 0.5355,
+          "ai_prob": 0.5355,
+          "human_prob": 0.4645,
+          "diagnostics": []
+        },
+        {
+          "sentence": "The degradation of agent trajectories\nover long horizons is not merely an issue of model scaling or context window size [7].",
+          "label": "AI",
+          "confidence": 0.6077,
+          "ai_prob": 0.6077,
+          "human_prob": 0.3923,
+          "diagnostics": [
+            {
+              "pattern": "missing_contraction",
+              "match": "is not",
+              "suggestion": "use 'isn't'"
+            }
+          ]
+        },
+        {
+          "sentence": "Instead, it is driven by compounding execution errors, self-conditioning loops, local greedy policy myopia,\ncontext pollution, and the absence of value propagation across\nexecution states [ 1].",
+          "label": "Human",
+          "confidence": 0.8194,
+          "ai_prob": 0.1806,
+          "human_prob": 0.8194,
+          "diagnostics": [
+            {
+              "pattern": "missing_contraction",
+              "match": "it is",
+              "suggestion": "use 'it's'"
+            }
+          ]
+        },
+        {
+          "sentence": "Resolving the horizon gap requires a shift\nfrom reliance on single-step model capabilities toward structured\nruntime harnesses [2].",
+          "label": "Human",
+          "confidence": 0.6586,
+          "ai_prob": 0.3414,
+          "human_prob": 0.6586,
+          "diagnostics": []
+        },
+        {
+          "sentence": "As demonstrated by state-space search architectures, dynamic context managers, and workspace-grounded\nexecution environments, sustaining planning quality over long\nhorizons demands isolating reasoning traces, enforcing closed-loop\ndeterministic verification, enabling workspace state rollbacks, and\ndecoupling state preservation from model context windows [ 5].",
+          "label": "Human",
+          "confidence": 0.9012,
+          "ai_prob": 0.0988,
+          "human_prob": 0.9012,
+          "diagnostics": []
+        },
+        {
+          "sentence": "Building robust, self-correcting runtime harnesses will be critical to\nadvancing autonomous systems from short-horizon task execution\nto trustworthy scientific discovery [4].",
+          "label": "Human",
+          "confidence": 0.5569,
+          "ai_prob": 0.4431,
+          "human_prob": 0.5569,
+          "diagnostics": [
+            {
+              "pattern": "ai_slop",
+              "match": "robust",
+              "suggestion": "replace with plain English"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "full_sentence_scores": [
+    {
+      "sentence": "Planning-Quality Degradation in Long-Horizon Autonomous\nResearch Agents\nHarsh Sharma*\nIndian Institute of Information Technology, Allahabad\nIndia\nAbstract\nfrom short-horizon tool orchestration to complex, multi-step scientific workflows spanning ideation, experimental design, code\nexecution, and manuscript drafting.",
+      "label": "Human",
+      "confidence": 0.7782,
+      "ai_prob": 0.2218,
+      "human_prob": 0.7782,
+      "diagnostics": []
+    },
+    {
+      "sentence": "However, as execution trajectories extend across hours or days, systems suffer from a severe\nphenomenon known as planning-quality degradation.",
+      "label": "AI",
+      "confidence": 0.5835,
+      "ai_prob": 0.5835,
+      "human_prob": 0.4165,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Although\nstate-of-the-art LLMs exhibit near-perfect single-step reasoning\naccuracy, their ability to sustain goal-aligned, globally optimal trajectories drops sharply over long planning horizons.",
+      "label": "Human",
+      "confidence": 0.7017,
+      "ai_prob": 0.2983,
+      "human_prob": 0.7017,
+      "diagnostics": []
+    },
+    {
+      "sentence": "This paper\nprovides a comprehensive, systematic analysis of planning-quality\ndegradation in long-horizon autonomous research agents.",
+      "label": "AI",
+      "confidence": 0.6923,
+      "ai_prob": 0.6923,
+      "human_prob": 0.3077,
+      "diagnostics": [
+        {
+          "pattern": "formal_verb",
+          "match": "provides",
+          "suggestion": "try 'gives you' or 'has'"
+        }
+      ]
+    },
+    {
+      "sentence": "We formalize the theoretical distance between single-step model capability and multi-step task completion, designated as the horizon\ngap.",
+      "label": "Human",
+      "confidence": 0.8126,
+      "ai_prob": 0.1874,
+      "human_prob": 0.8126,
+      "diagnostics": []
+    },
+    {
+      "sentence": "We analyze the underlying technical mechanisms driving performance decay, including compounding execution errors, autoregressive self-conditioning, local greedy policy myopia, context window pollution (\"reasoning debris\"), goal drift, and the no-recovery\nbottleneck induced by extreme task decomposition.",
+      "label": "Human",
+      "confidence": 0.9052,
+      "ai_prob": 0.0948,
+      "human_prob": 0.9052,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Furthermore,\nwe survey architectural and algorithmic interventions designed\nto mitigate degradation, including state- space search algorithms\n(Tree-of-Thoughts, Language Agent Tree Search), adaptive context\nmanagers, progressive memory compression, and multi-tiered runtime harnesses.",
+      "label": "Human",
+      "confidence": 0.8661,
+      "ai_prob": 0.1339,
+      "human_prob": 0.8661,
+      "diagnostics": [
+        {
+          "pattern": "formal_transition",
+          "match": "Furthermore",
+          "suggestion": "cut it, or use 'And' / 'On top of that'"
+        }
+      ]
+    },
+    {
+      "sentence": "Finally, we review empirical performance across\nresearch benchmarks, highlight key implementation and verification bottlenecks, and map out critical future research directions\ntoward robust, long-horizon autonomous science.",
+      "label": "AI",
+      "confidence": 0.8751,
+      "ai_prob": 0.8751,
+      "human_prob": 0.1249,
+      "diagnostics": [
+        {
+          "pattern": "ai_slop",
+          "match": "robust",
+          "suggestion": "replace with plain English"
+        }
+      ]
+    },
+    {
+      "sentence": "Keywords\nAutonomous Research Agents, Long-Horizon Planning, Planning\nDegradation, Self-Conditioning, Context Window Saturation, Hierarchical Decomposition, Tree-of-Thoughts, Verification Gap\n1 Introduction\nThe integration of Large Language Models (LLMs) into autonomous\nagentic architectures has re-oriented artificial intelligence from\npassive pattern recognition toward active, goal-driven problem\nsolving [1].",
+      "label": "AI",
+      "confidence": 0.599,
+      "ai_prob": 0.599,
+      "human_prob": 0.401,
+      "diagnostics": []
+    },
+    {
+      "sentence": "In specialized scientific domains, autonomous research\nagents\u2014such as The AI Scientist [3], ScienceFlow [5], and the Fully\nAutonomous Research System (FARS) [ 6]\u2014are deployed to execute end-to-end scientific workflows.",
+      "label": "Human",
+      "confidence": 0.7064,
+      "ai_prob": 0.2936,
+      "human_prob": 0.7064,
+      "diagnostics": []
+    },
+    {
+      "sentence": "These tasks require proposing hypotheses, performing computational experiments, debugging code, synthesizing empirical results, and composing scientific\nmanuscripts [4].",
+      "label": "Human",
+      "confidence": 0.5165,
+      "ai_prob": 0.4835,
+      "human_prob": 0.5165,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Despite impressive single-step reasoning capabilities, current autonomous agents exhibit fragile long-horizon\nexecution [1].",
+      "label": "Human",
+      "confidence": 0.6279,
+      "ai_prob": 0.3721,
+      "human_prob": 0.6279,
+      "diagnostics": []
+    },
+    {
+      "sentence": "While agents achieve high accuracy on benchmark\ntasks requiring fewer than 10 sequential turns, performance decays rapidly as task duration and decision complexity increase [1].",
+      "label": "AI",
+      "confidence": 0.891,
+      "ai_prob": 0.891,
+      "human_prob": 0.109,
+      "diagnostics": []
+    },
+    {
+      "sentence": "*Student roll number: MSE2026006.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Empirical production data reveals that agent success rates begin\ndeclining noticeably\nafter roughly 35 minutes of human-equivalent operational time,\nwith a doubling of task duration quadrupling the probability of failure [8].",
+      "label": "Human",
+      "confidence": 0.6557,
+      "ai_prob": 0.3443,
+      "human_prob": 0.6557,
+      "diagnostics": [
+        {
+          "pattern": "flaggy_adverb",
+          "match": "noticeably",
+          "suggestion": "try 'definitely' or cut it"
+        }
+      ]
+    },
+    {
+      "sentence": "This non-linear compounding of error exposes a fundamental mismatch: single-step token-level reasoning does not inherently\nyield long-horizon strategic planning [ 1].",
+      "label": "Human",
+      "confidence": 0.5884,
+      "ai_prob": 0.4116,
+      "human_prob": 0.5884,
+      "diagnostics": [
+        {
+          "pattern": "missing_contraction",
+          "match": "does not",
+          "suggestion": "use 'doesn't'"
+        },
+        {
+          "pattern": "ai_slop",
+          "match": "strategic",
+          "suggestion": "replace with plain English"
+        },
+        {
+          "pattern": "flaggy_adverb",
+          "match": "inherently",
+          "suggestion": "often filler \u2014 cut it or explain why"
+        }
+      ]
+    },
+    {
+      "sentence": "The distance between\nsingle-step execution accuracy and reliable long-horizon task completion is formalised as the horizon gap [ 7].",
+      "label": "Human",
+      "confidence": 0.7025,
+      "ai_prob": 0.2975,
+      "human_prob": 0.7025,
+      "diagnostics": []
+    },
+    {
+      "sentence": "In long-running autonomous research, this gap manifests as systemic planning degradation.",
+      "label": "Human",
+      "confidence": 0.7678,
+      "ai_prob": 0.2322,
+      "human_prob": 0.7678,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Agents lose global coherence, engage in redundant tool\nexecution, drift from primary research objectives, commit to suboptimal hyperparameter or algorithmic choices early in execution,\nand struggle to recover from intermediate software or experimental\nfailures [1].",
+      "label": "Human",
+      "confidence": 0.9371,
+      "ai_prob": 0.0629,
+      "human_prob": 0.9371,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Understanding and resolving planning-quality degradation is therefore the central engineering and theoretical bottleneck\npreventing autonomous agents from achieving durable, open-ended\nscientific discovery [5].",
+      "label": "Human",
+      "confidence": 0.9123,
+      "ai_prob": 0.0877,
+      "human_prob": 0.9123,
+      "diagnostics": []
+    },
+    {
+      "sentence": "The mitigation approaches discussed later\nare organized in Section 4.",
+      "label": "AI",
+      "confidence": 0.5578,
+      "ai_prob": 0.5578,
+      "human_prob": 0.4422,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2 Background and Literature Review\n2.1 Evolution of Autonomous Agent\nArchitectures\nThe architectural paradigm for LLM-based autonomous agents has\nprogressed through three distinct developmental stages [2]:\n1.",
+      "label": "AI",
+      "confidence": 0.9364,
+      "ai_prob": 0.9364,
+      "human_prob": 0.0636,
+      "diagnostics": [
+        {
+          "pattern": "ai_slop",
+          "match": "paradigm",
+          "suggestion": "replace with plain English"
+        }
+      ]
+    },
+    {
+      "sentence": "Prompt Engineering Stage (2020\u20132023): Early agent implementations relied on static\nprompting strategies to elicit sequential reasoning.",
+      "label": "Human",
+      "confidence": 0.7147,
+      "ai_prob": 0.2853,
+      "human_prob": 0.7147,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Techniques\nsuch as Chain-of-Thought (CoT) [1] and ReAct (Interleaving Reasoning and Acting) [ 13] leveraged autoregressive generation to\nalternate between internal thoughts and environment interactions.",
+      "label": "Human",
+      "confidence": 0.6118,
+      "ai_prob": 0.3882,
+      "human_prob": 0.6118,
+      "diagnostics": []
+    },
+    {
+      "sentence": "While effective for immediate, linear logic, these reflexive methods lacked search mechanisms, memory persistence, and backward\nerror correction [1].",
+      "label": "Human",
+      "confidence": 0.7408,
+      "ai_prob": 0.2592,
+      "human_prob": 0.7408,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Context Engineering Stage (2023\u20132025): To extend operational\nscope, architectures\nincorporated structured memory, retrieval-augmented generation (RAG), and verbal reinforcement learning [ 2].",
+      "label": "Human",
+      "confidence": 0.9235,
+      "ai_prob": 0.0765,
+      "human_prob": 0.9235,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Frameworks\nlike Reflexion [15] enabled agents to evaluate past task failures and\nstore verbal self-reflections in context.",
+      "label": "Human",
+      "confidence": 0.5228,
+      "ai_prob": 0.4772,
+      "human_prob": 0.5228,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Concurrently, search-based\ninference paradigms such as Tree-of-Thoughts (ToT) [12] and Language Agent Tree Search (LATS) [13] integrated formal state-space\nsearch (e.g., Breadth-First Search, Monte Carlo Tree Search) with\nLLM heuristic evaluations.",
+      "label": "Human",
+      "confidence": 0.9367,
+      "ai_prob": 0.0633,
+      "human_prob": 0.9367,
+      "diagnostics": []
+    },
+    {
+      "sentence": "3.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Runtime Harnesses Stage (2025\u2013Present): Modern agentic systems externalize planning\nand control into multi-layered runtime harnesses [2].",
+      "label": "Human",
+      "confidence": 0.8923,
+      "ai_prob": 0.1077,
+      "human_prob": 0.8923,
+      "diagnostics": []
+    },
+    {
+      "sentence": "These harnesses wrap around frozen foundation models to manage execution\nFigure 1: Conceptual view of planning-quality degradation.",
+      "label": "Human",
+      "confidence": 0.6633,
+      "ai_prob": 0.3367,
+      "human_prob": 0.6633,
+      "diagnostics": []
+    },
+    {
+      "sentence": "A research goal is converted into a planned trajectory, but repeated execution can accumulate local deviations, noisy context, and state errors.",
+      "label": "Human",
+      "confidence": 0.9074,
+      "ai_prob": 0.0926,
+      "human_prob": 0.9074,
+      "diagnostics": []
+    },
+    {
+      "sentence": "The control layer intervenes through\nsearch, memory management, checkpoints, and verification\nbefore the system commits to the next research stage.",
+      "label": "Human",
+      "confidence": 0.8513,
+      "ai_prob": 0.1487,
+      "human_prob": 0.8513,
+      "diagnostics": []
+    },
+    {
+      "sentence": "loops, workspace state persistence, dynamic tool selection (e.g.,\nModel Context Protocol), process reward monitoring, and agent\norchestration [2].",
+      "label": "Human",
+      "confidence": 0.8541,
+      "ai_prob": 0.1459,
+      "human_prob": 0.8541,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2.2 Disambiguating Horizon, Context, and\nMemory\nA primary source of ambiguity in literature is the conflation of\nthree distinct system properties [7]:\n\u2022 Long-Horizon: A structural property of the task, defined by the\nminimum number of\nsequential decisions, environment actions, or causal steps required to transition from an initial state s0 to a valid goal state g [7].",
+      "label": "Human",
+      "confidence": 0.7463,
+      "ai_prob": 0.2537,
+      "human_prob": 0.7463,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Horizon length is independent of whether the resulting trajectory\nfits within a model's context window [7].",
+      "label": "AI",
+      "confidence": 0.6083,
+      "ai_prob": 0.6083,
+      "human_prob": 0.3917,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 Long-Context: A functional property of the underlying language\nmodel, defined by the\nmaximum sequence length (in tokens) over which the attention\nmechanism can compute dense contextual representations [7].",
+      "label": "Human",
+      "confidence": 0.8555,
+      "ai_prob": 0.1445,
+      "human_prob": 0.8555,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 Long-Term Memory: A structural property of the agent harness,\ndefining whether state\nrepresentations, facts, and execution logs persist across execution turns, subagent invocations, or discrete operational sessions\n[7].",
+      "label": "Human",
+      "confidence": 0.9098,
+      "ai_prob": 0.0902,
+      "human_prob": 0.9098,
+      "diagnostics": []
+    },
+    {
+      "sentence": "A long-horizon task may exceed an agent's capability even if\nthe entire trajectory comfortably fits within the model's context\nwindow [7].",
+      "label": "Human",
+      "confidence": 0.6894,
+      "ai_prob": 0.3106,
+      "human_prob": 0.6894,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Planning degradation is fundamentally a failure of\npolicy coherence over extended state-action sequences, exacerbated\nby context window dynamics [1].",
+      "label": "Human",
+      "confidence": 0.8254,
+      "ai_prob": 0.1746,
+      "human_prob": 0.8254,
+      "diagnostics": [
+        {
+          "pattern": "flaggy_adverb",
+          "match": "fundamentally",
+          "suggestion": "often filler \u2014 cut it or say how"
+        }
+      ]
+    },
+    {
+      "sentence": "2.3 Automated Research Agents in Practice\nThe development of automated scientific research systems represents a demanding benchmark for long-horizon planning [3].",
+      "label": "AI",
+      "confidence": 0.944,
+      "ai_prob": 0.944,
+      "human_prob": 0.056,
+      "diagnostics": [
+        {
+          "pattern": "formal_verb",
+          "match": "represents",
+          "suggestion": "try 'is' or rephrase"
+        }
+      ]
+    },
+    {
+      "sentence": "Systems like The AI Scientist introduced end-to-end research pipelines\ncapable of generating paper ideas, editing repository code, running ML training loops, compiling figures, and writing manuscripts\n[3].",
+      "label": "Human",
+      "confidence": 0.7748,
+      "ai_prob": 0.2252,
+      "human_prob": 0.7748,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Subsequent platforms such as FARS [6] and ScienceFlow [5]\nexpanded these capabilities by structuring research progress into\nexecutable workspaces and recoverable state segments.",
+      "label": "Human",
+      "confidence": 0.6276,
+      "ai_prob": 0.3724,
+      "human_prob": 0.6276,
+      "diagnostics": []
+    },
+    {
+      "sentence": "However,\nempirical evaluations reveal a significant performance drop when\ntransitioning from constrained benchmarks to open-ended research\n[3].",
+      "label": "AI",
+      "confidence": 0.8471,
+      "ai_prob": 0.8471,
+      "human_prob": 0.1529,
+      "diagnostics": []
+    },
+    {
+      "sentence": "While automated agents excel at structured, retrieval-grounded,\nand tool-mediated subtasks (such as literature aggregation or baseline script template execution), they suffer severe failure rates during multi-turn debugging, hypothesis revision, and experimental\nverification [3].",
+      "label": "Human",
+      "confidence": 0.8387,
+      "ai_prob": 0.1613,
+      "human_prob": 0.8387,
+      "diagnostics": []
+    },
+    {
+      "sentence": "3 Main Thematic and Technical Discussion\n3.1 Mathematical Modeling of Compounding\nError and Self-Conditioning\nLet a long-horizon research task be formalized as a Markov Decision\nProcess (MDP) specified by the tuple (S, A, P, R,\ud835\udefe), where an agent\nexecutes a sequence of H actions a1 , a2 , .",
+      "label": "Human",
+      "confidence": 0.5699,
+      "ai_prob": 0.4301,
+      "human_prob": 0.5699,
+      "diagnostics": []
+    },
+    {
+      "sentence": ".",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": ".",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": ", aH \u2208 A to reach\na terminal goal state [1].",
+      "label": "AI",
+      "confidence": 0.8628,
+      "ai_prob": 0.8628,
+      "human_prob": 0.1372,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Assume the ideal single-step probability\nof generating a correct, goal-aligned action given current state\nsi-1 is pi = P(ai = a*i | si-1 ) [ 9].",
+      "label": "AI",
+      "confidence": 0.5258,
+      "ai_prob": 0.5258,
+      "human_prob": 0.4742,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Under a naive stationary error\nassumption, if pi = p is constant, the cumulative success probability\nacross horizon H is modeled as S(H) = pH [9].",
+      "label": "AI",
+      "confidence": 0.5187,
+      "ai_prob": 0.5187,
+      "human_prob": 0.4813,
+      "diagnostics": []
+    },
+    {
+      "sentence": "However, empirical research shows that per-step execution accuracy is non-stationary and decreases over the trajectory count i due\nto self-conditioning [9].",
+      "label": "Human",
+      "confidence": 0.8072,
+      "ai_prob": 0.1928,
+      "human_prob": 0.8072,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Autoregressive language models generate\nstep ai conditioned on the full historical prompt context S<i = (s0 ,\na1 , s1 , .",
+      "label": "Human",
+      "confidence": 0.8204,
+      "ai_prob": 0.1796,
+      "human_prob": 0.8204,
+      "diagnostics": []
+    },
+    {
+      "sentence": ".",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": ".",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": ", ai-1 , si-1 ) [9].",
+      "label": "AI",
+      "confidence": 0.6881,
+      "ai_prob": 0.6881,
+      "human_prob": 0.3119,
+      "diagnostics": []
+    },
+    {
+      "sentence": "When early actions contain uncorrected\nerrors, hallucinations, or inefficient tool outputs, these anomalies\nremain in S<i [8].",
+      "label": "Human",
+      "confidence": 0.8592,
+      "ai_prob": 0.1408,
+      "human_prob": 0.8592,
+      "diagnostics": []
+    },
+    {
+      "sentence": "The model conditions on its own prior mistakes,\nelevating subsequent error rates [9].",
+      "label": "Human",
+      "confidence": 0.6895,
+      "ai_prob": 0.3105,
+      "human_prob": 0.6895,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Formally, the per-step success\nprobability pi is a declining function of historical error density:\n\nAs a result, cumulative task completion probability exhibits superexponential decay:\n\ud835\udc46(\ud835\udc3b) =\n\ud835\udc3b\u00d6\n\ud835\udc56=1\n\ud835\udc5d\ud835\udc56\u226a\ud835\udc5d\ud835\udc3b (2)\nThis self-conditioning effect explains why doubling the operational\nhorizon length quadruples total system failure rates rather than\nmerely doubling them [8].",
+      "label": "Human",
+      "confidence": 0.6374,
+      "ai_prob": 0.3626,
+      "human_prob": 0.6374,
+      "diagnostics": []
+    },
+    {
+      "sentence": "The metric Horizon Length (Hs ) defines\nthe maximum step count at which an agent maintains a mean\ncompletion accuracy above threshold s\u2208 0\u2264\ud835\udc60\u2264 1 [9]:\n\n(\n\ud835\udc58\u2208 N|\ud835\udc43\n \ud835\udc58\u00db\n\ud835\udc56=1\n\ud835\udc4e\ud835\udc56 =\ud835\udc4e*\ud835\udc56\n!",
+      "label": "AI",
+      "confidence": 0.9543,
+      "ai_prob": 0.9543,
+      "human_prob": 0.0457,
+      "diagnostics": [
+        {
+          "pattern": "formal_verb",
+          "match": "maintains",
+          "suggestion": "try 'keeps'"
+        }
+      ]
+    },
+    {
+      "sentence": "\u2265\ud835\udc60\n)\n(3)\nThe formal expressions above are the converted versions of the\nmathematical model in the supplied paper; Equation 3 preserves the\noriginal Horizon Length definition.",
+      "label": "Human",
+      "confidence": 0.8901,
+      "ai_prob": 0.1099,
+      "human_prob": 0.8901,
+      "diagnostics": []
+    },
+    {
+      "sentence": "For frontier foundation models\noperating without external runtime control, H0.5 remains restricted\nto modest step counts when tackling unconstrained multi-hour\ntasks [8].",
+      "label": "Human",
+      "confidence": 0.5031,
+      "ai_prob": 0.4969,
+      "human_prob": 0.5031,
+      "diagnostics": []
+    },
+    {
+      "sentence": "3.2 The Reasoning-Planning Dichotomy and\nGreedy Step-Wise Policies\nA central cause of plan degradation is the conceptual gap between\nstep-wise reasoning and long-horizon planning [1].",
+      "label": "Human",
+      "confidence": 0.8218,
+      "ai_prob": 0.1782,
+      "human_prob": 0.8218,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Standard prompting schemes (such as CoT) formalize inference as a step-wise greedy\npolicy [1]:\n\nThis greedy policy selects actions based on local next-step plausibility or high immediate generation likelihood [1].",
+      "label": "Human",
+      "confidence": 0.9509,
+      "ai_prob": 0.0491,
+      "human_prob": 0.9509,
+      "diagnostics": []
+    },
+    {
+      "sentence": "While step-wise\ngreedy selection is effective for short-horizon deductive logic, it\nfails in long-horizon planning where initial decisions carry delayed\nconsequences [1].",
+      "label": "AI",
+      "confidence": 0.664,
+      "ai_prob": 0.664,
+      "human_prob": 0.336,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Actions that appear locally optimal in state st\noften transition the system into irreversible, dead-end states in\nst+k [1].",
+      "label": "Human",
+      "confidence": 0.8063,
+      "ai_prob": 0.1937,
+      "human_prob": 0.8063,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Because step-wise greedy policies lack value propagation\nmechanisms (such as Bellman backpropagation or Monte Carlo\ntree rollouts), they make early myopic commitments [1].",
+      "label": "Human",
+      "confidence": 0.9306,
+      "ai_prob": 0.0694,
+      "human_prob": 0.9306,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Over long\nexecution traces, these local commitments compound, forcing the\nagent into corrective sub-loops that inflate trajectory length and\naccelerate performance decay [1].",
+      "label": "Human",
+      "confidence": 0.798,
+      "ai_prob": 0.202,
+      "human_prob": 0.798,
+      "diagnostics": []
+    },
+    {
+      "sentence": "3.3 Context Window Pathologies and Attention\nDilution\nAs execution proceeds beyond 25\u201330 continuous tool calls, context windows accumulate substantial operational noise, termed\nreasoning debris [8].",
+      "label": "Human",
+      "confidence": 0.7255,
+      "ai_prob": 0.2745,
+      "human_prob": 0.7255,
+      "diagnostics": []
+    },
+    {
+      "sentence": "This includes detailed stack traces, raw file\noutputs, abandoned code iterations, and repetitive tool parameters\n[8].",
+      "label": "Human",
+      "confidence": 0.8046,
+      "ai_prob": 0.1954,
+      "human_prob": 0.8046,
+      "diagnostics": []
+    },
+    {
+      "sentence": "The accumulated debris degrades planning quality through\nthree distinct context pathologies [8]:\n1.",
+      "label": "Human",
+      "confidence": 0.6439,
+      "ai_prob": 0.3561,
+      "human_prob": 0.6439,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Attention Dilution and Signal Masking: Massive token contexts\ndilute the dense selfattention signals required to track core constraints [8].",
+      "label": "Human",
+      "confidence": 0.7987,
+      "ai_prob": 0.2013,
+      "human_prob": 0.7987,
+      "diagnostics": []
+    },
+    {
+      "sentence": "The effective signal-to-noise ratio drops, leading the agent to re-execute\ncompleted subtasks or violate pre-stated task constraints [8].",
+      "label": "Human",
+      "confidence": 0.7639,
+      "ai_prob": 0.2361,
+      "human_prob": 0.7639,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Lost-in-the-Middle Phenomenon: LLMs disproportionately attend\nto tokens at the\nabsolute beginning (system prompt) and absolute end (recent\nturns) of the context window [10].",
+      "label": "Human",
+      "confidence": 0.913,
+      "ai_prob": 0.087,
+      "human_prob": 0.913,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Crucial intermediate experimental results, state variables, or negative debugging feedback located\nin the middle of a long context are systematically ignored [10].",
+      "label": "Human",
+      "confidence": 0.9286,
+      "ai_prob": 0.0714,
+      "human_prob": 0.9286,
+      "diagnostics": []
+    },
+    {
+      "sentence": "3.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Recency Bias: As the context window nears capacity, recency\nbias intensifies [10].",
+      "label": "Human",
+      "confidence": 0.6058,
+      "ai_prob": 0.3942,
+      "human_prob": 0.6058,
+      "diagnostics": []
+    },
+    {
+      "sentence": "The agent\nover-indexes on immediate prior outputs, losing sight of overall\nresearch goals and getting trapped in localized execution loops [8].",
+      "label": "Human",
+      "confidence": 0.5191,
+      "ai_prob": 0.4809,
+      "human_prob": 0.5191,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Importantly, scaling context window capacity does not resolve\nattention dilution [8].",
+      "label": "Human",
+      "confidence": 0.782,
+      "ai_prob": 0.218,
+      "human_prob": 0.782,
+      "diagnostics": [
+        {
+          "pattern": "missing_contraction",
+          "match": "does not",
+          "suggestion": "use 'doesn't'"
+        }
+      ]
+    },
+    {
+      "sentence": "Long prompt contexts harm execution reliability even under perfect document retrieval, demonstrating that\nlong-context processing does not equate to long-horizon planning\ncapacity [7].",
+      "label": "Human",
+      "confidence": 0.7428,
+      "ai_prob": 0.2572,
+      "human_prob": 0.7428,
+      "diagnostics": [
+        {
+          "pattern": "missing_contraction",
+          "match": "does not",
+          "suggestion": "use 'doesn't'"
+        }
+      ]
+    },
+    {
+      "sentence": "3.4 Goal Drift and Trajectory Contamination\nGoal drift describes the progressive divergence between an agent's\nactive execution trajectory and its initial research brief [8].",
+      "label": "Human",
+      "confidence": 0.676,
+      "ai_prob": 0.324,
+      "human_prob": 0.676,
+      "diagnostics": []
+    },
+    {
+      "sentence": "In longrunning autonomous operations, goal drift stems from two main\ncauses:\n\u2022 Trajectory Conditioning: When an agent conditions on long execution histories\u2014especially\nthose generated across multi-agent handoffs or lower-capacity\nsubagents\u2014it inherits subtle reasoning errors and stylistic bias from\nearlier steps [8].",
+      "label": "Human",
+      "confidence": 0.5597,
+      "ai_prob": 0.4403,
+      "human_prob": 0.5597,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Trajectory contamination impairs even frontier\nmodels, causing them to adopt compromised sub-goals [8].",
+      "label": "Human",
+      "confidence": 0.7458,
+      "ai_prob": 0.2542,
+      "human_prob": 0.7458,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 Specification Ambiguity: Underspecified initial instructions accelerate goal drift [8].",
+      "label": "Human",
+      "confidence": 0.9045,
+      "ai_prob": 0.0955,
+      "human_prob": 0.9045,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Lacking explicit success criteria, the agent repeatedly reinterprets\nits objective based on recent intermediate outcomes, ultimately\nsolving an entirely different (and often trivialized) task [8].",
+      "label": "AI",
+      "confidence": 0.5192,
+      "ai_prob": 0.5192,
+      "human_prob": 0.4808,
+      "diagnostics": []
+    },
+    {
+      "sentence": "3.5 The No-Recovery Bottleneck in Subtask\nDecomposition\nTo mitigate context pollution, modern frameworks decompose complex goals into isolated, atomic subtasks [8].",
+      "label": "AI",
+      "confidence": 0.5021,
+      "ai_prob": 0.5021,
+      "human_prob": 0.4979,
+      "diagnostics": []
+    },
+    {
+      "sentence": "However, extreme task\ndecomposition introduces the no-recovery bottleneck [10].",
+      "label": "Human",
+      "confidence": 0.7792,
+      "ai_prob": 0.2208,
+      "human_prob": 0.7792,
+      "diagnostics": []
+    },
+    {
+      "sentence": "When\natomic subtasks are executed in isolated model calls conditioned\nonly on minimal state representations, the overall execution history\nis removed [10].",
+      "label": "Human",
+      "confidence": 0.781,
+      "ai_prob": 0.219,
+      "human_prob": 0.781,
+      "diagnostics": []
+    },
+    {
+      "sentence": "If an atomic step generates a subtly flawed intermediate output (such as an incorrectly formatted data array or a partial\nsoftware patch) that satisfies local syntactic checks, downstream\nsubagents receive corrupted inputs without the contextual history\nneeded to diagnose the root cause [10].",
+      "label": "AI",
+      "confidence": 0.9387,
+      "ai_prob": 0.9387,
+      "human_prob": 0.0613,
+      "diagnostics": []
+    },
+    {
+      "sentence": "The execution harness becomes unable to backtrack across atomic boundaries, transforming\nminor execution errors into terminal pipeline failures [10].",
+      "label": "Human",
+      "confidence": 0.8287,
+      "ai_prob": 0.1713,
+      "human_prob": 0.8287,
+      "diagnostics": []
+    },
+    {
+      "sentence": "4 Current Approaches and Developments\nTo combat planning degradation, recent architectures isolate foundation models within structured control harnesses [2].",
+      "label": "Human",
+      "confidence": 0.7576,
+      "ai_prob": 0.2424,
+      "human_prob": 0.7576,
+      "diagnostics": []
+    },
+    {
+      "sentence": "These interventions fall into four primary paradigms:\n4.1 Search-Based and Deliberate Planning\nFrameworks\nRather than relying on reflexive autoregressive generation, searchbased frameworks expand decision making into explicit state space\nsearch [12].",
+      "label": "AI",
+      "confidence": 0.689,
+      "ai_prob": 0.689,
+      "human_prob": 0.311,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 Tree-of-Thoughts (ToT): ToT conceptualizes planning as tree\nsearch, where nodes represent\nintermediate reasoning steps (\"thoughts\") and edges represent\nstate transitions [12].",
+      "label": "Human",
+      "confidence": 0.8612,
+      "ai_prob": 0.1388,
+      "human_prob": 0.8612,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Using Breadth-First Search (BFS) or DepthFirst Search (DFS), ToT uses LLMs as self-evaluation heuristics to\nassess state promise, enabling deliberate lookahead and backtracking [12].",
+      "label": "Human",
+      "confidence": 0.7462,
+      "ai_prob": 0.2538,
+      "human_prob": 0.7462,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 Language Agent Tree Search (LATS): LATS unifies reasoning,\nacting, and planning\nby integrating Monte Carlo Tree Search (MCTS) with external environment feedback [13].",
+      "label": "Human",
+      "confidence": 0.8342,
+      "ai_prob": 0.1658,
+      "human_prob": 0.8342,
+      "diagnostics": []
+    },
+    {
+      "sentence": "LATS repurposes the LLM as agent policy,\nvalue function, and self-reflection generator [13].",
+      "label": "Human",
+      "confidence": 0.8333,
+      "ai_prob": 0.1667,
+      "human_prob": 0.8333,
+      "diagnostics": []
+    },
+    {
+      "sentence": "By incorporating\nstate rollbacks and trajectory evaluations, LATS sample-efficiently\nexplores alternative action paths [14].",
+      "label": "Human",
+      "confidence": 0.7837,
+      "ai_prob": 0.2163,
+      "human_prob": 0.7837,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 Flare (Future-Aware Planning): Flare addresses step-wise policy\nmyopia by combining\nexplicit multi-step lookahead, value propagation, and limited\ncommitment [1].",
+      "label": "Human",
+      "confidence": 0.9109,
+      "ai_prob": 0.0891,
+      "human_prob": 0.9109,
+      "diagnostics": [
+        {
+          "pattern": "formal_verb",
+          "match": "addresses",
+          "suggestion": "try 'fixes' or 'deals with'"
+        }
+      ]
+    },
+    {
+      "sentence": "By evaluating delayed outcomes before committing to execution steps, Flare prevents premature convergence onto\nsuboptimal trajectories [1].",
+      "label": "AI",
+      "confidence": 0.8381,
+      "ai_prob": 0.8381,
+      "human_prob": 0.1619,
+      "diagnostics": []
+    },
+    {
+      "sentence": "4.2 Adaptive Context Management and\nProgressive Compression\nTo prevent reasoning debris from corrupting context windows,\nadvanced agent harnesses implement dynamic context control [8].",
+      "label": "Human",
+      "confidence": 0.573,
+      "ai_prob": 0.427,
+      "human_prob": 0.573,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 Adaptive Context Management (AdaCoM): AdaCoM trains an\nexternal controller via\nreinforcement learning to dynamically modify, prune, and summarize the context window of a frozen primary agent [16].",
+      "label": "Human",
+      "confidence": 0.9367,
+      "ai_prob": 0.0633,
+      "human_prob": 0.9367,
+      "diagnostics": []
+    },
+    {
+      "sentence": "AdaCoM\nhighlights a core Fidelity-Reliability Trade-Off: highly capable primary agents perform best with high-fidelity context preservation,\nwhereas lower-capacity agents require aggressive context pruning\nto remain within stable execution bounds [16].",
+      "label": "Human",
+      "confidence": 0.8695,
+      "ai_prob": 0.1305,
+      "human_prob": 0.8695,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 Progressive Memory Compression: Systems like Goal2Skill decouple state history from\nreasoning traces [8].",
+      "label": "Human",
+      "confidence": 0.8633,
+      "ai_prob": 0.1367,
+      "human_prob": 0.8633,
+      "diagnostics": []
+    },
+    {
+      "sentence": "They maintain lossless, immutable records\nof state transitions, execution logs, and tool outputs while applying\nlossy, structured summarization to intermediate reasoning paths\n[8].",
+      "label": "Human",
+      "confidence": 0.8477,
+      "ai_prob": 0.1523,
+      "human_prob": 0.8477,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 State Serialization and Re-Anchoring: Operational harnesses such\nas Microsoft CORPGEN implement periodic goal re-anchoring and state serialization [8].",
+      "label": "Human",
+      "confidence": 0.9111,
+      "ai_prob": 0.0889,
+      "human_prob": 0.9111,
+      "diagnostics": []
+    },
+    {
+      "sentence": "At defined intervals, the system serializes execution\nprogress to external storage and re-instantiates the agent with\na clean context window containing only the serialized state and\nhigh-level goal [8].",
+      "label": "Human",
+      "confidence": 0.8636,
+      "ai_prob": 0.1364,
+      "human_prob": 0.8636,
+      "diagnostics": []
+    },
+    {
+      "sentence": "4.3 Multi-Tiered Runtime Harnesses and\nExecutable Workspaces\nModern automated research platforms isolate long-horizon planning across physical and operational boundaries [5].",
+      "label": "Human",
+      "confidence": 0.6168,
+      "ai_prob": 0.3832,
+      "human_prob": 0.6168,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 ScienceFlow Workspace Isolation: ScienceFlow organizes scientific\ndiscovery into distinct\nresearch segments anchored to persistent executable workspaces\n[5].",
+      "label": "Human",
+      "confidence": 0.8281,
+      "ai_prob": 0.1719,
+      "human_prob": 0.8281,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Progress is recorded as recoverable filesystem snapshots (source\ncode, checkpoints, cached data arrays) rather than pure text interaction logs [5].",
+      "label": "Human",
+      "confidence": 0.6934,
+      "ai_prob": 0.3066,
+      "human_prob": 0.6934,
+      "diagnostics": []
+    },
+    {
+      "sentence": "This separation connects textual reasoning to\nexecutable runtime environments, enabling state recovery after\nexecution failures [5].",
+      "label": "AI",
+      "confidence": 0.8309,
+      "ai_prob": 0.8309,
+      "human_prob": 0.1691,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 FARS Hierarchical Stage Isolation: FARS structures automated\nresearch into four\nisolated stages: Ideation, Planning, Experimentation, and Writing\n[6].",
+      "label": "Human",
+      "confidence": 0.8916,
+      "ai_prob": 0.1084,
+      "human_prob": 0.8916,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Each stage is managed by specialized agent configurations\nthat communicate solely through structured workspace artifacts,\npreventing cross-stage context contamination [6].",
+      "label": "AI",
+      "confidence": 0.6414,
+      "ai_prob": 0.6414,
+      "human_prob": 0.3586,
+      "diagnostics": []
+    },
+    {
+      "sentence": "4.4 Self-Reflection and Closed-Loop Verification\nClosed-loop execution systems rely on environmental feedback to\ntrigger self-correction [8].",
+      "label": "AI",
+      "confidence": 0.5853,
+      "ai_prob": 0.5853,
+      "human_prob": 0.4147,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 Verbal Reinforcement Learning (Reflexion): Reflexion evaluates\ntask performance signals\n(e.g., test suite pass/fail status, compiler flags) and generates\nexplicit text reflections detailing why an approach failed [15].",
+      "label": "Human",
+      "confidence": 0.6811,
+      "ai_prob": 0.3189,
+      "human_prob": 0.6811,
+      "diagnostics": []
+    },
+    {
+      "sentence": "These\nreflections are stored in episodic memory to adjust future planning\ncycles [15].",
+      "label": "AI",
+      "confidence": 0.5392,
+      "ai_prob": 0.5392,
+      "human_prob": 0.4608,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 Cheap Verification Protocols: Production analyses highlight that\nagent plan recovery\nrequires low-cost, deterministic verification functions [8].",
+      "label": "Human",
+      "confidence": 0.8279,
+      "ai_prob": 0.1721,
+      "human_prob": 0.8279,
+      "diagnostics": []
+    },
+    {
+      "sentence": "If state\nverification requires expensive LLM judge calls or lengthy computational jobs, the system quickly exhausts its compute budget\n[8].",
+      "label": "Human",
+      "confidence": 0.7275,
+      "ai_prob": 0.2725,
+      "human_prob": 0.7275,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Automated unit tests, static code analyzers, and deterministic\nassertions provide efficient verification loops [8].",
+      "label": "Human",
+      "confidence": 0.5158,
+      "ai_prob": 0.4842,
+      "human_prob": 0.5158,
+      "diagnostics": []
+    },
+    {
+      "sentence": "The following table synthesizes key strategic frameworks developed to mitigate planning degradation in autonomous agents\n[5].",
+      "label": "AI",
+      "confidence": 0.6897,
+      "ai_prob": 0.6897,
+      "human_prob": 0.3103,
+      "diagnostics": [
+        {
+          "pattern": "ai_slop",
+          "match": "strategic",
+          "suggestion": "replace with plain English"
+        }
+      ]
+    },
+    {
+      "sentence": "5 Research Challenges and Limitations\n5.1 The Implementation Gap: Idea Generation\nVersus Code Execution\nCross-benchmark studies reveal an asymmetry in automated scientific research: foundation models excel at open-ended idea generation but struggle with rigorous computational execution [ 3].",
+      "label": "Human",
+      "confidence": 0.7553,
+      "ai_prob": 0.2447,
+      "human_prob": 0.7553,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Automated research frameworks frequently propose novel research\nhypotheses [3].",
+      "label": "Human",
+      "confidence": 0.6241,
+      "ai_prob": 0.3759,
+      "human_prob": 0.6241,
+      "diagnostics": []
+    },
+    {
+      "sentence": "However, when tasked with implementing these\nideas in code, running experiments, and resolving execution bugs,\nperformance degrades sharply [3].",
+      "label": "Human",
+      "confidence": 0.566,
+      "ai_prob": 0.434,
+      "human_prob": 0.566,
+      "diagnostics": []
+    },
+    {
+      "sentence": "This implementation gap stems\nfrom the strict correctness requirements of software execution [3].",
+      "label": "AI",
+      "confidence": 0.6327,
+      "ai_prob": 0.6327,
+      "human_prob": 0.3673,
+      "diagnostics": []
+    },
+    {
+      "sentence": "While textual ideation permits stylistic ambiguity and soft reasoning, executable code requires exact syntax, logical consistency,\nstate management, and memory efficiency [3].",
+      "label": "AI",
+      "confidence": 0.679,
+      "ai_prob": 0.679,
+      "human_prob": 0.321,
+      "diagnostics": []
+    },
+    {
+      "sentence": "A single incorrect\nvariable reference or matrix shape mismatch breaks downstream\nexecution, exposing the fragility of ungrounded LLM planning [3].",
+      "label": "AI",
+      "confidence": 0.8016,
+      "ai_prob": 0.8016,
+      "human_prob": 0.1984,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Table 1: Strategic frameworks developed to mitigate planning degradation in autonomous agents (content retained from the\nsupplied paper).",
+      "label": "Human",
+      "confidence": 0.5854,
+      "ai_prob": 0.4146,
+      "human_prob": 0.5854,
+      "diagnostics": [
+        {
+          "pattern": "ai_slop",
+          "match": "strategic",
+          "suggestion": "replace with plain English"
+        }
+      ]
+    },
+    {
+      "sentence": "Framework Primary mechanism Memory/state representation Context management Mitigation target\nTree-of-Thoughts (ToT)\n[12]\nHeuristic tree search\n(BFS/DFS)\nTree-structured intermediate\nthoughts\nUncompressed local branch\ncontext\nLocal policy myopia and lack\nof lookahead\nLanguage Agent Tree\nSearch (LATS) [13]\nMCTS with external environment feedback\nTree nodes with value and reflection scores\nEnvironment reset and state\nbacktracking\nCumulative execution failure\nand missing rollbacks\nAdaptive Context Management (AdaCoM) [16]\nExternal RL-trained context\ncontroller\nDynamic context filtering Dynamic pruning and stalecontent stripping\nContext window saturation\nand attention dilution\nCORPGEN Harness [8] Temporal isolation and state\nserialization\nStructured external checkpoint storage\nClean context reinstantiation\nvia re-anchoring\nGoal drift and context pollution\nScienceFlow [5] Workspace-grounded research segments\nExecutable filesystem snapshots and artifacts\nSegment-isolated interaction\nlogs\nIrreversible workspace corruption\nGoal2Skill [8] Progressive dual-system compression\nLossless facts plus lossy reasoning traces\nStructured task-log extraction Context memory decay and\ncontext bloat\nThe following table summarizes empirical benchmark performance\nacross primary research tasks, detailing target domains, evaluation\nmetrics, and observed failure modes [3].",
+      "label": "Human",
+      "confidence": 0.9986,
+      "ai_prob": 0.0014,
+      "human_prob": 0.9986,
+      "diagnostics": []
+    },
+    {
+      "sentence": "5.2 Workflow-Induced Greedy Hill-Climbing\nand Strategic Myopia\nThe design of control loops in autonomous research agents often introduces unintended behavioral pathologies [ 11].",
+      "label": "Human",
+      "confidence": 0.86,
+      "ai_prob": 0.14,
+      "human_prob": 0.86,
+      "diagnostics": [
+        {
+          "pattern": "ai_slop",
+          "match": "strategic",
+          "suggestion": "replace with plain English"
+        }
+      ]
+    },
+    {
+      "sentence": "For instance, many long-horizon discovery systems use a strict \"commitordiscard\" evaluation rule [11].",
+      "label": "AI",
+      "confidence": 0.6236,
+      "ai_prob": 0.6236,
+      "human_prob": 0.3764,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Under this design, an agent proposes an experimental modification, executes a test, compares performance against the current baseline, and commits the code if\nperformance improves\u2014reverting changes if performance declines\n[11].",
+      "label": "AI",
+      "confidence": 0.574,
+      "ai_prob": 0.574,
+      "human_prob": 0.426,
+      "diagnostics": []
+    },
+    {
+      "sentence": "While operationally convenient, this commit-or-discard paradigm is structurally isomorphic to local greedy hill-climbing [11].",
+      "label": "Human",
+      "confidence": 0.9216,
+      "ai_prob": 0.0784,
+      "human_prob": 0.9216,
+      "diagnostics": [
+        {
+          "pattern": "ai_slop",
+          "match": "paradigm",
+          "suggestion": "replace with plain English"
+        }
+      ]
+    },
+    {
+      "sentence": "Empirical trace analyses of autonomous research runs over 100+\nsequential experiments demonstrate that this control rule induces\nspecific behavioral failure modes [11]:\n\u2022 Risk Aversion: Following failed experimental attempts, agents\ndisplay severe risk aversion,\nrestricting subsequent search steps to minor, hyper-local parameter tweaks [11].",
+      "label": "Human",
+      "confidence": 0.8875,
+      "ai_prob": 0.1125,
+      "human_prob": 0.8875,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 Success Chasing and Saturation: Agents repeatedly exploit initial\nminor performance\ngains, driving the search into local optimization plateaus while\nignoring broader architectural changes [11].",
+      "label": "Human",
+      "confidence": 0.8406,
+      "ai_prob": 0.1594,
+      "human_prob": 0.8406,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\u2022 Anchoring: Choices made during early, small-scale pilot runs are\npreserved into larger\nexperimental regimes, locking the agent into suboptimal design\nchoices [11].",
+      "label": "Human",
+      "confidence": 0.8575,
+      "ai_prob": 0.1425,
+      "human_prob": 0.8575,
+      "diagnostics": []
+    },
+    {
+      "sentence": "5.3 The Verification Gap and Human-Agent\nAsymmetry\nAs autonomous research agents scale in speed and execution volume, they create a critical verification gap [18].",
+      "label": "AI",
+      "confidence": 0.5346,
+      "ai_prob": 0.5346,
+      "human_prob": 0.4654,
+      "diagnostics": []
+    },
+    {
+      "sentence": "While human researchers review scientific literature at human reading speeds, autonomous agents can execute thousands of experimental variations\nand generate dozens of synthetic manuscripts overnight [6].",
+      "label": "AI",
+      "confidence": 0.8872,
+      "ai_prob": 0.8872,
+      "human_prob": 0.1128,
+      "diagnostics": []
+    },
+    {
+      "sentence": "This\nspeed disparity breaks traditional social trust and peer-review mechanisms [18].",
+      "label": "Human",
+      "confidence": 0.6686,
+      "ai_prob": 0.3314,
+      "human_prob": 0.6686,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Autonomous agents generate plausible-looking data\nfigures, statistical summaries, and text citations that can conceal\nunderlying code bugs, dataset leakage, or hallucinated baseline comparisons [4].",
+      "label": "Human",
+      "confidence": 0.6957,
+      "ai_prob": 0.3043,
+      "human_prob": 0.6957,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Furthermore, because LLMs do not suffer reputational\npenalties for invalid outputs, unverified agent-generated scientific\nartifacts risk polluting scientific literature [18].",
+      "label": "Human",
+      "confidence": 0.8507,
+      "ai_prob": 0.1493,
+      "human_prob": 0.8507,
+      "diagnostics": [
+        {
+          "pattern": "missing_contraction",
+          "match": "do not",
+          "suggestion": "use 'don't'"
+        },
+        {
+          "pattern": "formal_transition",
+          "match": "Furthermore",
+          "suggestion": "cut it, or use 'And' / 'On top of that'"
+        }
+      ]
+    },
+    {
+      "sentence": "6 Research Gaps and Future Directions\nAddressing planning degradation requires bridging several major\nresearch gaps:\n6.1 Learned Runtime Orchestrators and\nDynamic Context Control\nCurrent runtime harnesses rely primarily on static, hand-crafted\nrules for context truncation, goal re-anchoring, and subagent handoffs [2].",
+      "label": "AI",
+      "confidence": 0.6573,
+      "ai_prob": 0.6573,
+      "human_prob": 0.3427,
+      "diagnostics": []
+    },
+    {
+      "sentence": "A critical research direction is the development of learned\nruntime orchestrators [16].",
+      "label": "Human",
+      "confidence": 0.5045,
+      "ai_prob": 0.4955,
+      "human_prob": 0.5045,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Rather than using fixed token boundaries, context management should be driven by dynamic reinforcement learning agents (e.g., AdaCoM) that monitor context entropy,\ntask progress, and model-specific reliability thresholds to dynamically compress or restore execution history [16].",
+      "label": "AI",
+      "confidence": 0.9254,
+      "ai_prob": 0.9254,
+      "human_prob": 0.0746,
+      "diagnostics": []
+    },
+    {
+      "sentence": "6.2 Process-Level Credit Assignment and\nGranular Reward Models\nOutcome-based evaluation signals (such as binary pass/fail test\nchecks or final accuracy scores) grow uninformative over long\ntask horizons [7].",
+      "label": "Human",
+      "confidence": 0.6136,
+      "ai_prob": 0.3864,
+      "human_prob": 0.6136,
+      "diagnostics": []
+    },
+    {
+      "sentence": "When a 100-step execution trajectory fails, an\noutcome-only signal provides no gradient as to which specific step\ncaused the failure [7].",
+      "label": "Human",
+      "confidence": 0.6,
+      "ai_prob": 0.4,
+      "human_prob": 0.6,
+      "diagnostics": [
+        {
+          "pattern": "formal_verb",
+          "match": "provides",
+          "suggestion": "try 'gives you' or 'has'"
+        }
+      ]
+    },
+    {
+      "sentence": "Future agent training must focus on Process\nReward Models (PRMs) capable of computing granular step-level\nvalue estimations across multi-hour execution traces, enabling localized credit assignment and targeted back-tracking [7].",
+      "label": "Human",
+      "confidence": 0.8054,
+      "ai_prob": 0.1946,
+      "human_prob": 0.8054,
+      "diagnostics": []
+    },
+    {
+      "sentence": "6.3 Environment State Reversibility and\nStructural Rollbacks\nState-space search algorithms like LATS demonstrate that deliberate\nplanning requires environment reversibility [14].",
+      "label": "Human",
+      "confidence": 0.7324,
+      "ai_prob": 0.2676,
+      "human_prob": 0.7324,
+      "diagnostics": []
+    },
+    {
+      "sentence": "While software\nTable 2: Empirical benchmark performance across primary research tasks (values reproduced from the supplied paper, not\nindependently validated).",
+      "label": "Human",
+      "confidence": 0.5487,
+      "ai_prob": 0.4513,
+      "human_prob": 0.5487,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Benchmark Target domain Evaluation metric Scale Baseline model Baseline accuracy\nHarness-enhanced\nSOTA\nPrimary failure mode\nMLE-Bench [3, 5] Applied ML/Kaggle tasks Any-medal rate (24h budget) 75 tasks OpenAI o1-preview 16.90% 70.22% (ScienceFlow)\n[5]\nMulti-turn debugging\nand resource management [3]\nPaperBench [3] ICML paper replication End-to-end replication accuracy\n8,316 tasks OpenAI o1-high 26.00% N/A Complex code implementation gap [3]\nSciReplicate-Bench\n[3]\nNLP code generation Executable reproduction rate 100 tasks Claude 3.7 Sonnet 39.00% N/A Error accumulation in\npipeline assembly [3]\nCORE-Bench [3] CS/Med paper reproduction Task completion pass rate 270 tasks OpenAI GPT-4o 55.56% N/A Environment configuration failure [3]\nML-Dev-Bench [3] Software engineering/ML Full repository pass rate 30 tasks Claude 3.5 Sonnet 50.00% N/A Long-horizon context\ndrift [3]\nenvironments allow git-based state resets and workspace restoration, real-world tool execution (such as web API calls, database\nwrites, or physical resource allocation) often alters environment\nstate irreversibly [17].",
+      "label": "Human",
+      "confidence": 0.9988,
+      "ai_prob": 0.0012,
+      "human_prob": 0.9988,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Developing non-destructive sandboxes, transactional tool interfaces, and virtualized execution environments\nthat support state snapshots is essential for scaling search-based\nplanning [5].",
+      "label": "Human",
+      "confidence": 0.8717,
+      "ai_prob": 0.1283,
+      "human_prob": 0.8717,
+      "diagnostics": []
+    },
+    {
+      "sentence": "6.4 Scalable Automated Verification\nFrameworks\nTo close the human-agent verification gap, scientific infrastructure\nmust develop automated verification protocols [18].",
+      "label": "Human",
+      "confidence": 0.6437,
+      "ai_prob": 0.3563,
+      "human_prob": 0.6437,
+      "diagnostics": []
+    },
+    {
+      "sentence": "This includes\ncontainerized, deterministically reproducible execution logs, cryptographic provenance tracking for generated research artifacts,\nand automated peerreview agents equipped with adversarial test\nexecution suites [6].",
+      "label": "AI",
+      "confidence": 0.5379,
+      "ai_prob": 0.5379,
+      "human_prob": 0.4621,
+      "diagnostics": []
+    },
+    {
+      "sentence": "7 Conclusion\nPlanning-quality degradation remains the primary bottleneck preventing autonomous research agents from realizing reliable, multiday scientific discovery [5].",
+      "label": "AI",
+      "confidence": 0.8775,
+      "ai_prob": 0.8775,
+      "human_prob": 0.1225,
+      "diagnostics": []
+    },
+    {
+      "sentence": "The degradation of agent trajectories\nover long horizons is not merely an issue of model scaling or context window size [7].",
+      "label": "AI",
+      "confidence": 0.6077,
+      "ai_prob": 0.6077,
+      "human_prob": 0.3923,
+      "diagnostics": [
+        {
+          "pattern": "missing_contraction",
+          "match": "is not",
+          "suggestion": "use 'isn't'"
+        }
+      ]
+    },
+    {
+      "sentence": "Instead, it is driven by compounding execution errors, self-conditioning loops, local greedy policy myopia,\ncontext pollution, and the absence of value propagation across\nexecution states [ 1].",
+      "label": "Human",
+      "confidence": 0.8194,
+      "ai_prob": 0.1806,
+      "human_prob": 0.8194,
+      "diagnostics": [
+        {
+          "pattern": "missing_contraction",
+          "match": "it is",
+          "suggestion": "use 'it's'"
+        }
+      ]
+    },
+    {
+      "sentence": "Resolving the horizon gap requires a shift\nfrom reliance on single-step model capabilities toward structured\nruntime harnesses [2].",
+      "label": "Human",
+      "confidence": 0.6586,
+      "ai_prob": 0.3414,
+      "human_prob": 0.6586,
+      "diagnostics": []
+    },
+    {
+      "sentence": "As demonstrated by state-space search architectures, dynamic context managers, and workspace-grounded\nexecution environments, sustaining planning quality over long\nhorizons demands isolating reasoning traces, enforcing closed-loop\ndeterministic verification, enabling workspace state rollbacks, and\ndecoupling state preservation from model context windows [ 5].",
+      "label": "Human",
+      "confidence": 0.9012,
+      "ai_prob": 0.0988,
+      "human_prob": 0.9012,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Building robust, self-correcting runtime harnesses will be critical to\nadvancing autonomous systems from short-horizon task execution\nto trustworthy scientific discovery [4].",
+      "label": "Human",
+      "confidence": 0.5569,
+      "ai_prob": 0.4431,
+      "human_prob": 0.5569,
+      "diagnostics": [
+        {
+          "pattern": "ai_slop",
+          "match": "robust",
+          "suggestion": "replace with plain English"
+        }
+      ]
+    },
+    {
+      "sentence": "References\n[1] Z.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Wang, F.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Wu, H.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Wang, et al.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Why Reasoning Fails to Plan: A PlanningCentric Analysis of Long-Horizon Decision Making in LLM Agents.",
+      "label": "AI",
+      "confidence": 0.5415,
+      "ai_prob": 0.5415,
+      "human_prob": 0.4585,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2026.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv:\n2601.22311.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url: https://arxiv.org/abs/2601.22311.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[2] RUC-NLPIR.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Awesome-Long-Horizon-Agents.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "GitHub.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2026.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url:\nhttps://github.com/ RUC-NLPIR/Awesome-Long-Horizon-Agents.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[3] M.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Zhu, Q.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Xie, Y.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Weng, et al.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "AI Scientists Fail Without Strong Implementation\nCapability.",
+      "label": "AI",
+      "confidence": 0.7813,
+      "ai_prob": 0.7813,
+      "human_prob": 0.2187,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2025.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv: 2506.01372.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url: https://arxiv.org/abs/2506.01372.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[4] L.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Kong, X.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Sun, W.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Chow, et al.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "AI for Auto-Research: Roadmap & User Guide.",
+      "label": "AI",
+      "confidence": 0.7383,
+      "ai_prob": 0.7383,
+      "human_prob": 0.2617,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2026.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv: 2605.18661.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url: https://arxiv.org/abs/2605.18661.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[5] M.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Zhao, J.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Dong, K.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Xu, et al.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "ScienceFlow: A Long-Horizon Agent for\nML Research, Scientific Discovery and Beyond.",
+      "label": "AI",
+      "confidence": 0.5489,
+      "ai_prob": 0.5489,
+      "human_prob": 0.4511,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2026.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv: 2608.14354.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url:\nhttps://arxiv.org/ abs/2608.14354.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[6] Q.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Tang, X.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Hu, X.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Liu, Y.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Chen, and Y.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Shao.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "FARS: A Fully Automated Research System Deployed at Scale.",
+      "label": "Human",
+      "confidence": 0.6129,
+      "ai_prob": 0.3871,
+      "human_prob": 0.6129,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2026.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv: 2606.31651.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url:\nhttps://arxiv.org/abs/2606.31651.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[7] M.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Chen, L.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Wang, and B.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Qu.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "The Horizon Gap: Planning, Memory, Execution,\nTraining, and Evaluation for Long-Horizon LLM Agents.",
+      "label": "Human",
+      "confidence": 0.5295,
+      "ai_prob": 0.4705,
+      "human_prob": 0.5295,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2026.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv: 2608.06663.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url: https://arxiv.org/abs/2608.06663.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[8] Zylos Research.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Long-Horizon Planning and Goal Decomposition in AI Agents.",
+      "label": "AI",
+      "confidence": 0.5198,
+      "ai_prob": 0.5198,
+      "human_prob": 0.4802,
+      "diagnostics": []
+    },
+    {
+      "sentence": "May 14, 2026.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url: https://zylos.ai/research/2026-05-14-long-horizon-planninggoaldecomposition-ai-agents/.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[9] A.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Sinha, A.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Arun, S.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Goel, S.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Staab, and J.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Geiping.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "The Illusion of Diminishing\nReturns: Measuring Long Horizon Execution in LLMs.",
+      "label": "Human",
+      "confidence": 0.6015,
+      "ai_prob": 0.3985,
+      "human_prob": 0.6015,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2025.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv: 2509 .",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "09677.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url: https://arxiv.org/abs/2509.09677.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[10] D.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Pushkin and E.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Abbe.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "LEAD: Breaking the No-Recovery Bottleneck in LongHorizon Reasoning.",
+      "label": "Human",
+      "confidence": 0.5602,
+      "ai_prob": 0.4398,
+      "human_prob": 0.5602,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2026.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv: 2603.06870.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url: https://arxiv.org/abs/2603.06870.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[11] A.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Safdar and M.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Saadeldin.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Long-Horizon Autonomous Architecture Research\nwith a Language-Model Agent: A Behavioural Case Study.",
+      "label": "Human",
+      "confidence": 0.6312,
+      "ai_prob": 0.3688,
+      "human_prob": 0.6312,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2026.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv: 2608.01995.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url: https://arxiv.org/abs/2608.01995.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[12] S.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Yao, D.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Yu, J.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Zhao, et al.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\"Tree of Thoughts: Deliberate Problem Solving\nwith Large Language Models\".",
+      "label": "Human",
+      "confidence": 0.6663,
+      "ai_prob": 0.3337,
+      "human_prob": 0.6663,
+      "diagnostics": []
+    },
+    {
+      "sentence": "In: NeurIPS.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2023.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "doi: 10.52202/075280-0517.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url:\nhttps://arxiv.org/abs/2305.10601.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[13] A.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Zhou, K.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Yan, M.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Shlapentokh-Rothman, H.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Wang, and Y.-X.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Wang.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Language\nAgent Tree Search Unifies Reasoning, Acting, and Planning in Language Models.",
+      "label": "Human",
+      "confidence": 0.695,
+      "ai_prob": 0.305,
+      "human_prob": 0.695,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2023.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv: 2310.04406.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url: https://arxiv.org/abs/2310.04406.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[14] A.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Zhou, K.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Yan, M.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Shlapentokh-Rothman, H.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Wang, and Y.-X.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Wang.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Language\nAgent Tree Search Unifies Reasoning, Acting, and Planning in Language Models.",
+      "label": "Human",
+      "confidence": 0.695,
+      "ai_prob": 0.305,
+      "human_prob": 0.695,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv PDF.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2023.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url: https://arxiv.org/pdf/2310.04406.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[15] N.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Shinn, F.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Cassano, A.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Gopinath, K.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Narasimhan, and S.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Yao.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "\"Reflexion: Language Agents with Verbal Reinforcement Learning\".",
+      "label": "AI",
+      "confidence": 0.8906,
+      "ai_prob": 0.8906,
+      "human_prob": 0.1094,
+      "diagnostics": []
+    },
+    {
+      "sentence": "In: NeurIPS.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2023.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv:\n2303.11366.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url: https://arxiv.org/abs/2303.11366.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[16] L.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Yi, R.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Lei, L.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Yao, et al.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Learning Agent-Compatible Context\nManagement for LongHorizon Tasks.",
+      "label": "AI",
+      "confidence": 0.825,
+      "ai_prob": 0.825,
+      "human_prob": 0.175,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2026.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv: 2605.30785.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url:\nhttps://arxiv.org/abs/2605.30785.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[17] A.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Zhou, K.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Yan, M.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Shlapentokh-Rothman, H.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Wang, and Y.-X.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Wang.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Language\nAgent Tree Search Unifies Reasoning, Acting, and Planning in Language Models.",
+      "label": "Human",
+      "confidence": 0.695,
+      "ai_prob": 0.305,
+      "human_prob": 0.695,
+      "diagnostics": []
+    },
+    {
+      "sentence": "OpenReview.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "2023.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url: https://openreview.net/forum?id=6LNTSrJjBe.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "[18] B.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "Mo.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "The Age of AI Agents Demands A New Scientific Paradigm To Sustain Trustworthy Science.",
+      "label": "AI",
+      "confidence": 0.9612,
+      "ai_prob": 0.9612,
+      "human_prob": 0.0388,
+      "diagnostics": [
+        {
+          "pattern": "ai_slop",
+          "match": "paradigm",
+          "suggestion": "replace with plain English"
+        }
+      ]
+    },
+    {
+      "sentence": "2026.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "arXiv: 2607.26064.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    },
+    {
+      "sentence": "url:\nhttps://arxiv.org/abs/2607.26064.",
+      "label": "Skipped",
+      "confidence": 0.0,
+      "ai_prob": 0.0,
+      "human_prob": 0.0,
+      "diagnostics": []
+    }
+  ]
+}

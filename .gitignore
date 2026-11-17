@@ -1,0 +1,30 @@
+# Python virtual environments
+.venv/
+venv/
+env/
+AITR_Lab02_MSE2026006/.venv/
+*/.venv/
+
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Testing and tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.temp
+
+# Secrets and environment configs
+.env
+.env.*
+!*.example

@@ -1,0 +1,42 @@
+# Python environments and bytecode
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build and tooling caches
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*credentials*
+*secret*
+
+# Temporary and local system files
+*.tmp
+*.temp
+*.swp
+*.bak
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Restricted raw datasets (keep the directory guide)
+data/raw/*
+!data/raw/README.md
+
+# Local transient run artifacts
+runs/tmp/
+runs/cache/

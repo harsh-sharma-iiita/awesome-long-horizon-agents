@@ -1,0 +1,18 @@
+# Core scientific and statistical libraries verified for G4 experimental protocol
+numpy==2.5.4
+scipy==1.18.1
+networkx==3.7
+
+# Testing and verification framework
+pytest==9.2.0
+colorama==0.4.6
+iniconfig==2.3.1
+packaging==26.3
+pluggy==1.7.0
+pygments==2.21.0
+
+# Visualization and plotting framework
+matplotlib==3.11.2
+
+# Document compilation framework
+reportlab==5.1.0

@@ -1,0 +1,405 @@
+Verification Scheduling in Long-Horizon Agent Workflows: A Controlled Study of Error Detection, Propagation and Computational Overhead
+
+Autonomous language agents frequently suffer from planning-quality degradation and compounding error propagation when executing long-horizon, multi-step workflows. While intermediate verification and state rollback can intercept corruptions before trajectory completion, verification calls incur significant computational, latency, and monetary costs. Under realistic resource constraints where an orchestrator can allocate only a small number of verification checks (K H), the critical architectural question is: where should verification checkpoints be placed?
+
+In this paper, we present the first controlled comparative study evaluating verification scheduling strategies under strictly matched verification budgets. Across 90 Directed Acyclic Graph (DAG) task environments evaluating 4,680 execution episodes under controlled fault injection, we compare four conditions: (A) Final-Only verification (K=1), (B) Fixed-Periodic verification (K=3), (C) Dependency-Milestone verification placed at multi-parent join boundaries (K=3), and (D) Every-Step verification (K=H). Under strictly matched realized verification budgets (K=2.7436 0.5872 calls across both Arms B and C, p = 1.0000), our empirical findings decisively reject the intuitive hypothesis that dependency integration milestones provide superior error containment. Milestone verification permitted a statistically significant 3.91% increase in the Downstream Taint-Consumption Fraction (TCF) compared to fixed-periodic verification (_TCF = 0.9005 vs. 0.8614; paired permutation p < 0.0001; 95% bootstrap CI [+0.0366, +0.0414]; Cohen's d = 3.35) and incurred a 2.31-step greater fault detection delay (7.81 vs. 5.50 steps). We demonstrate that this underperformance stems from the structural clumping phenomenon: because parallel processing branches must finish before joining, dependency milestones naturally cluster in the middle and late stages of long-horizon graphs, leaving early execution branches unmonitored. Furthermore, we show that intermediate verification decouples error containment from final task completion: under single-replay recovery, completion rates remained identical (38.46%) across all arms, but periodic verification reduced recovery re-execution waste by 38.9% relative to final-only checking. These results provide actionable architectural principles for designing cost-effective verification harnesses in compound AI systems.
+
+Introduction
+
+Autonomous language agents are increasingly deployed to execute long-horizon, multi-step problem solving across software engineering, scientific discovery, and automated data workflows . As task horizons expand from single-turn tool calls to extended graphs consisting of dozens of interdependent operations, autonomous agents exhibit severe planning-quality degradation . In unverified sequential execution, errors introduced early in an execution trajectory propagate downstream, corrupting intermediate datasets, invalidating subsequent inferences, and ultimately resulting in catastrophic task failures .
+
+To combat compounding error propagation, recent literature emphasizes runtime verification and execution rollback . Rather than relying solely on post-hoc evaluation after complete workflow execution (terminal verification), autonomous systems can evaluate intermediate execution states against formal semantic or structural specifications, rolling back corrupted state variables to previously validated checkpoints when anomalies are detected .
+
+However, intermediate verification introduces a critical engineering and resource trade-off. Formal verification calls—whether implemented via deterministic relational validators, schema linters, or auxiliary language-model judges—incur non-trivial computational latency, memory overhead, and monetary invocation costs . Verifying the agent state at every execution step is computationally prohibitive in large-scale workflows, whereas deferring verification entirely until workflow termination maximizes error propagation, leading to substantial wasted computation and large rollback distances .
+
+Consequently, autonomous workflow systems must operate under a verification budget constraint: given a finite allocation of verification opportunities K across a workflow of horizon H (where K H), where should verification checkpoints be placed?
+
+Two prominent scheduling paradigms dominate current architectural discussions:
+enumerate
+ Fixed-Periodic Scheduling: Verification is invoked at uniform temporal intervals (e.g., every H/3 steps). This clock-like schedule is oblivious to internal task graph topology but guarantees a strict upper bound on the maximum number of steps an unmonitored error can travel .
+ Dependency-Based Milestone Scheduling: Verification checkpoints are placed at critical topological boundaries, specifically immediately prior to multi-parent dependency integrations (join nodes). Intuitive architectural principles suggest that validating intermediate artifacts before they merge into downstream dataflows should prevent cross-branch contamination .
+enumerate
+
+Despite intuitive arguments favoring topological milestone placement, existing literature lacks a rigorously controlled empirical comparison between periodic and milestone-based verification under strictly matched verification-call budgets. Existing studies either evaluate periodic schedules in isolation , propose integration-level verifiers without experimental schedule pilots , or evaluate unconstrained process-reward judges that conflate check frequency with check placement .
+
+Contributions of this Work: 
+In this study, we conduct an extensive, pre-registered empirical investigation into verification scheduling policies within long-horizon directed acyclic graph (DAG) workflows. Across 90 synthetic task graph clusters evaluating 4,680 execution episodes under controlled fault injection, we systematically evaluate four verification arms:
+itemize
+ Arm A (Final-Only): Verification deferred strictly until terminal step H (K_alloc = 1).
+ Arm B (Fixed-Periodic Baseline): Verification scheduled at regular intervals H/3 , 2H/3 , H (K_alloc = 3).
+ Arm C (Dependency-Milestone Intervention): Verification scheduled immediately prior to Join 1, Join 2, and terminal step H (K_alloc = 3).
+ Arm D (Every-Step Bound): Verification invoked after every execution step (K_alloc = H).
+itemize
+
+By enforcing an exact matched budget between Arms B and C (K_alloc = 3, realized mean 2.7436 0.5872 calls across both arms, p = 1.0000), we isolate the pure effect of checkpoint placement. Our central empirical findings reveal:
+enumerate
+ Empirical Rejection of Milestone Superiority: Contrary to initial theoretical intuition, milestone-based verification underperforms fixed-periodic verification on downstream error containment. Milestone verification incurs a statistically significant 3.91% increase in the downstream taint-consumption fraction ( TCF = +0.0391, paired permutation p < 0.0001, 95% bootstrap CI [+0.0366, +0.0414], Cohen's d = 3.35).
+ Detection Latency Divergence: Fixed-periodic verification catches contract-violating faults with a mean delay of 5.50 execution steps, whereas milestone verification requires 7.81 steps ( Delay = +2.31 steps, p < 0.0001).
+ Topological Clumping Mechanism: We demonstrate that dependency integration nodes naturally cluster in the middle and late stages of multi-branch DAGs. This clumping leaves early computational branches unmonitored under milestone schedules, allowing early corruptions to cascade across multiple nodes before reaching a join boundary.
+ Containment vs. Completion Decoupling: Under a single-replay recovery policy, intermediate verification does not alter eventual workflow success rates (38.46% across all arms), but significantly reduces recovery re-execution waste, saving up to 3.81 re-executed nodes per episode.
+enumerate
+
+Related Work
+
+Our research intersects four key literature domains: long-horizon error compounding, process verification in language agents, execution recovery and rollback, and verification scheduling.
+
+Error Compounding in Long-Horizon Autonomous Workflows
+
+Extensive empirical analyses demonstrate that autonomous agent performance degrades rapidly as workflow horizon expands . In multi-step execution graphs, unverified errors compound: an invalid schema mutation or corrupted entity key in an early step causes subsequent transformations to operate on poisoned data, creating cascading failure cascades . In sequential architectures, task success probability decays exponentially with horizon length H, formalized as S(H) _t=1^H p_t, where non-stationary environmental shifts further degrade per-step success p_t . While search algorithms like Tree of Thoughts (ToT) and Language Agent Tree Search (LATS) explore alternative reasoning paths in closed puzzle environments, they do not address long-horizon execution workflows with concrete dataflow artifacts and persistent state dependencies.
+
+Process Verification in Agentic Systems
+
+To detect errors before trajectory completion, recent architectures incorporate process-level verification . MAS-ProVe examined process-reward models and language-model-as-judge paradigms across multi-agent systems, finding that uncalibrated model-based verification suffers from high variance and inconsistent performance improvements. 
+
+Addressing this variance, VReAct proposed a formal V-model architectural framework separating requirement decomposition from multi-tier verification gates. Crucially, VReAct introduced the concept of an integration-level verifier designed to validate whether outputs from parallel dependency branches structurally compose before downstream execution. However, the pilot study in evaluated only unit-level and acceptance-level verifiers on a small 47-run question-answering dataset, explicitly omitting an empirical evaluation of the integration verifier and leaving verification scheduling unexamined. JevAct proposed action-level decision gates, but evaluated local tool call filtering rather than workflow-wide scheduling under global call constraints.
+
+Checkpoints, Rollback, and State Recovery
+
+Once an error is detected, an agent must recover without repeating the entire trajectory from scratch. Early reflection frameworks such as Reflexion relied on verbal memory refinement, which struggles in multi-branch workflows with persistent state side-effects. 
+
+Recent state-preservation frameworks introduce concrete environment checkpointing. ScienceFlow introduced the ESTRA execution controller, which checkpoints workspace files, memory, and validation logs, restoring historical states when validation evidence falls below progress thresholds. LEAD demonstrated that lookahead rollouts with checkpoint filtering break the "no-recovery bottleneck" in long-horizon reasoning. Similarly, AgentRewind and RIR explored aligned environment-context rollback, investigating how much execution context must be restored to resume execution successfully. While these systems demonstrate the efficacy of rollback recovery, they focus on state reconstruction mechanics rather than the mathematical optimization of when checkpoints should be tested.
+
+Verification Scheduling and Frequency
+
+Despite widespread adoption of intermediate checking, the temporal placement of verification checks remains poorly understood. Agentic Robot provided a rare empirical study on verification frequency, comparing fixed periodic intervals of 10, 20, and 50 execution steps in an embodied visual navigation task. Their results indicated that increasing frequency from 50 to 20 steps significantly improved completion, while increasing frequency from 20 to 10 steps yielded diminishing returns while doubling runtime latency. 
+
+However, prior work has not compared fixed-periodic cadences against topological, dependency-aware milestone scheduling under an identically matched verification budget. Our work bridges this exact gap: holding the verifier, task graphs, fault injections, and available check budgets strictly constant, we directly test whether graph-derived dependency integration boundaries offer superior error containment compared to clock-like periodic intervals.
+
+Problem Formulation and Research Questions
+
+Formal Workflow Model
+
+We formalize a long-horizon autonomous workflow as a Directed Acyclic Graph (DAG), denoted G = (V, E), where:
+itemize
+ V = \v_1, v_2, , v_H\ represents a set of H discrete computational task nodes, where H = |V| defines the execution horizon.
+ E V V represents dataflow dependencies, where directed edge (u, v) E indicates that task node v requires the output artifact of task node u as an input.
+ Each node v V executes a deterministic transformation function f_v: _u Parents(v) X_u X_v, mapping input artifacts from its parent set Parents(v) = \u V (u, v) E\ to an output artifact x_v X_v.
+itemize
+
+A valid execution order is defined by a topological sort : \1, , H\ V such that for all (u, v) E, ^-1(u) < ^-1(v). Execution proceeds sequentially across steps t \1, , H\. At step t, node v_t = (t) executes, producing output state x_v_t.
+
+Fault Injection and Error Propagation
+
+To rigorously model planning failures, tool corruption, and execution anomalies, an external fault injector introduces a controlled mutation at a designated target node v_fault = (t_fault):
+
+where M represents a mutation operator and _fault parameterizes the fault type (e.g., field omission, type corruption, or schema violation).
+
+We define the set of topologically reachable downstream descendants from the fault node as:
+
+When v_fault executes with corrupted output x_v_fault, every subsequent node u D(v_fault) that consumes data derived from v_fault during forward execution is contaminated (tainted).
+
+Verification Scheduling Under Budget Constraints
+
+A verification schedule S \1, , H\ specifies the discrete execution steps at which a deterministic verifier V_check is invoked. At step t S, the verifier evaluates the cumulative workflow state against formal relational contracts C:
+
+Under computational constraints, an orchestrator is allocated a maximum verification budget of K check slots:
+
+When V_check outputs FAIL at step t_detect, execution immediately halts, triggering rollback. If no intermediate check fails, execution terminates at step H, and final acceptance is evaluated.
+
+Primary Estimand: Downstream Taint-Consumption Fraction (TCF)
+
+To quantify how effectively a schedule contains error propagation, we define the Downstream Taint-Consumption Fraction (TCF):
+
+where V_executed(t_detect) is the set of nodes executed during forward execution prior to verifier detection. 
+
+Properties of TCF:: 
+itemize
+ TCF [0.0, 1.0]. A value of TCF = 0.0 represents perfect containment (the fault was intercepted before any downstream descendant executed). A value of TCF = 1.0 indicates worst-case uncontained propagation (all downstream descendants consumed corrupted data).
+ Eligibility Criterion: TCF is strictly defined for fault injection episodes where |D(v_fault)| 1. Episodes with zero descendants (e.g., terminal node faults) and clean control episodes are mathematically excluded from the TCF denominator and reported in separate metrics.
+itemize
+
+Research Question and Hypotheses
+
+Our investigation directly addresses the primary research question:
+quote
+ RQ1: Under strictly matched verification budgets (K = 3), does scheduling verification checkpoints at topological dependency milestones reduce downstream error propagation (TCF) and detection delay compared to fixed-periodic intervals?
+quote
+
+We formulate two-sided statistical hypotheses across paired workflow instances:
+
+where Arm B denotes Fixed-Periodic verification and Arm C denotes Dependency-Milestone verification. We pre-register a secondary directional inquiry evaluating whether milestone placement achieves superior containment (H_1^dir: _TCF, C < _TCF, B).
+
+Methodology
+
+Task Graph Generation and Motifs
+
+To ensure structural diversity and avoid bias toward any single graph topology, we generate synthetic DAG task environments across three representative structural motifs (Figure 1):
+enumerate
+ Fork-Join Motif: A wide parallel structure where an initial data generator fans out into two distinct processing pipelines (Branch A and Branch B) that subsequently merge into an intermediate join node, fan out into a secondary computation stage, and converge into a final join prior to terminal synthesis.
+ Spine-Join Motif: An asymmetric structure featuring an iterative backbone (spine) running through the workflow, from which parallel auxiliary branches periodically detach, perform multi-step side-computations, and re-integrate into the main trunk via join operations.
+ Hierarchical Reduction Motif: A balanced multi-tier binary tree reduction where pairs of parallel leaf computations recursively aggregate through successive join stages until reaching a single terminal summary.
+enumerate
+
+Every generated graph enforces the structural guarantee that at least two multi-parent dependency join nodes (|Parents(v)| 2) exist, providing valid, non-trivial dependency integration boundaries for milestone scheduling across all horizon levels H \12, 24, 36\.
+
+Deterministic Verification Contracts
+
+Rather than relying on non-deterministic LLM-as-judge prompts that introduce stochastic evaluation noise, our verification layer implements a suite of formal deterministic contracts C:
+itemize
+ Schema Conformance Contract: Verifies that every intermediate dictionary artifact contains all mandatory structural fields (e.g., records, schema, metadata, summary) required by downstream consumers.
+ Type Integrity Contract: Enforces strict runtime data types (e.g., verifying that dataset collections remain valid Python lists, record identifiers remain strings, and statistical metrics remain numerical floats).
+ Relational Reference Integrity Contract: For multi-parent join operations, asserts that every record key in the joined artifact originates from the reference key set of at least one valid parent dependency:
+ 
+ Numeric Bound Contract: Enforces domain-specific boundary constraints (e.g., normalized value intervals [0.0, 100.0] and non-negative variances).
+itemize
+
+Verification Scheduling Policies
+
+We implement and contrast four verification scheduling policies under equivalent execution conditions:
+
+Arm A: Final-Only Verification (S: _A)
+Represents standard unverified execution. Verification is invoked exclusively at workflow completion:
+
+Arm B: Fixed-Periodic Verification (S: _B, Baseline)
+Allocates K = 3 verification slots at uniform step intervals:
+
+Check timing is determined solely by execution step count, completely independent of graph topology.
+
+Arm C: Dependency-Milestone Verification (S: _C, Intervention)
+Allocates K = 3 verification slots immediately prior to dependency integration boundaries:
+
+where t_join1 is the execution step immediately preceding the execution of the first multi-parent join node (validating that all inputs to Join 1 have successfully completed), t_join2 is the step immediately preceding the second join node, and H is the terminal step. This schedule directly tests the hypothesis that verifying intermediate state at dependency integration boundaries provides optimal error containment.
+
+Arm D: Every-Step Verification (S: _D, Upper Bound)
+Invokes verification after every node execution:
+
+Serves as the empirical upper bound on early detection and error containment, establishing the maximum performance achievable with unlimited verification resources.
+
+Controlled Fault Injection Architecture
+
+Faults are injected dynamically during execution using an external FaultInjector. Each fault injection episode is parameterized by a formal FaultDescriptor specifying:
+itemize
+ Target Node (v_fault): Chosen systematically within one of three horizon-relative position bins: Early (t [1, H/3 ]), Middle (t [ H/3 + 1, 2H/3 ]), or Late (t [ 2H/3 + 1, H]).
+ Fault Type: One of four controlled failure modes:
+ enumerate
+ missing_field: Drops a mandatory top-level key from the node output dictionary.
+ type_corruption: Mutates a record collection into an unhashable primitive type (e.g., replacing a list with an integer).
+ numeric_corruption: Multiplies numerical values by an extreme scaling factor, violating physical range boundaries.
+ broken_reference: Corrupts record identifiers, generating synthetic orphaned foreign keys.
+ enumerate
+itemize
+Fault injection is strictly one-shot: the fault injector mutates state at v_fault exactly once during the initial forward pass, isolating single-cause error propagation.
+
+Execution Engine and Recovery Policy
+
+Execution is governed by a unified WorkflowExecutor managing an immutable state snapshot store. Prior to each node execution, a lightweight state checkpoint is registered. 
+
+When a scheduled verification check fails at step t_detect, the executor executes a pre-registered, uniform recovery policy:
+enumerate
+ State Rollback: The executor discards all tainted execution state produced between t_checkpoint and t_detect, restoring the most recent verified passing snapshot x_t_checkpoint.
+ Suffix Replay: The executor re-executes the unexecuted workflow suffix from t_checkpoint to H.
+ Fault Disarming: During the replay pass, the fault injector is disarmed. This models a successful single retry or prompt refinement, allowing us to measure pure re-execution workload (ReplayNodes) without confounding recovery heuristics.
+ Check Invariance: In accordance with pre-registered budget fairness protocols, no additional verification checks are invoked during the replay pass, ensuring that rollback does not inflate realized verifier budgets.
+enumerate
+
+Experimental Setup
+
+Factorial Experimental Design
+
+Our experimental evaluation employs a full factorial design across horizons, graph topologies, fault types, and injection positions, summarized in Table 1.
+
+Pairing and Invariance Controls:: 
+To prevent task-instance confounding, every experimental arm was evaluated on identical task graph instances. For every graph g \1, , 90\ and scenario s \0, , 12\, all four arms received the identical graph topology, identical random data generation seeds, and identical fault mutation parameters.
+
+Metrics Portfolio
+
+Following the formal definitions in Section 1, we compute eight primary and secondary estimands:
+enumerate
+ Downstream Taint-Consumption Fraction (TCF, Primary Estimand): Evaluated on N = 4,320 eligible fault episodes (1,080 per arm) using Equation 1.
+ Dual Fault Detection Coverage (FDC):
+ itemize
+ FDC_total: Fraction of all injected faults detected (N_denom = 1,080 per arm).
+ FDC_contract: Fraction of contract-violating faults detected (N_denom = 1,080 per arm).
+ itemize
+ Fault Detection Delay ( t_detect): Mean execution steps elapsed between fault injection and verifier detection, evaluated on detected fault episodes (N_detected = 360 per arm).
+ Task Completion Rate: Fraction of episodes passing final verifier acceptance criteria at step H, reported overall (N=1,170), on clean controls (N=90), and on fault runs (N=1,080).
+ False Positive Rate (FPR): Fraction of clean control episodes triggering false verifier rejections (N_clean = 90 per arm).
+ Realized Verifier Calls (K_realized): Mean actual verifier invocations executed per episode, accounting for early termination.
+ Replay Computation Overhead: Mean re-executed node count during suffix replay.
+ Execution Latency: Wall-clock execution time (ms) partitioned into workflow processing and verifier overhead.
+enumerate
+
+Statistical Inference Protocol
+
+Because individual scenario episodes within the same graph share underlying topology and node operations, treating episodes as independent observations would introduce pseudo-replication. We therefore employ a graph-cluster paired design:
+itemize
+ For each graph cluster g \1, , 90\, we compute the cluster-level mean TCF for Arm B (TCF_B, g) and Arm C (TCF_C, g) across its 12 fault scenarios.
+ The primary contrast evaluates the cluster paired difference:
+ 
+ We perform a two-sided paired permutation test using 10,000 Monte Carlo sign-flip permutations under the null exchangeability hypothesis H_0: d_g -d_g.
+ We compute non-parametric 95% confidence intervals via percentile bootstrap across graph clusters (10,000 resamples with replacement).
+ Standardized effect sizes are computed via paired Cohen's d = d / s_d.
+itemize
+
+Implementation and Reproducibility Environment
+
+Experiments were executed on a dedicated local testbed running Python 3.14.6 on Windows 11 (8-core Intel CPU, 21.8 GB RAM). The implementation utilizes minimal scientific dependencies: numpy==2.5.4, scipy==1.18.1, networkx==3.7, pytest==9.2.0, and matplotlib==3.11.2. All task generation, execution, fault injection, and verification logic are deterministic and reproducible using explicit random seeds. Execution incurred \0.00$ in external API costs.
+
+Experimental Results
+
+Overall Performance Across Experimental Arms
+
+Table 1 reports the aggregate performance metrics across all 4,680 execution episodes (1,170 episodes per arm).
+
+Budget Parity Verification:: 
+As established in Table 1, Arms B and C realized an identical mean of **2.7436 0.5872 verifier calls**. Pairwise comparison across all 1,170 scenarios confirmed a 100.0% exact call match between paired episodes. Thus, any observed performance divergence between Arms B and C is attributable strictly to checkpoint placement, completely independent of verification frequency.
+
+Clean Run Reliability:: 
+On clean control workflows (N=90 per arm), all four arms achieved a **0.00% false positive rate** (0/90) and a **100.0% task completion rate** (90/90), confirming that the deterministic contract suite introduces zero false alarms.
+
+Primary Hypothesis Test: Milestone vs. Periodic Verification
+
+The primary contrast directly compares Arm C (Milestone) against Arm B (Periodic) across N=90 paired graph clusters:
+itemize
+ Mean TCF Difference ( TCF = C - B): **+0.039089 (+3.91%)**
+ Two-Sided Paired Permutation Test: **p < 0.0001** (0 out of 10,000 sign-flip permutations produced an absolute difference 0.0391).
+ 95% Bootstrap Confidence Interval: **[+0.036619, +0.041414]**
+ Paired Parametric t-Test: t = 31.78, p = 2.35 10^-50
+ Standardized Effect Size (Cohen's d): **d = 3.35**
+itemize
+
+Figure 1 displays the distribution of paired differences across the 90 graph clusters. In 84 out of 90 clusters (93.3%), milestone verification permitted strictly greater taint propagation than periodic verification.
+
+Detection Latency Contrast:: 
+Fixed-periodic verification detected faults with a mean delay of **5.50 execution steps**, compared to **7.81 steps** for milestone verification ( Delay = +2.3056 steps, p < 0.0001, 95% CI [+1.9444, +2.6722], Cohen's d = 1.29).
+
+Stratified Sensitivity Analyses
+
+Task Horizon Sensitivity (H \12, 24, 36\
+)
+Table 1 and Figure 1 show that as workflow horizon expands, the error containment advantage of periodic scheduling compounds.
+
+At H=12, the performance gap between Arms B and C is modest ( TCF = +0.0230). However, at H=36, milestone verification permits nearly 5% greater downstream contamination ( TCF = +0.0495), with detection delay diverging by 3.91 execution steps (8.67 steps for Periodic vs. 12.58 steps for Milestone).
+
+Temporal Injection Position Sensitivity
+
+Stratifying by fault position bin (Figure 1) reveals the primary vulnerability of milestone verification:
+itemize
+ Early Faults (1 to H/3): Arm B achieves TCF = 0.7531 with 8.00 steps delay, compared to TCF = 0.7743 and 10.42 steps delay for Arm C.
+ Middle Faults (H/3 to 2H/3): The performance divergence reaches its peak. Arm B achieves TCF = 0.8312 with 6.20 steps delay, whereas Arm C deteriorates to TCF = 0.9272 with 9.80 steps delay ( TCF = +0.0960).
+ Late Faults (2H/3 to H): Both Arms B and C invoke their third check at terminal step H, collapsing downstream propagation to 1.0000 with 1.00 step delay.
+itemize
+
+Fault Category Sensitivity
+
+Figure 1 illustrates containment sensitivity across fault categories:
+itemize
+ For missing_field faults (100% verifier detection), Arm B reduces downstream TCF to **0.4987**, compared to **0.6185** for Arm C ( = +0.1198), catching faults in 3.33 steps versus 5.74 steps.
+ For type_corruption (33.33% verifier detection), Arm B achieves TCF = 0.9470 versus 0.9835 for Arm C.
+ For numeric_corruption and broken_reference, faults did not violate intermediate structural contracts, propagating to completion across all arms (TCF = 1.0000).
+itemize
+
+Computational Overhead Trade-Offs
+
+Figure 1 illustrates the Pareto trade-off between realized verifier calls and error propagation:
+itemize
+ Arm A consumes only 1.00 call but allows uncontained error propagation (TCF = 1.0000).
+ Arm D achieves the lowest taint propagation (TCF = 0.7236) but requires 21.03 verifier calls, increasing verifier execution latency by 9.95 (1.015 ms vs. 0.102 ms).
+ On the matched budget boundary (K = 2.74 calls), **Arm B strictly dominates Arm C**, achieving lower taint propagation (0.8614 vs. 0.9005) and shorter detection delay (5.50 vs. 7.81 steps) at identical invocation cost.
+itemize
+
+Recovery Re-execution Workload:: 
+Figure 1 illustrates re-executed node workloads during recovery. Because Arm C places checkpoints closer to late-stage join nodes, it achieves a minor reduction in replay overhead during rollback (3.57 replay nodes vs. 4.51 nodes for Arm B), whereas Arm A incurs 7.38 re-executed nodes.
+
+Discussion
+
+Why Did Dependency Milestone Scheduling Underperform?
+
+The central finding of this investigation—that fixed-periodic verification outperforms dependency-based milestone verification under matched budgets—contradicts intuitive assumptions prevalent in recent agent verification literature . To understand why milestone verification failed to contain error propagation, we must examine the topological structure of computational DAGs.
+
+The Structural Clumping Phenomenon:: 
+In any valid multi-step computational DAG (including Fork-Join, Spine-Join, and Hierarchical Reduction topologies), a join node cannot execute until all of its predecessor branches have fully completed their respective execution sequences. In practice, this creates an inherent topological skew: multi-parent integration boundaries naturally concentrate in the **middle and late phases** of the workflow horizon.
+
+Consequently, milestone-based schedulers suffer from an "early-stage blindspot":
+itemize
+ In Arm B (Fixed-Periodic), the first verification check is scheduled unconditionally at H/3 (step 4 at H=12, step 8 at H=24, step 12 at H=36). This enforces a strict temporal barrier across all active branches early in the workflow lifecycle.
+ In Arm C (Milestone), the scheduler defers its first check until all inputs to Join 1 complete. In an H=24 graph, if Branch A requires 6 steps and Branch B requires 10 steps, Join 1 is not scheduled until step 10. Any corruption introduced at step 1 in Branch A propagates unmonitored through 9 subsequent operations before the join milestone is evaluated.
+itemize
+
+This topological clumping explains why the performance disparity between Arms B and C peaks during middle-stage faults ( TCF = +0.0960). Under milestone scheduling, errors introduced in long parallel branches cascade through multiple intermediate transformations, contaminating peer branches and inflating both detection delay (+2.31 steps) and downstream taint consumption (+3.91%).
+
+Re-Evaluating Architectural Intuition in Agent Workflows
+
+Our findings challenge the uncritical assumption that verification placement should be guided exclusively by semantic integration boundaries . While dependency joins represent logical integration points where data streams compose, logical integration points are not necessarily optimal risk-mitigation points. 
+
+When verification call budgets are severely constrained (K H), uniform temporal coverage is fundamentally more resilient than topological placement. Fixed-periodic scheduling acts as a geometric bounding box, guaranteeing that an undetected error cannot propagate further than H/K steps regardless of graph structure, branch asymmetry, or execution path length. In contrast, milestone scheduling couples check placement to graph geometry, rendering the agent vulnerable to long, unmonitored branch paths.
+
+Decoupling Containment from Task Completion
+
+A crucial insight from our empirical analysis is the complete decoupling between intermediate error containment (TCF) and final task completion (38.46% across all arms). 
+
+Why did drastic improvements in detection latency (5.50 steps in Arm B vs. 12.17 steps in Arm A) and taint containment (0.8614 in Arm B vs. 1.0000 in Arm A) fail to increase final task completion?
+enumerate
+ Terminal Verification Parity: Because Arm A evaluates the terminal artifact against the full contract suite at step H, any structurally detectable fault that reaches the end of the workflow is eventually identified.
+ Single-Replay Recovery Dynamics: Under our controlled recovery protocol, whenever a fault is detected (whether at step 4 or step 12), the executor restores the last passing checkpoint and disarms the injector during replay. Because the fault is removed during re-execution, 100% of detected episodes successfully recover, while 100% of undetected episodes fail.
+enumerate
+
+Therefore, the primary architectural benefit of intermediate verification is not that it converts failed workflows into successful ones; rather, its true value lies in **containing blast radius and minimizing re-execution waste**. Arm B saved an average of 2.87 re-executed nodes per episode relative to Arm A, cutting redundant compute cycles while shielding downstream external environments (e.g., databases, tool APIs, or multi-agent messaging channels) from corrupted state consumption.
+
+Architectural Implications for Compound AI Systems
+
+For software architects designing autonomous agent frameworks (e.g., LangGraph, AutoGen, ScienceFlow, and CrewAI), these results yield concrete guidelines:
+enumerate
+ Prioritize Periodic Cadences Under Low Budgets: When verification budgets are limited (K 3), allocate checks at uniform periodic intervals rather than waiting for complex multi-agent joins.
+ Adopt Hybrid Two-Tier Scheduling: If computational budgets permit K > 3, implement a hybrid policy: establish a fixed-periodic backbone to bound worst-case branch latency, supplemented by targeted milestone assertions immediately prior to state-merging operations.
+ Account for Replay Suffix Cost: In workflows with high execution costs (e.g., wet-lab experiments or GPU-intensive training), checkpoint frequency should balance forward taint containment against the computational cost of suffix re-execution.
+enumerate
+
+Threats to Validity
+
+Internal Validity
+
+Information Leakage and Evaluator Independence:: 
+A critical threat in verification studies is information leakage, where a verifier or scheduler inadvertently accesses hidden ground-truth fault labels. In our architecture, the verifier and schedulers operated strictly on public DAG topology and runtime node outputs. Ground-truth fault injection descriptors and descendant lineage tracking resided exclusively within an isolated IndependentEvaluator, completely decoupled from executor decision logic.
+
+Confounding of Check Budget and Check Placement:: 
+Comparing schedules with unequal invocation counts conflates checkpoint placement with verification intensity. We eliminated this threat by strictly matching the allocated budget (K_alloc = 3) and verifying that Arms B and C realized identical call budgets (2.7436 calls, p = 1.0000) across 1,170 identical paired episodes.
+
+Task Pairing and Random Seed Controls:: 
+To prevent task-instance bias, every comparison was evaluated across identical graph instances, identical random seeds, and identical fault injection locations.
+
+External Validity
+
+Synthetic vs. Natural-Language Workflows:: 
+Our evaluation testbed employs structured-data transformation workflows (relational filtering, normalization, aggregation, and joining) rather than live stochastic LLM agents generating natural language. While this provides mathematical ground-truth certainty and eliminates LLM evaluation noise, autonomous agents executing open-ended coding or web research may exhibit non-deterministic error distributions that warrant further investigation.
+
+Zero-Cost Execution Boundary:: 
+In compliance with project resource constraints, no paid LLM API calls were executed. While our findings apply directly to workflow orchestration engines and compound AI systems managing deterministic sub-tasks, generalizability to multi-agent dialogue loops remains an empirical question.
+
+Construct Validity
+
+Operationalization of Downstream Taint:: 
+We operationalized error propagation via the Downstream Taint-Consumption Fraction (TCF). TCF measures topological reachability and execution order, assuming that any node consuming corrupted parent data is contaminated. While certain resilient numerical operations (e.g., fault-tolerant averaging) might dampen minor numeric noise, in structural dataflows a missing entity or broken schema invalidates downstream execution, making topological taint a faithful construct for pipeline integrity.
+
+Recovery Policy Assumptions:: 
+Our recovery mechanism disarms the fault during replay, isolating re-execution workload from recovery search heuristics. In real-world environments, recovering from a semantic bug may require iterative prompt refinement, multi-turn dialogue, or dynamic replanning.
+
+Conclusion Validity
+
+All statistical inferences are grounded in N = 90 independent graph clusters comprising 4,680 individual execution episodes. We mitigated pseudo-replication by conducting statistical tests at the graph-cluster level. Non-parametric two-sided permutation tests (10^4 resamples) and percentile bootstrap confidence intervals provide robust inferential guarantees without relying on restrictive distributional assumptions.
+
+Limitations
+
+While this study provides rigorous empirical evidence regarding verification scheduling, several limitations define its scope:
+
+enumerate
+ Fixed Budget Horizon (K=3): Our primary comparison was evaluated at an allocated budget of K = 3 check slots. While this reflects realistic operational constraints where verification calls are scarce, we did not evaluate high-frequency budgets (e.g., K = 6 or K = 10) where milestone scheduling might be combined with intermediate branch checks.
+ Scope of Deterministic Contracts: Our contract suite focused on structural schema conformance, type checking, and relational key consistency. As demonstrated in Section 1, structural assertions detected 100% of missing fields and 33.3% of type corruptions, but left semantic value drift (numeric_corruption) and broken relational references undetected. Full semantic verification would require domain-specific property checks or calibrated auxiliary language models.
+ Heuristic Milestone Definitions: We defined dependency milestones strictly as execution steps preceding multi-parent join operations (|Parents(v)| 2). Alternative topological milestone formulations—such as maximum fan-out nodes, critical path bottlenecks, or entropy-weighted information boundaries—were not evaluated.
+ Single-Replay Recovery Simplification: To isolate re-execution overhead, our recovery policy disarmed faults upon replay. Real-world autonomous agents frequently encounter persistent environmental faults or non-deterministic hallucinations that may require dynamic replanning, multi-turn prompt patching, or tree-search recovery.
+enumerate
+
+Conclusion and Future Work
+
+In this work, we presented a rigorous, controlled empirical investigation into verification scheduling within long-horizon autonomous workflows. Addressing the fundamental question of where verification checkpoints should be placed under strict call-budget constraints (K = 3), we evaluated four scheduling conditions across 90 DAG task clusters comprising 4,680 execution episodes under controlled fault injection.
+
+Our findings decisively reject the intuitive hypothesis that dependency integration milestones provide superior error containment compared to fixed-periodic intervals. Under identical realized verification budgets (2.7436 calls, p = 1.0000), fixed-periodic verification achieved statistically superior error containment (_TCF = 0.8614 vs. 0.9005, p < 0.0001) and caught contract-violating faults 2.31 execution steps earlier. We identified the root cause as the structural clumping phenomenon: because computational branches must complete transformations before converging into joins, dependency integration boundaries cluster in the middle and late phases of long-horizon graphs, leaving early-stage branches unmonitored under milestone schedules. Furthermore, while intermediate checking did not alter final workflow completion rates under single-replay recovery, it dramatically reduced recovery re-execution waste, saving up to 3.81 re-executed nodes per episode.
+
+Future Directions:: 
+Promising avenues for future research include:
+enumerate
+ Dynamic Uncertainty-Guided Scheduling: Developing adaptive verification policies that allocate check slots dynamically based on agent confidence, token perplexity, or branch variance rather than static graph topology.
+ Hybrid Verification Architectures: Integrating deterministic structural validators for rapid, zero-cost error containment with selective, high-level LLM semantic judges at critical workflow milestones.
+ Stochastic Multi-Agent Evaluations: Extending controlled verification scheduling benchmarks to live multi-agent collaborative environments executing open-ended software engineering and scientific discovery tasks.
+enumerate
+

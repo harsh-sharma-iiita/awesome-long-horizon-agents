@@ -1,0 +1,11 @@
+[2026-11-04 01:55:49] Final Experiment Campaign: final_exp_20261104_015549_5fcb5a61
+[2026-11-04 01:55:49] Frozen configuration saved to runs\configurations\final_exp_20261104_015549_5fcb5a61_config.json
+[2026-11-04 01:55:49] --- Executing Horizon H=12 (30 graphs) ---
+[2026-11-04 01:56:03] --- Executing Horizon H=24 (30 graphs) ---
+[2026-11-04 01:56:43] --- Executing Horizon H=36 (30 graphs) ---
+[2026-11-04 01:57:51] ============================================================
+[2026-11-04 01:57:51] CAMPAIGN COMPLETED: Executed 4680 episodes in 121.52 seconds (25.97 ms/episode).
+[2026-11-04 01:57:51] ============================================================
+[2026-11-04 01:57:51] Saved raw episode CSV to results\raw\final_exp_20261104_015549_5fcb5a61_all_episodes.csv
+[2026-11-04 01:57:51] Saved processed overall metrics to results\processed\final_exp_20261104_015549_5fcb5a61_overall_metrics.json
+[2026-11-04 01:57:51] Saved primary statistical contrast to results\comparisons\final_exp_20261104_015549_5fcb5a61_primary_contrast.json

@@ -1,0 +1,37 @@
+{"event_type": "node_executed", "step_idx": 1, "node_id": "n_00", "op_type": "source", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 2, "node_id": "n_01", "op_type": "filter", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 3, "node_id": "n_02", "op_type": "normalize", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 4, "node_id": "n_03", "op_type": "join", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "verifier_invocation", "passed": true, "checked_node_id": "n_03", "execution_step_idx": 4, "slot_index": 1, "failed_rule_ids": [], "failure_details": [], "num_assertions_evaluated": 7, "duration_seconds": 5.4800009820610285e-05, "timestamp": 1793736768.9251716, "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 5, "node_id": "n_04", "op_type": "filter", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 6, "node_id": "n_05", "op_type": "aggregate", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 7, "node_id": "n_06", "op_type": "normalize", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 8, "node_id": "n_07", "op_type": "normalize", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "verifier_invocation", "passed": true, "checked_node_id": "n_07", "execution_step_idx": 8, "slot_index": 2, "failed_rule_ids": [], "failure_details": [], "num_assertions_evaluated": 11, "duration_seconds": 4.1499966755509377e-05, "timestamp": 1793736768.9273334, "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 9, "node_id": "n_08", "op_type": "normalize", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 10, "node_id": "n_09", "op_type": "normalize", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 11, "node_id": "n_10", "op_type": "join", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 12, "node_id": "n_11", "op_type": "serialize", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "verifier_invocation", "passed": true, "checked_node_id": "n_11", "execution_step_idx": 12, "slot_index": 3, "failed_rule_ids": [], "failure_details": [], "num_assertions_evaluated": 16, "duration_seconds": 3.120000474154949e-05, "timestamp": 1793736768.9300375, "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 1, "node_id": "n_00", "op_type": "source", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 2, "node_id": "n_01", "op_type": "filter", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 3, "node_id": "n_02", "op_type": "normalize", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 4, "node_id": "n_03", "op_type": "join", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "verifier_invocation", "passed": false, "checked_node_id": "n_03", "execution_step_idx": 4, "slot_index": 1, "failed_rule_ids": ["c_n_01_schema"], "failure_details": ["Rule c_n_01_schema: missing required keys ['records']."], "num_assertions_evaluated": 7, "duration_seconds": 3.15000070258975e-05, "timestamp": 1793736768.932144, "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "rollback_initiated", "failed_step": 4, "restore_checkpoint_step": 0, "rollback_distance": 4, "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "replay_node_executed", "replay_idx": 1, "node_id": "n_00", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "replay_node_executed", "replay_idx": 2, "node_id": "n_01", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "replay_node_executed", "replay_idx": 3, "node_id": "n_02", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "replay_node_executed", "replay_idx": 4, "node_id": "n_03", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "replay_node_executed", "replay_idx": 5, "node_id": "n_04", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "replay_node_executed", "replay_idx": 6, "node_id": "n_05", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "replay_node_executed", "replay_idx": 7, "node_id": "n_06", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "replay_node_executed", "replay_idx": 8, "node_id": "n_07", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "replay_node_executed", "replay_idx": 9, "node_id": "n_08", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "replay_node_executed", "replay_idx": 10, "node_id": "n_09", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "replay_node_executed", "replay_idx": 11, "node_id": "n_10", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "replay_node_executed", "replay_idx": 12, "node_id": "n_11", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 1, "node_id": "n_00", "op_type": "source", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 2, "node_id": "n_01", "op_type": "filter", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 3, "node_id": "n_02", "op_type": "normalize", "run_id": "baseline_dev_20261104_014248_6287b389"}
+{"event_type": "node_executed", "step_idx": 4, "node_id": "n_03", "op_type": "join", "run_id": "baseline_dev_20261104_014248_6287b389"}

@@ -1,0 +1,450 @@
+{
+  "arm_metrics": {
+    "final_only": {
+      "n_episodes": 1170,
+      "fdc_total": 0.3333333333333333,
+      "fdc_contract": 0.3333333333333333,
+      "mean_delay": 12.166666666666666,
+      "std_delay": 10.308608512828105,
+      "mean_tcf": 1.0,
+      "std_tcf": 0.0,
+      "median_tcf": 1.0,
+      "iqr_tcf": 0.0,
+      "completion_overall": 0.38461538461538464,
+      "completion_clean": 1.0,
+      "completion_fault": 0.3333333333333333,
+      "false_positive_rate": 0.0,
+      "mean_calls": 1.0,
+      "std_calls": 0.0,
+      "mean_workflow_time_ms": 24.996247093400193,
+      "std_workflow_time_ms": 16.390778834384047,
+      "mean_verifier_time_ms": 0.10216700800686565,
+      "std_verifier_time_ms": 0.4574902765245445,
+      "mean_replay_nodes": 7.384615384615385,
+      "rollback_rate": 0.3076923076923077,
+      "api_cost_usd": 0.0
+    },
+    "fixed_periodic": {
+      "n_episodes": 1170,
+      "fdc_total": 0.3333333333333333,
+      "fdc_contract": 0.3333333333333333,
+      "mean_delay": 5.5,
+      "std_delay": 5.358979655927632,
+      "mean_tcf": 0.861413660474118,
+      "std_tcf": 0.28944387561700335,
+      "median_tcf": 1.0,
+      "iqr_tcf": 0.0,
+      "completion_overall": 0.38461538461538464,
+      "completion_clean": 1.0,
+      "completion_fault": 0.3333333333333333,
+      "false_positive_rate": 0.0,
+      "mean_calls": 2.7435897435897436,
+      "std_calls": 0.5872008989290627,
+      "mean_workflow_time_ms": 23.01294282143418,
+      "std_workflow_time_ms": 15.39368611955617,
+      "mean_verifier_time_ms": 0.18512828964103237,
+      "std_verifier_time_ms": 0.5643757288392675,
+      "mean_replay_nodes": 4.512820512820513,
+      "rollback_rate": 0.3076923076923077,
+      "api_cost_usd": 0.0
+    },
+    "milestone_based": {
+      "n_episodes": 1170,
+      "fdc_total": 0.3333333333333333,
+      "fdc_contract": 0.3333333333333333,
+      "mean_delay": 7.805555555555555,
+      "std_delay": 7.032829678288325,
+      "mean_tcf": 0.90050257627872,
+      "std_tcf": 0.24834250232252772,
+      "median_tcf": 1.0,
+      "iqr_tcf": 0.0,
+      "completion_overall": 0.38461538461538464,
+      "completion_clean": 1.0,
+      "completion_fault": 0.3333333333333333,
+      "false_positive_rate": 0.0,
+      "mean_calls": 2.7435897435897436,
+      "std_calls": 0.5872008989290627,
+      "mean_workflow_time_ms": 23.217198632619716,
+      "std_workflow_time_ms": 15.440612468287316,
+      "mean_verifier_time_ms": 0.17503384698747507,
+      "std_verifier_time_ms": 0.11187071168722983,
+      "mean_replay_nodes": 3.572649572649573,
+      "rollback_rate": 0.3076923076923077,
+      "api_cost_usd": 0.0
+    },
+    "every_step": {
+      "n_episodes": 1170,
+      "fdc_total": 0.3333333333333333,
+      "fdc_contract": 0.3333333333333333,
+      "mean_delay": 2.5,
+      "std_delay": 4.981861248989003,
+      "mean_tcf": 0.7236328214269392,
+      "std_tcf": 0.43475725758841793,
+      "median_tcf": 1.0,
+      "iqr_tcf": 0.8125,
+      "completion_overall": 0.38461538461538464,
+      "completion_clean": 1.0,
+      "completion_fault": 0.3333333333333333,
+      "false_positive_rate": 0.0,
+      "mean_calls": 21.025641025641026,
+      "std_calls": 11.083678564114045,
+      "mean_workflow_time_ms": 28.305408120171254,
+      "std_workflow_time_ms": 19.220163083781095,
+      "mean_verifier_time_ms": 1.0150630755895256,
+      "std_verifier_time_ms": 1.41138066349387,
+      "mean_replay_nodes": 3.282051282051282,
+      "rollback_rate": 0.3076923076923077,
+      "api_cost_usd": 0.0
+    }
+  },
+  "primary_contrast": {
+    "n_clusters": 90,
+    "primary_metric": "Downstream Taint-Consumption Fraction (TCF)",
+    "mean_b": 0.8614136604741179,
+    "mean_c": 0.90050257627872,
+    "mean_diff_c_minus_b": 0.039088915804602026,
+    "p_value_two_sided": 0.0,
+    "ci_95": [
+      0.03661879314554963,
+      0.04141381184477585
+    ],
+    "cohens_d": 3.3496524223710438,
+    "delay_contrast": {
+      "mean_b": 5.5,
+      "mean_c": 7.805555555555555,
+      "mean_diff": 2.3055555555555554,
+      "p_value": 0.0,
+      "ci_95": [
+        1.9444444444444444,
+        2.672222222222222
+      ],
+      "cohens_d": 1.2947174200285112
+    },
+    "calls_contrast": {
+      "mean_b": 2.743589743589744,
+      "mean_c": 2.743589743589744,
+      "mean_diff": 0.0,
+      "p_value": 1.0,
+      "ci_95": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "by_horizon": {
+    "12": {
+      "final_only": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "mean_delay": 5.666666666666667,
+        "n_episodes": 360
+      },
+      "fixed_periodic": {
+        "mean_tcf": 0.8494598765432099,
+        "std_tcf": 0.31243818429461373,
+        "mean_delay": 2.3333333333333335,
+        "n_episodes": 360
+      },
+      "milestone_based": {
+        "mean_tcf": 0.8724537037037037,
+        "std_tcf": 0.28941008905321963,
+        "mean_delay": 2.9166666666666665,
+        "n_episodes": 360
+      },
+      "every_step": {
+        "mean_tcf": 0.7180555555555556,
+        "std_tcf": 0.43460236649228373,
+        "mean_delay": 1.0,
+        "n_episodes": 360
+      }
+    },
+    "24": {
+      "final_only": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "mean_delay": 12.166666666666666,
+        "n_episodes": 360
+      },
+      "fixed_periodic": {
+        "mean_tcf": 0.8650970489205784,
+        "std_tcf": 0.2816491168697497,
+        "mean_delay": 5.5,
+        "n_episodes": 360
+      },
+      "milestone_based": {
+        "mean_tcf": 0.9098336304218658,
+        "std_tcf": 0.22835566674130764,
+        "mean_delay": 7.916666666666667,
+        "n_episodes": 360
+      },
+      "every_step": {
+        "mean_tcf": 0.7253416518122401,
+        "std_tcf": 0.43518828011807403,
+        "mean_delay": 2.5,
+        "n_episodes": 360
+      }
+    },
+    "36": {
+      "final_only": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "mean_delay": 18.666666666666668,
+        "n_episodes": 360
+      },
+      "fixed_periodic": {
+        "mean_tcf": 0.8696840559585657,
+        "std_tcf": 0.2731861448121016,
+        "mean_delay": 8.666666666666666,
+        "n_episodes": 360
+      },
+      "milestone_based": {
+        "mean_tcf": 0.9192203947105908,
+        "std_tcf": 0.2196212613929372,
+        "mean_delay": 12.583333333333334,
+        "n_episodes": 360
+      },
+      "every_step": {
+        "mean_tcf": 0.7275012569130216,
+        "std_tcf": 0.4356345231832924,
+        "mean_delay": 4.0,
+        "n_episodes": 360
+      }
+    }
+  },
+  "by_position": {
+    "early": {
+      "final_only": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "mean_delay": 22.0,
+        "n_episodes": 360
+      },
+      "fixed_periodic": {
+        "mean_tcf": 0.7530582389651016,
+        "std_tcf": 0.361528478821346,
+        "mean_delay": 8.0,
+        "n_episodes": 360
+      },
+      "milestone_based": {
+        "mean_tcf": 0.7743175261557613,
+        "std_tcf": 0.36836942468171957,
+        "mean_delay": 10.416666666666666,
+        "n_episodes": 360
+      },
+      "every_step": {
+        "mean_tcf": 0.6903280542986425,
+        "std_tcf": 0.44433224709928126,
+        "mean_delay": 2.5,
+        "n_episodes": 360
+      }
+    },
+    "middle": {
+      "final_only": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "mean_delay": 11.0,
+        "n_episodes": 360
+      },
+      "fixed_periodic": {
+        "mean_tcf": 0.8311827424572523,
+        "std_tcf": 0.29857566934709584,
+        "mean_delay": 6.2,
+        "n_episodes": 360
+      },
+      "milestone_based": {
+        "mean_tcf": 0.9271902026803989,
+        "std_tcf": 0.15185849940378315,
+        "mean_delay": 9.8,
+        "n_episodes": 360
+      },
+      "every_step": {
+        "mean_tcf": 0.7305704099821747,
+        "std_tcf": 0.4251863886768467,
+        "mean_delay": 4.0,
+        "n_episodes": 360
+      }
+    },
+    "late": {
+      "final_only": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "mean_delay": 1.0,
+        "n_episodes": 360
+      },
+      "fixed_periodic": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "mean_delay": 1.0,
+        "n_episodes": 360
+      },
+      "milestone_based": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "mean_delay": 1.0,
+        "n_episodes": 360
+      },
+      "every_step": {
+        "mean_tcf": 0.75,
+        "std_tcf": 0.4336153642602654,
+        "mean_delay": 0.0,
+        "n_episodes": 360
+      }
+    }
+  },
+  "by_fault_type": {
+    "missing_field": {
+      "final_only": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "fdc": 1.0,
+        "mean_delay": 11.333333333333334,
+        "n_episodes": 270
+      },
+      "fixed_periodic": {
+        "mean_tcf": 0.49869637140878964,
+        "std_tcf": 0.36806395098450945,
+        "fdc": 1.0,
+        "mean_delay": 3.3333333333333335,
+        "n_episodes": 270
+      },
+      "milestone_based": {
+        "mean_tcf": 0.618475865698088,
+        "std_tcf": 0.3714434877967135,
+        "fdc": 1.0,
+        "mean_delay": 5.7407407407407405,
+        "n_episodes": 270
+      },
+      "every_step": {
+        "mean_tcf": 0.0,
+        "std_tcf": 0.0,
+        "fdc": 1.0,
+        "mean_delay": 0.0,
+        "n_episodes": 270
+      }
+    },
+    "type_corruption": {
+      "final_only": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "fdc": 0.3333333333333333,
+        "mean_delay": 14.666666666666666,
+        "n_episodes": 270
+      },
+      "fixed_periodic": {
+        "mean_tcf": 0.9469582704876822,
+        "std_tcf": 0.15040324506551175,
+        "fdc": 0.3333333333333333,
+        "mean_delay": 12.0,
+        "n_episodes": 270
+      },
+      "milestone_based": {
+        "mean_tcf": 0.9835344394167923,
+        "std_tcf": 0.052780633808117705,
+        "fdc": 0.3333333333333333,
+        "mean_delay": 14.0,
+        "n_episodes": 270
+      },
+      "every_step": {
+        "mean_tcf": 0.8945312857077563,
+        "std_tcf": 0.22345467976231273,
+        "fdc": 0.3333333333333333,
+        "mean_delay": 10.0,
+        "n_episodes": 270
+      }
+    },
+    "numeric_corruption": {
+      "final_only": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "fdc": 0.0,
+        "mean_delay": 0.0,
+        "n_episodes": 270
+      },
+      "fixed_periodic": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "fdc": 0.0,
+        "mean_delay": 0.0,
+        "n_episodes": 270
+      },
+      "milestone_based": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "fdc": 0.0,
+        "mean_delay": 0.0,
+        "n_episodes": 270
+      },
+      "every_step": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "fdc": 0.0,
+        "mean_delay": 0.0,
+        "n_episodes": 270
+      }
+    },
+    "broken_reference": {
+      "final_only": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "fdc": 0.0,
+        "mean_delay": 0.0,
+        "n_episodes": 270
+      },
+      "fixed_periodic": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "fdc": 0.0,
+        "mean_delay": 0.0,
+        "n_episodes": 270
+      },
+      "milestone_based": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "fdc": 0.0,
+        "mean_delay": 0.0,
+        "n_episodes": 270
+      },
+      "every_step": {
+        "mean_tcf": 1.0,
+        "std_tcf": 0.0,
+        "fdc": 0.0,
+        "mean_delay": 0.0,
+        "n_episodes": 270
+      }
+    }
+  },
+  "recovery_stats": {
+    "final_only": {
+      "total_fault_episodes": 1080,
+      "rollbacks_triggered": 360,
+      "recovered_passed_acceptance": 360,
+      "failed_after_rollback": 0,
+      "passed_without_rollback": 0,
+      "final_acceptance_rate": 0.3333333333333333
+    },
+    "fixed_periodic": {
+      "total_fault_episodes": 1080,
+      "rollbacks_triggered": 360,
+      "recovered_passed_acceptance": 360,
+      "failed_after_rollback": 0,
+      "passed_without_rollback": 0,
+      "final_acceptance_rate": 0.3333333333333333
+    },
+    "milestone_based": {
+      "total_fault_episodes": 1080,
+      "rollbacks_triggered": 360,
+      "recovered_passed_acceptance": 360,
+      "failed_after_rollback": 0,
+      "passed_without_rollback": 0,
+      "final_acceptance_rate": 0.3333333333333333
+    },
+    "every_step": {
+      "total_fault_episodes": 1080,
+      "rollbacks_triggered": 360,
+      "recovered_passed_acceptance": 360,
+      "failed_after_rollback": 0,
+      "passed_without_rollback": 0,
+      "final_acceptance_rate": 0.3333333333333333
+    }
+  }
+}
