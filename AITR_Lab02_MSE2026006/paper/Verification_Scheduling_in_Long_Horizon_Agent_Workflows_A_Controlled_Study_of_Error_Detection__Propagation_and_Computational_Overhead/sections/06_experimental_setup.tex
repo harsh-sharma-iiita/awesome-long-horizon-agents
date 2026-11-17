@@ -1,0 +1,104 @@
+\section{Experimental Setup}
+\label{sec:experimental_setup}
+
+\subsection{Factorial Experimental Design}
+Our experimental evaluation employs a full factorial design across horizons, graph topologies, fault types, and injection positions, summarized in Table~\ref{tab:experimental_design}.
+
+% \begin{table}[t]
+% \centering
+% \footnotesize
+% \caption{Summary of Factorial Experimental Parameters.}
+% \label{tab:experimental_design}
+% \setlength{\tabcolsep}{4pt}
+% \begin{tabular}{@{}p{0.30\columnwidth}p{0.66\columnwidth}@{}}
+% \toprule
+% \textbf{Experimental Factor} & \textbf{Evaluated Levels / Parameter Values} \\
+% \midrule
+% Workflow Horizons ($H$) & $H \in \{12, 24, 36\}$ nodes \\
+% Topological Motifs & Fork-Join, Spine-Join, Hierarchical Reduction \\
+% Graphs per Motif/Horizon & 10 unique random seeds per combination \\
+% Total Evaluation Graphs & $3 \times 3 \times 10 = \mathbf{90}$ graphs \\
+% Scenarios per Graph & 1 Clean Control + 12 Injected Fault Scenarios \\
+% Injected Fault Types & \texttt{missing\_field}, \texttt{type\_corruption}, \texttt{numeric\_corruption}, \texttt{broken\_reference} \\
+% Fault Position Bins & Early ($[1, H/3]$), Middle ($[H/3+1, 2H/3]$), Late ($[2H/3+1, H]$) \\
+% Experimental Arms & Arm A (Final-Only), Arm B (Fixed-Periodic), Arm C (Milestone-Based), Arm D (Every-Step) \\
+% \midrule
+% \textbf{Total Evaluated Episodes} & $90 \times 13 \times 4 = \mathbf{4{,}680}$ episodes \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+% preamble: \usepackage{array}  (and booktabs, which you already have)
+
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Summary of Factorial Experimental Parameters.}
+\label{tab:experimental_design}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.1}
+\resizebox{0.85\columnwidth}{!}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Factor} & \textbf{Evaluated Levels / Values} \\
+\midrule
+Workflow horizons ($H$) & $\{12, 24, 36\}$ nodes \\
+Topological motifs & Fork-Join, Spine-Join, \\
+ & Hierarchical Reduction \\
+Seeds per motif/horizon & 10 \\
+Evaluation graphs & $3 \times 3 \times 10 = \mathbf{90}$ \\
+Scenarios per graph & 1 clean + 12 faulty \\
+Fault types & \texttt{missing\_field}, \\
+ & \texttt{type\_corruption}, \\
+ & \texttt{numeric\_corruption}, \\
+ & \texttt{broken\_reference} \\
+Fault position bins & Early $[1, H/3]$, \\
+ & Middle $[H/3{+}1, 2H/3]$, \\
+ & Late $[2H/3{+}1, H]$ \\
+Experimental arms & A (Final-Only), \\
+ & B (Fixed-Periodic), \\
+ & C (Milestone), \\
+ & D (Every-Step) \\
+\midrule
+\textbf{Total episodes} & $90 \times 13 \times 4 = \mathbf{4{,}680}$ \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\paragraph{Pairing and Invariance Controls:}
+To prevent task-instance confounding, every experimental arm was evaluated on \textbf{identical task graph instances}. For every graph $g \in \{1, \dots, 90\}$ and scenario $s \in \{0, \dots, 12\}$, all four arms received the identical graph topology, identical random data generation seeds, and identical fault mutation parameters.
+
+\subsection{Metrics Portfolio}
+Following the formal definitions in Section~\ref{sec:problem_formulation}, we compute eight primary and secondary estimands:
+\begin{enumerate}
+    \item \textbf{Downstream Taint-Consumption Fraction (TCF, Primary Estimand):} Evaluated on $N = 4,320$ eligible fault episodes ($1,080$ per arm) using Equation~\ref{eq:tcf}.
+    \item \textbf{Dual Fault Detection Coverage (FDC):}
+    \begin{itemize}
+        \item $\text{FDC}_{\text{total}}$: Fraction of all injected faults detected ($N_{\text{denom}} = 1,080$ per arm).
+        \item $\text{FDC}_{\text{contract}}$: Fraction of contract-violating faults detected ($N_{\text{denom}} = 1,080$ per arm).
+    \end{itemize}
+    \item \textbf{Fault Detection Delay ($\Delta t_{\text{detect}}$):} Mean execution steps elapsed between fault injection and verifier detection, evaluated on detected fault episodes ($N_{\text{detected}} = 360$ per arm).
+    \item \textbf{Task Completion Rate:} Fraction of episodes passing final verifier acceptance criteria at step $H$, reported overall ($N=1,170$), on clean controls ($N=90$), and on fault runs ($N=1,080$).
+    \item \textbf{False Positive Rate (FPR):} Fraction of clean control episodes triggering false verifier rejections ($N_{\text{clean}} = 90$ per arm).
+    \item \textbf{Realized Verifier Calls ($K_{\text{realized}}$):} Mean actual verifier invocations executed per episode, accounting for early termination.
+    \item \textbf{Replay Computation Overhead:} Mean re-executed node count during suffix replay.
+    \item \textbf{Execution Latency:} Wall-clock execution time (ms) partitioned into workflow processing and verifier overhead.
+\end{enumerate}
+
+\subsection{Statistical Inference Protocol}
+Because individual scenario episodes within the same graph share underlying topology and node operations, treating episodes as independent observations would introduce pseudo-replication. We therefore employ a \textbf{graph-cluster paired design}:
+\begin{itemize}
+    \item For each graph cluster $g \in \{1, \dots, 90\}$, we compute the cluster-level mean TCF for Arm B ($\bar{\text{TCF}}_{B, g}$) and Arm C ($\bar{\text{TCF}}_{C, g}$) across its 12 fault scenarios.
+    \item The primary contrast evaluates the cluster paired difference:
+    \begin{equation}
+        d_g = \bar{\text{TCF}}_{C, g} - \bar{\text{TCF}}_{B, g}
+    \end{equation}
+    \item We perform a two-sided paired permutation test using $10,000$ Monte Carlo sign-flip permutations under the null exchangeability hypothesis $H_0: d_g \sim -d_g$.
+    \item We compute non-parametric 95\% confidence intervals via percentile bootstrap across graph clusters ($10,000$ resamples with replacement).
+    \item Standardized effect sizes are computed via paired Cohen's $d = \bar{d} / s_d$.
+\end{itemize}
+
+\subsection{Implementation and Reproducibility Environment}
+Experiments were executed on a dedicated local testbed running Python 3.14.6 on Windows 11 (8-core Intel CPU, 21.8~GB RAM). The implementation utilizes minimal scientific dependencies: \texttt{numpy==2.5.4}, \texttt{scipy==1.18.1}, \texttt{networkx==3.7}, \texttt{pytest==9.2.0}, and \texttt{matplotlib==3.11.2}. All task generation, execution, fault injection, and verification logic are deterministic and reproducible using explicit random seeds. Execution incurred $\$0.00$ in external API costs.

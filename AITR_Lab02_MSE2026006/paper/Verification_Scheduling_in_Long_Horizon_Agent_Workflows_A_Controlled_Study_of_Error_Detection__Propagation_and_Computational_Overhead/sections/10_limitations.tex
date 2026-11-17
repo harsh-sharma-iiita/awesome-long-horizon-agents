@@ -1,0 +1,11 @@
+\section{Limitations}
+\label{sec:limitations}
+
+While this study provides rigorous empirical evidence regarding verification scheduling, several limitations define its scope:
+
+\begin{enumerate}
+    \item \textbf{Fixed Budget Horizon ($K=3$):} Our primary comparison was evaluated at an allocated budget of $K = 3$ check slots. While this reflects realistic operational constraints where verification calls are scarce, we did not evaluate high-frequency budgets (e.g., $K = 6$ or $K = 10$) where milestone scheduling might be combined with intermediate branch checks.
+    \item \textbf{Scope of Deterministic Contracts:} Our contract suite focused on structural schema conformance, type checking, and relational key consistency. As demonstrated in Section~\ref{sec:results}, structural assertions detected $100\%$ of missing fields and $33.3\%$ of type corruptions, but left semantic value drift (\texttt{numeric\_corruption}) and broken relational references undetected. Full semantic verification would require domain-specific property checks or calibrated auxiliary language models.
+    \item \textbf{Heuristic Milestone Definitions:} We defined dependency milestones strictly as execution steps preceding multi-parent join operations ($|\text{Parents}(v)| \ge 2$). Alternative topological milestone formulations—such as maximum fan-out nodes, critical path bottlenecks, or entropy-weighted information boundaries—were not evaluated.
+    \item \textbf{Single-Replay Recovery Simplification:} To isolate re-execution overhead, our recovery policy disarmed faults upon replay. Real-world autonomous agents frequently encounter persistent environmental faults or non-deterministic hallucinations that may require dynamic replanning, multi-turn prompt patching, or tree-search recovery.
+\end{enumerate}

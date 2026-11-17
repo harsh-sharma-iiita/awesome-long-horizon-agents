@@ -1,0 +1,29 @@
+\section{Threats to Validity}
+\label{sec:threats_to_validity}
+
+\subsection{Internal Validity}
+\paragraph{Information Leakage and Evaluator Independence:}
+A critical threat in verification studies is information leakage, where a verifier or scheduler inadvertently accesses hidden ground-truth fault labels. In our architecture, the verifier and schedulers operated strictly on public DAG topology and runtime node outputs. Ground-truth fault injection descriptors and descendant lineage tracking resided exclusively within an isolated \texttt{IndependentEvaluator}, completely decoupled from executor decision logic.
+
+\paragraph{Confounding of Check Budget and Check Placement:}
+Comparing schedules with unequal invocation counts conflates checkpoint placement with verification intensity. We eliminated this threat by strictly matching the allocated budget ($K_{\text{alloc}} = 3$) and verifying that Arms B and C realized identical call budgets ($2.7436$ calls, $p = 1.0000$) across 1,170 identical paired episodes.
+
+\paragraph{Task Pairing and Random Seed Controls:}
+To prevent task-instance bias, every comparison was evaluated across identical graph instances, identical random seeds, and identical fault injection locations.
+
+\subsection{External Validity}
+\paragraph{Synthetic vs. Natural-Language Workflows:}
+Our evaluation testbed employs structured-data transformation workflows (relational filtering, normalization, aggregation, and joining) rather than live stochastic LLM agents generating natural language. While this provides mathematical ground-truth certainty and eliminates LLM evaluation noise, autonomous agents executing open-ended coding or web research may exhibit non-deterministic error distributions that warrant further investigation.
+
+\paragraph{Zero-Cost Execution Boundary:}
+In compliance with project resource constraints, no paid LLM API calls were executed. While our findings apply directly to workflow orchestration engines and compound AI systems managing deterministic sub-tasks, generalizability to multi-agent dialogue loops remains an empirical question.
+
+\subsection{Construct Validity}
+\paragraph{Operationalization of Downstream Taint:}
+We operationalized error propagation via the Downstream Taint-Consumption Fraction (TCF). TCF measures topological reachability and execution order, assuming that any node consuming corrupted parent data is contaminated. While certain resilient numerical operations (e.g., fault-tolerant averaging) might dampen minor numeric noise, in structural dataflows a missing entity or broken schema invalidates downstream execution, making topological taint a faithful construct for pipeline integrity.
+
+\paragraph{Recovery Policy Assumptions:}
+Our recovery mechanism disarms the fault during replay, isolating re-execution workload from recovery search heuristics. In real-world environments, recovering from a semantic bug may require iterative prompt refinement, multi-turn dialogue, or dynamic replanning.
+
+\subsection{Conclusion Validity}
+All statistical inferences are grounded in $N = 90$ independent graph clusters comprising 4,680 individual execution episodes. We mitigated pseudo-replication by conducting statistical tests at the graph-cluster level. Non-parametric two-sided permutation tests ($10^4$ resamples) and percentile bootstrap confidence intervals provide robust inferential guarantees without relying on restrictive distributional assumptions.
